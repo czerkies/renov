@@ -34,10 +34,13 @@ if(isset($_POST['devis'])){
       $msg['adresse'] = '<label for="adresse">Veuillez saisir une Adresse.</label>';
     }
 
-    if(empty($_POST['tel'])){
-      $msg['tel'] = '<label for="tel">Veuillez saisir un Téléphone.</label>';
-    }elseif(strlen($_POST['tel']) < 8 || !is_numeric($_POST['tel'])){
-      $msg['tel'] = '<label for="tel">Veuillez saisir un Téléphone valide.</label>';
+    $search = array('-', ' ', '.', '+');
+    $tel = str_replace($search, '', $_POST['tel']);
+
+    if(empty($tel)){
+        $msg['tel'] = '<label for="tel">Veuillez saisir un Téléphone.</label>';
+    }elseif(!is_numeric($tel) || strlen($tel) != 10){
+        $msg['tel'] = '<label for="tel">Veuillez saisir un Téléphone valide.</label>';
     }
 
     if(empty($_POST['email']) || strlen($_POST['email']) < 2){
@@ -46,8 +49,15 @@ if(isset($_POST['devis'])){
       $msg['email'] = '<label for="email">Veuillez saisir une adresse E-mail valide.</label>';
     }
 
-    if(!empty($_POST['surface']) && is_numeric($_POST['surface'])
-    && $_POST['surface'] >= 1 && $_POST['surface'] < 9999){
+    if(empty($_POST['surface'])){
+      $msg['surface'] = '<label for="surface">Veuillez saisir une surface</label>';
+    }elseif(!is_numeric($_POST['surface'])){
+      $msg['surface'] = '<label for="surface">Veuillez saisir une surface au format numérique</label>';
+    }elseif($_POST['surface'] <= 1 || $_POST['surface'] > 9999){
+      $msg['surface'] = '<label for="surface">Veuillez saisir une surface convenable</label>';
+    }
+
+    if(!$msg){
 
       $total = 0;
 
