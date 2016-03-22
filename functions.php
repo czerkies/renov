@@ -2,14 +2,13 @@
 
 if(isset($_POST['devis'])){
 
-  $msg = array();
+  $msg = [];
 
   if(($_POST['civilite'] === 'Madame' || $_POST['civilite'] === 'Monsieur')
   && isset($_POST['nom']) && isset($_POST['prenom'])
   && isset($_POST['ville']) && isset($_POST['cp'])
   && isset($_POST['adresse']) && isset($_POST['tel'])
-  && isset($_POST['email']) && isset($_POST['civilite'])
-  && isset($_POST['surface'])){
+  && isset($_POST['email']) && isset($_POST['civilite'])){
 
 
     if(empty($_POST['nom']) || strlen($_POST['nom']) < 2){

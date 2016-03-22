@@ -1,11 +1,25 @@
 * {
   box-sizing:border-box;
 }
-
+.devis_rc {
+  font-family:helvetica, arial;
+}
+.devis_rc--contact .devis_rc--contact_name,
+.devis_rc--contact .devis_rc--contact_tel {
+  width: 100%;
+  font-size: 1em;
+}
+.devis_rc--contact .devis_rc--contact_name,
+.devis_rc--contact .devis_rc--contact_title {
+  font-weight: 800;
+}
+.devis_rc--contact .devis_rc--contact_title,
+.devis_rc--contact .devis_rc--contact_welcome {
+  margin: 2em 0;
+}
 form.devis{
   width:100%;
   padding:1%;
-  font-family:helvetica, arial;
 }
 form.devis input,
 form.devis select{
@@ -39,6 +53,9 @@ form.devis label.type-checkbox{
   margin:10px 0;
   padding:0;
   color:#444;
+}
+form.devis select.surface {
+  width: 75px;
 }
 .devis_coordonnees {
 
