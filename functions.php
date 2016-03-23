@@ -8,7 +8,8 @@ if(isset($_POST['devis'])){
   && isset($_POST['nom']) && isset($_POST['prenom'])
   && isset($_POST['ville']) && isset($_POST['cp'])
   && isset($_POST['adresse']) && isset($_POST['tel'])
-  && isset($_POST['email']) && isset($_POST['civilite'])){
+  && isset($_POST['email']) && isset($_POST['surface'])
+  && $_POST['surface'] >= 0 && $_POST['surface'] <= 42 && is_numeric($_POST['surface'])){
 
 
     if(empty($_POST['nom']) || strlen($_POST['nom']) < 2){
@@ -48,13 +49,13 @@ if(isset($_POST['devis'])){
       $msg['email'] = '<label for="email">Veuillez saisir une adresse E-mail valide.</label>';
     }
 
-    if(empty($_POST['surface'])){
+    /*if(empty($_POST['surface'])){
       $msg['surface'] = '<label for="surface">Veuillez saisir une surface</label>';
     }elseif(!is_numeric($_POST['surface'])){
       $msg['surface'] = '<label for="surface">Veuillez saisir une surface au format numérique</label>';
     }elseif($_POST['surface'] <= 1 || $_POST['surface'] > 9999){
       $msg['surface'] = '<label for="surface">Veuillez saisir une surface convenable</label>';
-    }
+    }*/
 
     if(!$msg){
 

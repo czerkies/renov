@@ -63,19 +63,19 @@
           <?php if(isset($msg['surface'])) echo $msg['surface']; ?>
         </div>
         <div class="talbeau_devis">
-          <div class="w_50">
+          <div class="w_50 tcenter">
             Description
           </div>
-          <div class="w_10">
+          <div class="w_10 tcenter">
             Qte
           </div>
-          <div class="w_20">
+          <div class="w_20 tcenter">
             PU HT
           </div>
-          <div class="w_20">
+          <div class="w_20 tcenter">
             Total HT
           </div>
-          <div class="w_100">
+          <div class="w_100 b_top">
             ENSEMBLE CAV'BOX POUR UNE CAVE DE
             <select class="surface" name="surface">
               <?php for($a = 1; $a < 33; $a++) {
@@ -84,22 +84,67 @@
               <option value="40">40</option>
               <option value="42">42</option>
             </select>
-            MÈTRES CARRÉS
+            MÈTRE(S) CARRÉS
           </div>
-          <div class="w_50">
-            Mise en oeuvre d'un plancher isolant, avec revêtement pour un entretien facile. Mise en oeuvre d'un ensemble mural isolant, sur mesure.<br>
-            Mise en oeuvre d'un plafond isolant, sur mesure.<br>
-            Fourniture et la pose d'un éclairage étanche IP65 36 watts, 120 cm.<br>
-            Fourniture et pose, d'aérations, hautes et basses.<br>
-            Fourniture et pose de plinthes anti-poussières.<br>
-            Fourniture et pose de tringles, sous plafond, utilisables en portant pour vêtements.
+          <div class="line b_top">
+            <div class="w_50 b_right">
+              Mise en oeuvre d'un plancher isolant, avec revêtement pour un entretien facile. Mise en oeuvre d'un ensemble mural isolant, sur mesure.<br>
+              Mise en oeuvre d'un plafond isolant, sur mesure.<br>
+              Fourniture et la pose d'un éclairage étanche IP65 36 watts, 120 cm.<br>
+              Fourniture et pose, d'aérations, hautes et basses.<br>
+              Fourniture et pose de plinthes anti-poussières.<br>
+              Fourniture et pose de tringles, sous plafond, utilisables en portant pour vêtements.
+            </div>
+            <div class="w_10 tright b_right">
+              1.00<br>
+              <em>ENS</em>
+            </div>
+            <div class="w_20 tright b_right">
+              PRIX
+            </div>
+            <div class="w_20 tright">
+              TOTAL
+            </div>
           </div>
-          <div class="w_15">
-            1.00
+          <div class="line b_top">
+            <div class="w_50">
+              <b>Étagère sur mesure</b>, profondeur 35 cm, posée sur un ensemble de fixation, permettant le réglage en hauteur.
+            </div>
+            <div class="w_10 tright">
+              1.00<br>
+              <em>ML</em>
+            </div>
+            <div class="w_20 tright">
+              45.00
+            </div>
+            <div class="w_20 tright">
+              45.00<br>
+              <em>En option</em>
+            </div>
           </div>
-          <div class="w_15">
-            PRIX
+          <div class="line b_top">
+            <div class="w_50">
+              <b>Bloc porte de cave métallique sur mesure</b>, trois omégas de renfort, aération basse intégrée, serrure trois points A2P*, livrée avec 3 clefs.
+            </div>
+            <div class="w_10 tright">
+              1.00<br>
+              <em>Ens</em>
+            </div>
+            <div class="w_20 tright">
+              900.00
+            </div>
+            <div class="w_20 tright">
+              900.00<br>
+              <em>En option</em>
+            </div>
           </div>
+          <div class="w_100">
+            La pose de l'ouvrage, conçu en matériaux de construction pour un usage intérieur en milieu humide, répondant à la norme EN 13986, respecte l'aération naturelle de la cave.
+          </div>
+          <div class="w_100">
+            NOTRE OFFRE D'AMÉNAGEMENTS EN OPTION
+          </div>
+
         </div>
         <div id="form-group devis_checkbox">
         <input type="checkbox" id="option_lumiere" name="option_lumiere" value="option_lumiere" <?php if(isset($_POST['option_lumiere'])) echo 'checked'; ?>><label class="type-checkbox" for="option_lumiere">Option lumiere</label>
@@ -109,7 +154,7 @@
     </div>
     <div>
       <?php if(isset($total)){ ?>
-      <?= $total; ?> € TTC.
+        <?= $total; ?> € TTC.
       <?php } ?>
     </div>
   </body>

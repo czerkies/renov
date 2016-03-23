@@ -57,6 +57,45 @@ form.devis label.type-checkbox{
 form.devis select.surface {
   width: 75px;
 }
+.line {
+  float: left;
+}
+.w_100,
+.w_50,
+.w_20,
+.w_15,
+.w_10 {
+  float: left;
+  padding: 10px 5px;
+}
+.w_100,
+.line {
+  width: 100%;
+}
+.w_50 {
+  width: 50%;
+}
+.w_20 {
+  width: 20%;
+}
+.w_15 {
+  width: 15%;
+}
+.w_10 {
+  width: 10%;
+}
+.tright {
+  text-align: right;
+}
+.tcenter {
+  text-align: center;
+}
+.b_top {
+  border-top: 1px solid #000;
+}
+.b_right {
+  border-right: 1px solid #000;
+}
 .devis_coordonnees {
 
 }
