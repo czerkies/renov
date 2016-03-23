@@ -62,90 +62,102 @@
           <input name="surface" id="surface" type="number" min="1" max="9999" value="<?php if(isset($_POST['surface'])) echo $_POST['surface']; ?>" placeholder="Surface de votre cave en mettre carré">
           <?php if(isset($msg['surface'])) echo $msg['surface']; ?>
         </div>
-        <div class="talbeau_devis">
-          <div class="w_50 tcenter">
-            Description
-          </div>
-          <div class="w_10 tcenter">
-            Qte
-          </div>
-          <div class="w_20 tcenter">
-            PU HT
-          </div>
-          <div class="w_20 tcenter">
-            Total HT
-          </div>
-          <div class="w_100 b_top">
-            ENSEMBLE CAV'BOX POUR UNE CAVE DE
-            <select class="surface" name="surface">
-              <?php for($a = 1; $a < 33; $a++) {
-                echo '<option value="'.$a.'">'.$a.'</option>';
-              } ?>
-              <option value="40">40</option>
-              <option value="42">42</option>
-            </select>
-            MÈTRE(S) CARRÉS
-          </div>
-          <div class="line b_top">
-            <div class="w_50 b_right">
-              Mise en oeuvre d'un plancher isolant, avec revêtement pour un entretien facile. Mise en oeuvre d'un ensemble mural isolant, sur mesure.<br>
-              Mise en oeuvre d'un plafond isolant, sur mesure.<br>
-              Fourniture et la pose d'un éclairage étanche IP65 36 watts, 120 cm.<br>
-              Fourniture et pose, d'aérations, hautes et basses.<br>
-              Fourniture et pose de plinthes anti-poussières.<br>
-              Fourniture et pose de tringles, sous plafond, utilisables en portant pour vêtements.
-            </div>
-            <div class="w_10 tright b_right">
-              1.00<br>
-              <em>ENS</em>
-            </div>
-            <div class="w_20 tright b_right">
-              PRIX
-            </div>
-            <div class="w_20 tright">
-              TOTAL
-            </div>
-          </div>
-          <div class="line b_top">
-            <div class="w_50">
-              <b>Étagère sur mesure</b>, profondeur 35 cm, posée sur un ensemble de fixation, permettant le réglage en hauteur.
-            </div>
-            <div class="w_10 tright">
-              1.00<br>
-              <em>ML</em>
-            </div>
-            <div class="w_20 tright">
-              45.00
-            </div>
-            <div class="w_20 tright">
-              45.00<br>
-              <em>En option</em>
-            </div>
-          </div>
-          <div class="line b_top">
-            <div class="w_50">
-              <b>Bloc porte de cave métallique sur mesure</b>, trois omégas de renfort, aération basse intégrée, serrure trois points A2P*, livrée avec 3 clefs.
-            </div>
-            <div class="w_10 tright">
-              1.00<br>
-              <em>Ens</em>
-            </div>
-            <div class="w_20 tright">
-              900.00
-            </div>
-            <div class="w_20 tright">
-              900.00<br>
-              <em>En option</em>
-            </div>
-          </div>
-          <div class="w_100">
-            La pose de l'ouvrage, conçu en matériaux de construction pour un usage intérieur en milieu humide, répondant à la norme EN 13986, respecte l'aération naturelle de la cave.
-          </div>
-          <div class="w_100">
-            NOTRE OFFRE D'AMÉNAGEMENTS EN OPTION
-          </div>
-
-        </div>
+        <table class="talbeau_devis">
+          <thead>
+            <tr>
+              <th class="w_30 tcenter">
+                Description
+              </th>
+              <th class="w_15 tcenter">
+                Qte
+              </th>
+              <th class="w_20 tcenter">
+                PU HT
+              </th>
+              <th class="w_20 tcenter">
+                Total HT
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="b_top b_bottom" colspan="4">
+                ENSEMBLE CAV'BOX POUR UNE CAVE DE
+                <select class="surface" name="surface">
+                  <?php for($a = 1; $a < 33; $a++) {
+                    echo '<option value="'.$a.'">'.$a.'</option>';
+                  } ?>
+                  <option value="40">40</option>
+                  <option value="42">42</option>
+                </select>
+                MÈTRE(S) CARRÉS
+              </td>
+            </tr>
+            <tr class="b_bottom">
+              <td class="b_right">
+                Mise en oeuvre d'un plancher isolant, avec revêtement pour un entretien facile.<br>
+                Mise en oeuvre d'un ensemble mural isolant, sur mesure.<br>
+                Mise en oeuvre d'un plafond isolant, sur mesure.<br>
+                Fourniture et la pose d'un éclairage étanche IP65 36 watts, 120 cm.<br>
+                Fourniture et pose, d'aérations, hautes et basses.<br>
+                Fourniture et pose de plinthes anti-poussières.<br>
+                Fourniture et pose de tringles, sous plafond, utilisables en portant pour vêtements.
+              </td>
+              <td class="tright b_right">
+                1.00<br>
+                <em>ENS</em>
+              </td>
+              <td class="tright b_right">
+                PRIX
+              </td>
+              <td class="tright">
+                TOTAL
+              </td>
+            </tr>
+            <tr class="b_top">
+              <td class="">
+                <b>Étagère sur mesure</b>, profondeur 35 cm, posée sur un ensemble de fixation, permettant le réglage en hauteur.
+              </td>
+              <td class=" tright">
+                1.00<br>
+                <em>ML</em>
+              </td>
+              <td class="tright">
+                45.00
+              </td>
+              <td class="tright">
+                45.00<br>
+                <em>En option</em>
+              </td>
+            </tr>
+            <tr class="b_top">
+              <td class="">
+                <b>Bloc porte de cave métallique sur mesure</b>, trois omégas de renfort, aération basse intégrée, serrure trois points A2P*, livrée avec 3 clefs.
+              </td>
+              <td class="tright">
+                1.00<br>
+                <em>Ens</em>
+              </td>
+              <td class="tright">
+                900.00
+              </td>
+              <td class="tright">
+                900.00<br>
+                <em>En option</em>
+              </td>
+            </tr>
+            <tr>
+              <td class="">
+                La pose de l'ouvrage, conçu en matériaux de construction pour un usage intérieur en milieu humide, répondant à la norme EN 13986, respecte l'aération naturelle de la cave.
+              </td>
+            </tr>
+            <tr>
+              <td class="">
+                NOTRE OFFRE D'AMÉNAGEMENTS EN OPTION
+              </td>
+            </tr>
+          </tbody>
+        </table>
         <div id="form-group devis_checkbox">
         <input type="checkbox" id="option_lumiere" name="option_lumiere" value="option_lumiere" <?php if(isset($_POST['option_lumiere'])) echo 'checked'; ?>><label class="type-checkbox" for="option_lumiere">Option lumiere</label>
         </div>
