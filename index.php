@@ -1,7 +1,7 @@
 <?php
   include_once 'functions.php';
 
-  var_dump($_POST);
+  //var_dump($_POST);
 
 ?>
 <!DOCTYPE html>
@@ -22,7 +22,7 @@
         </p>
       </div>
       <form class="devis" action="" method="post">
-        <div id="form-group devis_coordonnees">
+        <div class="form-group devis_coordonnees">
           <select id="civilite" name="civilite">
             <option disabled>Choisissez votre civilite</option>
             <option value="Madame" <?php if(isset($_POST['civilite']) && $_POST['civilite'] === 'Madame') echo "selected"; ?>>Madame</option>
@@ -58,23 +58,19 @@
           <input type="email" id="email" name="email" title="E-mail" placeholder="E-mail" value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>" required>
           <?php if(isset($msg['email'])) echo $msg['email']; ?>
         </div>
-        <div id="form-group">
-          <input name="surface" id="surface" type="number" min="1" max="9999" value="<?php if(isset($_POST['surface'])) echo $_POST['surface']; ?>" placeholder="Surface de votre cave en mettre carré">
-          <?php if(isset($msg['surface'])) echo $msg['surface']; ?>
-        </div>
         <table class="talbeau_devis">
           <thead>
             <tr>
-              <th class="w_30 tcenter">
+              <th class="w_70 tcenter">
                 Description
               </th>
-              <th class="w_15 tcenter">
+              <th class="w_10 tcenter">
                 Qte
               </th>
-              <th class="w_20 tcenter">
+              <th class="w_10 tcenter">
                 PU HT
               </th>
-              <th class="w_20 tcenter">
+              <th class="w_10 tcenter">
                 Total HT
               </th>
             </tr>
@@ -108,21 +104,31 @@
                 <em>ENS</em>
               </td>
               <td class="tright b_right">
-                PRIX
+                <?= $prix; ?>
               </td>
               <td class="tright">
-                TOTAL
+                <?= $prix; ?>
+              </td>
+            </tr>
+            <tr>
+              <td class="" colspan="4">
+                <b>La pose de l'ouvrage, conçu en matériaux de construction pour un usage intérieur en milieu humide, répondant à la norme EN 13986, respecte l'aération naturelle de la cave.</b>
+              </td>
+            </tr>
+            <tr>
+              <td class="b_top" colspan="4">
+                NOTRE OFFRE D'AMÉNAGEMENTS EN OPTION
               </td>
             </tr>
             <tr class="b_top">
-              <td class="">
-                <b>Étagère sur mesure</b>, profondeur 35 cm, posée sur un ensemble de fixation, permettant le réglage en hauteur.
+              <td class="b_right">
+                <input type="checkbox" id="option_etagere" name="option_etagere" <?php if(isset($_POST['option_etagere'])) echo 'checked'; ?>><label for="option_etagere"><b>Étagère sur mesure</b>, profondeur 35 cm, posée sur un ensemble de fixation, permettant le réglage en hauteur.</label>
               </td>
-              <td class=" tright">
+              <td class="tright b_right">
                 1.00<br>
                 <em>ML</em>
               </td>
-              <td class="tright">
+              <td class="tright b_right">
                 45.00
               </td>
               <td class="tright">
@@ -131,14 +137,14 @@
               </td>
             </tr>
             <tr class="b_top">
-              <td class="">
-                <b>Bloc porte de cave métallique sur mesure</b>, trois omégas de renfort, aération basse intégrée, serrure trois points A2P*, livrée avec 3 clefs.
+              <td class="b_right">
+                <input type="checkbox" id="porte" name="porte" <?php if(isset($_POST['porte'])) echo 'checked'; ?>><label for="porte"><b>Bloc porte de cave métallique sur mesure</b>, trois omégas de renfort, aération basse intégrée, serrure trois points A2P*, livrée avec 3 clefs.</label>
               </td>
-              <td class="tright">
+              <td class="tright b_right">
                 1.00<br>
                 <em>Ens</em>
               </td>
-              <td class="tright">
+              <td class="tright b_right">
                 900.00
               </td>
               <td class="tright">
@@ -147,27 +153,73 @@
               </td>
             </tr>
             <tr>
-              <td class="">
-                La pose de l'ouvrage, conçu en matériaux de construction pour un usage intérieur en milieu humide, répondant à la norme EN 13986, respecte l'aération naturelle de la cave.
+              <td class="b_top" colspan="4">
+                SERVICE DE DÉBARRAS
+              </td>
+            </tr>
+            <tr class="b_top">
+              <td class="b_right">
+                <input type="checkbox" id="debarras" name="debarras" <?php if(isset($_POST['debarras'])) echo 'checked'; ?>><label for="debarras"><b>Effets personnels à débarrasser :</b> Tri, mise en sacs, évacuation à dos d'homme et transport en déchetterie ECO-TRI.</label>
+              </td>
+              <td class="tright b_right">
+                1.00<br>
+                <em>M3</em>
+              </td>
+              <td class="tright b_right">
+                175.00
+              </td>
+              <td class="tright">
+                175.00<br>
+                <em>En option</em>
+              </td>
+            </tr>
+            <tr class="b_top b_bottom">
+              <td class="b_right">
+                <input type="checkbox" id="effets_perso" name="effets_perso" <?php if(isset($_POST['effets_perso'])) echo 'checked'; ?>><label for="effets_perso"><b>Effets personnels conservés :</b> Tri, déplacement et rangement dans votre cave, à la fin des travaux.</label>
+              </td>
+              <td class="tright b_right">
+                1.00<br>
+                <em>Heure</em>
+              </td>
+              <td class="tright b_right">
+                60.00
+              </td>
+              <td class="tright">
+                60.00<br>
+                <em>En option</em>
               </td>
             </tr>
             <tr>
-              <td class="">
-                NOTRE OFFRE D'AMÉNAGEMENTS EN OPTION
+              <td></td>
+              <td colspan="2">
+                <b>Total HT</b>
+              </td>
+              <td class="tright">
+                <b><?php if(isset($totalHT)) echo $totalHT; ?> €</b>
+              </td>
+            </td>
+            <tr>
+              <td></td>
+              <td colspan="2">
+                TVA 10.00%
+              </td>
+              <td class="tright">
+                <?php if(isset($totalAjoutTVA)) echo $totalAjoutTVA; ?> €
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td colspan="2">
+                <b>Montant TOTAL</b>
+              </td>
+              <td class="tright">
+                <b><?php if(isset($totalTTC)) echo $totalTTC; ?> €</b>
               </td>
             </tr>
           </tbody>
         </table>
-        <div id="form-group devis_checkbox">
-        <input type="checkbox" id="option_lumiere" name="option_lumiere" value="option_lumiere" <?php if(isset($_POST['option_lumiere'])) echo 'checked'; ?>><label class="type-checkbox" for="option_lumiere">Option lumiere</label>
-        </div>
         <input type="submit" name="devis" value="Estimation de devis">
       </form>
-    </div>
-    <div>
-      <?php if(isset($total)){ ?>
-        <?= $total; ?> € TTC.
-      <?php } ?>
     </div>
   </body>
 </html>

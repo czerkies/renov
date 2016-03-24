@@ -1,3 +1,8 @@
+body {
+  width: 960px;
+  margin: auto;
+}
+
 * {
   box-sizing:border-box;
 }
@@ -31,25 +36,25 @@ form.devis select{
   border:1px solid rgb(131, 0, 0);
   color:#444;
 }
-form.devis select{
+form.devis select {
   border:1px solid #888;
 }
-form.devis label{
+form.devis .form-group label {
   width:100%;
   font-size:1em;
   color:#888;
   padding:0 2% 5%;
   float:left;
 }
-form.devis input[type="checkbox"]{
+form.devis input[type="checkbox"] {
   width:10%;
   float:left;
 }
-form.devis label.type-checkbox{
+form.devis label.type-checkbox {
   width:90%;
 }
 form.devis input[type="checkbox"],
-form.devis label.type-checkbox{
+form.devis label.type-checkbox {
   margin:10px 0;
   padding:0;
   color:#444;
@@ -59,6 +64,12 @@ form.devis select.surface {
 }
 table {
   border-collapse: collapse;
+}
+table thead {
+  color: rgb(131, 0, 0);
+}
+.talbeau_devis label {
+  cursor: pointer;
 }
 table td,
 table th {
@@ -94,16 +105,16 @@ table th {
   text-align: center;
 }
 .b_top {
-  border-top: 1px solid #000;
+  border-top: 1px solid rgb(131, 0, 0);
 }
 .b_right {
-  border-right: 1px solid #000;
+  border-right: 1px solid rgb(131, 0, 0);
 }
 .b_left {
-  border-left: 1px solid #000;
+  border-left: 1px solid rgb(131, 0, 0);
 }
 .b_bottom {
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid rgb(131, 0, 0);
 }
 
 

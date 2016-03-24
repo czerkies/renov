@@ -1,5 +1,7 @@
 <?php
 
+$prix = "Validez le devis";
+
 if(isset($_POST['devis'])){
 
   $msg = [];
@@ -38,9 +40,9 @@ if(isset($_POST['devis'])){
     $tel = str_replace($search, '', $_POST['tel']);
 
     if(empty($tel)){
-        $msg['tel'] = '<label for="tel">Veuillez saisir un Téléphone.</label>';
+      $msg['tel'] = '<label for="tel">Veuillez saisir un Téléphone.</label>';
     }elseif(!is_numeric($tel) || strlen($tel) != 10){
-        $msg['tel'] = '<label for="tel">Veuillez saisir un Téléphone valide.</label>';
+      $msg['tel'] = '<label for="tel">Veuillez saisir un Téléphone valide.</label>';
     }
 
     if(empty($_POST['email']) || strlen($_POST['email']) < 2){
@@ -49,33 +51,35 @@ if(isset($_POST['devis'])){
       $msg['email'] = '<label for="email">Veuillez saisir une adresse E-mail valide.</label>';
     }
 
-    /*if(empty($_POST['surface'])){
-      $msg['surface'] = '<label for="surface">Veuillez saisir une surface</label>';
-    }elseif(!is_numeric($_POST['surface'])){
-      $msg['surface'] = '<label for="surface">Veuillez saisir une surface au format numérique</label>';
-    }elseif($_POST['surface'] <= 1 || $_POST['surface'] > 9999){
-      $msg['surface'] = '<label for="surface">Veuillez saisir une surface convenable</label>';
-    }*/
-
     if(!$msg){
 
-      $total = 0;
+      $totalHT = 0;
 
-      switch ($_POST['surface']) {
-        case 5:
-        $total += 4000;
+      switch ($_POST['surface']){
+        case 1:
+        $totalHT += 3800;
         break;
 
-        case 10:
-        $total += 10000;
+        case 5:
+        $totalHT += 10000;
         break;
 
         default:
-        $total += 1000;
+        $totalHT += 1000;
         break;
       }
 
-      if(isset($_POST['option_lumiere'])) $total += 250;
+      if(isset($_POST['option_etagere'])) $totalHT += 45;
+
+      if(isset($_POST['porte'])) $totalHT += 900;
+
+      if(isset($_POST['debarras'])) $totalHT += 175;
+
+      if(isset($_POST['effets_perso'])) $totalHT += 60;
+
+      $totalTTC = $totalHT*1.10;
+
+      $totalAjoutTVA = $totalTTC-$totalHT;
 
     }
 
