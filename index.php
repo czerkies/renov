@@ -18,47 +18,49 @@
         <p class="devis_rc--contact_tel">Tel. : 01 53 58 91 85</p>
         <p class="devis_rc--contact_title">Devis estimatif</p>
         <p class="devis_rc--contact_welcome">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          Explication de l'utilisation.
         </p>
       </div>
-      <form class="devis" action="" method="post">
-        <div class="form-group devis_coordonnees">
-          <select id="civilite" name="civilite">
-            <option disabled>Choisissez votre civilite</option>
-            <option value="Madame" <?php if(isset($_POST['civilite']) && $_POST['civilite'] === 'Madame') echo "selected"; ?>>Madame</option>
-            <option value="Monsieur" <?php if(isset($_POST['civilite']) && $_POST['civilite'] === 'Monsieur') echo "selected"; ?>>Monsieur</option>
-          </select>
+      <form class="devis" action="#devis" method="post">
+        <div class="form_coordonnees">
+          <div class="form-group">
+            <select id="civilite" name="civilite">
+              <option disabled>Choisissez votre civilite</option>
+              <option value="Madame" <?php if(isset($_POST['civilite']) && $_POST['civilite'] === 'Madame') echo "selected"; ?>>Madame</option>
+              <option value="Monsieur" <?php if(isset($_POST['civilite']) && $_POST['civilite'] === 'Monsieur') echo "selected"; ?>>Monsieur</option>
+            </select>
+          </div>
+          <?php if(isset($msg['erreur'])) echo $msg['erreur']; ?>
+          <div class="form-group">
+            <input type="text" id="nom" name="nom" title="Nom" placeholder="Nom" value="<?php if(isset($_POST['nom'])) echo $_POST['nom']; ?>" required>
+            <?php if(isset($msg['nom'])) echo $msg['nom']; ?>
+          </div>
+          <div class="form-group">
+            <input type="text" id="prenom" name="prenom" title="Prénom" placeholder="Prénom" value="<?php if(isset($_POST['prenom'])) echo $_POST['prenom']; ?>" required>
+            <?php if(isset($msg['prenom'])) echo $msg['prenom']; ?>
+          </div>
+          <div class="form-group">
+            <input type="text" id="adresse" name="adresse" title="Adresse" placeholder="Adresse" value="<?php if(isset($_POST['adresse'])) echo $_POST['adresse']; ?>" required>
+            <?php if(isset($msg['adresse'])) echo $msg['adresse']; ?>
+          </div>
+          <div class="form-group">
+            <input type="text" id="cp" name="cp" title="Code Postal" placeholder="Code Postal" value="<?php if(isset($_POST['cp'])) echo $_POST['cp']; ?>" required>
+            <?php if(isset($msg['cp'])) echo $msg['cp']; ?>
+          </div>
+          <div class="form-group">
+            <input type="text" id="ville" name="ville" title="Ville" placeholder="Ville" value="<?php if(isset($_POST['ville'])) echo $_POST['ville']; ?>" required>
+            <?php if(isset($msg['ville'])) echo $msg['ville']; ?>
+          </div>
+          <div class="form-group">
+            <input type="tel" id="tel" name="tel" title="Téléphone" placeholder="Téléphone" value="<?php if(isset($_POST['tel'])) echo $_POST['tel']; ?>" required>
+            <?php if(isset($msg['tel'])) echo $msg['tel']; ?>
+          </div>
+          <div class="form-group">
+            <input type="email" id="email" name="email" title="E-mail" placeholder="E-mail" value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>" required>
+            <?php if(isset($msg['email'])) echo $msg['email']; ?>
+          </div>
         </div>
-        <?php if(isset($msg['erreur'])) echo $msg['erreur']; ?>
-        <div class="form-group">
-          <input type="text" id="nom" name="nom" title="Nom" placeholder="Nom" value="<?php if(isset($_POST['nom'])) echo $_POST['nom']; ?>" required>
-          <?php if(isset($msg['nom'])) echo $msg['nom']; ?>
-        </div>
-        <div class="form-group">
-          <input type="text" id="prenom" name="prenom" title="Prénom" placeholder="Prénom" value="<?php if(isset($_POST['prenom'])) echo $_POST['prenom']; ?>" required>
-          <?php if(isset($msg['prenom'])) echo $msg['prenom']; ?>
-        </div>
-        <div class="form-group">
-          <input type="text" id="ville" name="ville" title="Ville" placeholder="Ville" value="<?php if(isset($_POST['ville'])) echo $_POST['ville']; ?>" required>
-          <?php if(isset($msg['ville'])) echo $msg['ville']; ?>
-        </div>
-        <div class="form-group">
-          <input type="text" id="cp" name="cp" title="Code Postal" placeholder="Code Postal" value="<?php if(isset($_POST['cp'])) echo $_POST['cp']; ?>" required>
-          <?php if(isset($msg['cp'])) echo $msg['cp']; ?>
-        </div>
-        <div class="form-group">
-          <input type="text" id="adresse" name="adresse" title="Adresse" placeholder="Adresse" value="<?php if(isset($_POST['adresse'])) echo $_POST['adresse']; ?>" required>
-          <?php if(isset($msg['adresse'])) echo $msg['adresse']; ?>
-        </div>
-        <div class="form-group">
-          <input type="tel" id="tel" name="tel" title="Téléphone" placeholder="Téléphone" value="<?php if(isset($_POST['tel'])) echo $_POST['tel']; ?>" required>
-          <?php if(isset($msg['tel'])) echo $msg['tel']; ?>
-        </div>
-        <div class="form-group">
-          <input type="email" id="email" name="email" title="E-mail" placeholder="E-mail" value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>" required>
-          <?php if(isset($msg['email'])) echo $msg['email']; ?>
-        </div>
-        <table class="talbeau_devis">
+        <table class="talbeau_devis" id="devis">
           <thead>
             <tr>
               <th class="w_70 tcenter">
@@ -81,7 +83,9 @@
                 ENSEMBLE CAV'BOX POUR UNE CAVE DE
                 <select class="surface" name="surface">
                   <?php for($a = 1; $a < 33; $a++) {
-                    echo '<option value="'.$a.'">'.$a.'</option>';
+                    echo '<option value="'.$a.'"';
+                    if(isset($_POST['surface']) && $_POST['surface'] == $a) echo ' selected';
+                    echo '>'.$a.'</option>';
                   } ?>
                   <option value="40">40</option>
                   <option value="42">42</option>
@@ -104,10 +108,22 @@
                 <em>ENS</em>
               </td>
               <td class="tright b_right">
-                <?= $prix; ?>
+                <?php
+                  if(isset($prixCave)) {
+                    echo $prixCave.' €';
+                  } else {
+                    echo "Veuillez valider votre devis";
+                  }
+                ?>
               </td>
               <td class="tright">
-                <?= $prix; ?>
+                <?php
+                  if(isset($prixCave)) {
+                    echo $prixCave.' €';
+                  } else {
+                    echo "Veuillez valider votre devis";
+                  }
+                ?>
               </td>
             </tr>
             <tr>
@@ -125,7 +141,15 @@
                 <input type="checkbox" id="option_etagere" name="option_etagere" <?php if(isset($_POST['option_etagere'])) echo 'checked'; ?>><label for="option_etagere"><b>Étagère sur mesure</b>, profondeur 35 cm, posée sur un ensemble de fixation, permettant le réglage en hauteur.</label>
               </td>
               <td class="tright b_right">
-                1.00<br>
+                <select name="nb_etageres">
+                  <?php
+                  for ($i=1.00; $i <= 10.00; $i++) {
+                    echo '<option value="'.$i.'"';
+                    if(isset($_POST['nb_etageres']) && $_POST['nb_etageres'] == $i) echo ' selected';
+                    echo '>'.$i.'</option>';
+                  }
+                  ?>
+                </select><br>
                 <em>ML</em>
               </td>
               <td class="tright b_right">
@@ -195,7 +219,7 @@
                 <b>Total HT</b>
               </td>
               <td class="tright">
-                <b><?php if(isset($totalHT)) echo $totalHT; ?> €</b>
+                <b><?php if(isset($totalHT)): echo $totalTTC; else: echo 0; endif; ?> €</b>
               </td>
             </td>
             <tr>
@@ -204,7 +228,7 @@
                 TVA 10.00%
               </td>
               <td class="tright">
-                <?php if(isset($totalAjoutTVA)) echo $totalAjoutTVA; ?> €
+                <?php if(isset($totalAjoutTVA)): echo $totalAjoutTVA; else: echo 0; endif;?> €
               </td>
             </tr>
             <tr>
@@ -213,12 +237,12 @@
                 <b>Montant TOTAL</b>
               </td>
               <td class="tright">
-                <b><?php if(isset($totalTTC)) echo $totalTTC; ?> €</b>
+                <b><?php if(isset($totalTTC)): echo $totalTTC; else: echo 0; endif;?> €</b>
               </td>
             </tr>
           </tbody>
         </table>
-        <input type="submit" name="devis" value="Estimation de devis">
+        <input type="submit" name="devis" value="Estimation du devis">
       </form>
     </div>
   </body>

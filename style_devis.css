@@ -36,6 +36,24 @@ form.devis select{
   border:1px solid rgb(131, 0, 0);
   color:#444;
 }
+form.devis input[type="submit"]{
+  width:100%;
+  color: rgb(131, 0, 0);
+  background: #fff;
+  transition: color 250ms ease, background 250ms ease, box-shadow 250ms ease;
+  letter-spacing: 2px;
+  font-size: 2em;
+  cursor: pointer;
+  box-shadow: none;
+}
+form.devis input[type="submit"]:hover{
+  color: #fff;
+  background: rgb(131, 0, 0);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.75);
+}
+form.devis input[type="submit"]:active{
+  box-shadow: none;
+}
 form.devis select {
   border:1px solid #888;
 }
@@ -62,14 +80,18 @@ form.devis label.type-checkbox {
 form.devis select.surface {
   width: 75px;
 }
-table {
+table.talbeau_devis {
   border-collapse: collapse;
+  width: 100%;
 }
 table thead {
   color: rgb(131, 0, 0);
 }
 .talbeau_devis label {
   cursor: pointer;
+}
+form.devis table select {
+  margin: 0;
 }
 table td,
 table th {
@@ -117,7 +139,30 @@ table th {
   border-bottom: 1px solid rgb(131, 0, 0);
 }
 
+@media screen and (min-width: 600px) {
 
-.devis_coordonnees {
+  form.devis input,
+  form.devis select {
+    font-size: 1em;
+  }
+
+  .form_coordonnees {
+    width:50%;
+    padding:1%;
+    float: right;
+  }
+
+  form.devis .form-group {
+    width: 48%;
+    margin: auto 1%;
+    float: left;
+  }
+
+  form.devis input[type="submit"] {
+    width: 30%;
+    font-size: 1em;
+    letter-spacing: 1px;
+    margin: 50px 35%;
+  }
 
 }

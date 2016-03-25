@@ -1,7 +1,5 @@
 <?php
 
-$prix = "Validez le devis";
-
 if(isset($_POST['devis'])){
 
   $msg = [];
@@ -11,7 +9,9 @@ if(isset($_POST['devis'])){
   && isset($_POST['ville']) && isset($_POST['cp'])
   && isset($_POST['adresse']) && isset($_POST['tel'])
   && isset($_POST['email']) && isset($_POST['surface'])
-  && $_POST['surface'] >= 0 && $_POST['surface'] <= 42 && is_numeric($_POST['surface'])){
+  && $_POST['surface'] >= 0 && $_POST['surface'] <= 42 && is_numeric($_POST['surface'])
+  && isset($_POST['nb_etageres']) && $_POST['nb_etageres'] >= 1 && $_POST['nb_etageres'] <= 10
+  && is_numeric($_POST['nb_etageres'])){
 
 
     if(empty($_POST['nom']) || strlen($_POST['nom']) < 2){
@@ -57,19 +57,121 @@ if(isset($_POST['devis'])){
 
       switch ($_POST['surface']){
         case 1:
-        $totalHT += 3800;
+        case 2:
+        case 3:
+        case 4:
+        $totalHT += 3800.00;
         break;
-
         case 5:
-        $totalHT += 10000;
+        $totalHT += 4050.00;
         break;
-
-        default:
-        $totalHT += 1000;
+        case 6:
+        $totalHT += 4600.00;
+        break;
+        case 7:
+        $totalHT += 4350.00;
+        break;
+        case 8:
+        $totalHT += 4550.00;
+        break;
+        case 9:
+        $totalHT += 4950.00;
+        break;
+        case 10:
+        $totalHT += 5450.00;
+        break;
+        case 11:
+        $totalHT += 5850.00;
+        break;
+        case 12:
+        $totalHT += 5750.00;
+        break;
+        case 13:
+        $totalHT += 6450.00;
+        break;
+        case 14:
+        $totalHT += 6750.00;
+        break;
+        case 15:
+        $totalHT += 7200.00;
+        break;
+        case 16:
+        $totalHT += 7650.00;
+        break;
+        case 17:
+        $totalHT += 8150.00;
+        break;
+        case 18:
+        $totalHT += 8650.00;
+        break;
+        case 19:
+        $totalHT += 9150.00;
+        break;
+        case 20:
+        $totalHT += 9600.00;
+        break;
+        case 21:
+        $totalHT += 10050.00;
+        break;
+        case 22:
+        $totalHT += 10550.00;
+        break;
+        case 23:
+        $totalHT += 11050.00;
+        break;
+        case 24:
+        $totalHT += 11550.00;
+        break;
+        case 25:
+        $totalHT += 12000.00;
+        break;
+        case 26:
+        $totalHT += 12450.00;
+        break;
+        case 27:
+        $totalHT += 12950.00;
+        break;
+        case 28:
+        $totalHT += 13450.00;
+        break;
+        case 29:
+        $totalHT += 13950.00;
+        break;
+        case 30:
+        $totalHT += 14400.00;
+        break;
+        case 31:
+        $totalHT += 14850.00;
+        break;
+        case 32:
+        case 33:
+        case 34:
+        case 35:
+        case 36:
+        case 37:
+        case 38:
+        case 39:
+        $totalHT += 15350.00;
+        break;
+        case 40:
+        case 41:
+        case 42:
+        case 43:
+        case 44:
+        $totalHT += 19200.00;
+        break;
+        case 45:
+        $totalHT += 22500.00;
         break;
       }
 
-      if(isset($_POST['option_etagere'])) $totalHT += 45;
+      $prixCave = $totalHT;
+
+      if(isset($_POST['option_etagere'])) {
+
+        $totalHT += 45*$_POST['nb_etageres'];
+
+      }
 
       if(isset($_POST['porte'])) $totalHT += 900;
 
