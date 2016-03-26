@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 define('PRIX_ETAGERE', 45); // Etagère à 45€
 define('PRIX_PORTE', 900); // Porte à 900 €
 define('PRIX_DEBARRAS', 175); // Debarras 175 €
@@ -60,10 +62,22 @@ if(isset($_POST['devis'])){
 
     if(!$msg){
 
-      unset($_COOKIE);
-      
+      //if(isset($_COOKIE)){
+
+        //foreach ($_COOKIE as $key => $value) {
+          //setCookie($key, $value, time()-3600);
+        //}
+
+      //}
+
+      //foreach ($_POST as $key => $value) {
+        //setCookie($key, $key, time()+(365*24*3600));
+      //}
+
+      unset($_SESSION['devis']);
+
       foreach ($_POST as $key => $value) {
-        setCookie($key, $value, time()+(365*24*3600));
+        $_SESSION['devis'][$key] = $value;
       }
 
       $totalHT = 0;
