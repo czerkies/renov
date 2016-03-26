@@ -23,6 +23,7 @@
       </div>
       <form class="devis" action="#devis" method="post">
         <div class="form_coordonnees">
+          <h2>Vos Coordonnées :</h2>
           <div class="form-group">
             <select id="civilite" name="civilite">
               <option disabled>Choisissez votre civilite</option>
@@ -112,7 +113,7 @@
                   if(isset($prixCave)) {
                     echo $prixCave.' €';
                   } else {
-                    echo "Veuillez valider votre devis";
+                    echo "Validez le devis";
                   }
                 ?>
               </td>
@@ -121,7 +122,7 @@
                   if(isset($prixCave)) {
                     echo $prixCave.' €';
                   } else {
-                    echo "Veuillez valider votre devis";
+                    echo "Validez le devis";
                   }
                 ?>
               </td>
@@ -215,7 +216,7 @@
             </tr>
             <tr>
               <td></td>
-              <td colspan="2">
+              <td colspan="2" class="tright">
                 <b>Total HT</b>
               </td>
               <td class="tright">
@@ -224,7 +225,7 @@
             </td>
             <tr>
               <td></td>
-              <td colspan="2">
+              <td colspan="2" class="tright">
                 TVA 10.00%
               </td>
               <td class="tright">
@@ -233,8 +234,8 @@
             </tr>
             <tr>
               <td></td>
-              <td colspan="2">
-                <b>Montant TOTAL</b>
+              <td colspan="2" class="tright">
+                <b>Montant TTC</b>
               </td>
               <td class="tright">
                 <b><?php if(isset($totalTTC)): echo $totalTTC; else: echo 0; endif;?> €</b>

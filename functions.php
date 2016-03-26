@@ -7,8 +7,6 @@ define('PRIX_CONSERVES', 60); // Affaire conservés 60€
 
 define('TVA', 1.10); // TVA à 10%
 
-
-
 if(isset($_POST['devis'])){
 
   $msg = [];
