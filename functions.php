@@ -1,5 +1,14 @@
 <?php
 
+define('PRIX_ETAGERE', 45); // Etagère à 45€
+define('PRIX_PORTE', 900); // Porte à 900 €
+define('PRIX_DEBARRAS', 175); // Debarras 175 €
+define('PRIX_CONSERVES', 60); // Affaire conservés 60€
+
+define('TVA', 1.10); // TVA à 10%
+
+
+
 if(isset($_POST['devis'])){
 
   $msg = [];
@@ -169,17 +178,17 @@ if(isset($_POST['devis'])){
 
       if(isset($_POST['option_etagere'])) {
 
-        $totalHT += 45*$_POST['nb_etageres'];
+        $totalHT += PRIX_ETAGERE*$_POST['nb_etageres'];
 
       }
 
-      if(isset($_POST['porte'])) $totalHT += 900;
+      if(isset($_POST['porte'])) $totalHT += PRIX_PORTE;
 
-      if(isset($_POST['debarras'])) $totalHT += 175;
+      if(isset($_POST['debarras'])) $totalHT += PRIX_DEBARRAS;
 
-      if(isset($_POST['effets_perso'])) $totalHT += 60;
+      if(isset($_POST['effets_perso'])) $totalHT += PRIX_CONSERVES;
 
-      $totalTTC = $totalHT*1.10;
+      $totalTTC = $totalHT*TVA;
 
       $totalAjoutTVA = $totalTTC-$totalHT;
 

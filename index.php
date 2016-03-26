@@ -219,7 +219,7 @@
                 <b>Total HT</b>
               </td>
               <td class="tright">
-                <b><?php if(isset($totalHT)): echo $totalTTC; else: echo 0; endif; ?> €</b>
+                <b><?php if(isset($totalHT)): echo $totalHT; else: echo 0; endif; ?> €</b>
               </td>
             </td>
             <tr>
