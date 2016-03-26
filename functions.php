@@ -60,6 +60,12 @@ if(isset($_POST['devis'])){
 
     if(!$msg){
 
+      unset($_COOKIE);
+      
+      foreach ($_POST as $key => $value) {
+        setCookie($key, $value, time()+(365*24*3600));
+      }
+
       $totalHT = 0;
 
       switch ($_POST['surface']){
