@@ -1,9 +1,7 @@
 <?php
+
   include_once 'functions.php';
 
-  print_r($_POST);
-  echo '<br>';
-  print_r($_SESSION['devis']);
 ?>
 <!DOCTYPE html>
 <html>
@@ -13,18 +11,19 @@
     <link rel="stylesheet" type="text/css" href="style_devis.css">
   </head>
   <body>
+    <form class="devis" action="#devis" method="post" id="devis">
     <div class="devis_rc">
-      <div class="devis_rc--contact">
-        <p class="devis_rc--contact_name">Votre contact : Daniel SINNESAL</p>
-        <p class="devis_rc--contact_tel">Tel. : 01 53 58 91 85</p>
-        <p class="devis_rc--contact_title">Devis estimatif</p>
-        <p class="devis_rc--contact_welcome">
-          Explication de l'utilisation.
-        </p>
-      </div>
-      <form class="devis" action="#devis" method="post">
+      <div class="contact">
+        <div class="coor_renov">
+          <p class="contact_name">Votre contact : Daniel SINNESAL</p>
+          <p class="contact_tel">Tel. : 01 53 58 91 85</p>
+          <p class="contact_title">Devis estimatif</p>
+          <p class="contact_welcome">
+            Pour voir votre devis vous devez tout d'abord remplire vos coordonnées, sélectionner votre surface et ajouter des options.
+          </p>
+        </div>
         <div class="form_coordonnees">
-          <h2>Vos Coordonnées :</h2>
+          <p class="contact_name">Vos Coordonnées :</p>
           <div class="form-group">
             <select id="civilite" name="civilite">
               <option disabled>Choisissez votre civilite</option>
@@ -97,7 +96,8 @@
             <?php if(isset($msg['email'])) echo $msg['email']; ?>
           </div>
         </div>
-        <table class="talbeau_devis" id="devis">
+      </div>
+        <table class="talbeau_devis">
           <thead>
             <tr>
               <th class="w_70 tcenter">
@@ -152,6 +152,8 @@
                 <?php
                   if(isset($prixCave)) {
                     echo $prixCave.' €';
+                  } elseif(isset($_SESSION['devis']['prixCave'])){
+                    echo $_SESSION['devis']['prixCave'].' €';
                   } else {
                     echo "Validez le devis";
                   }
@@ -161,6 +163,8 @@
                 <?php
                   if(isset($prixCave)) {
                     echo $prixCave.' €';
+                  } elseif(isset($_SESSION['devis']['prixCave'])){
+                    echo $_SESSION['devis']['prixCave'].' €';
                   } else {
                     echo "Validez le devis";
                   }
@@ -264,7 +268,13 @@
                 <b>Total HT</b>
               </td>
               <td class="tright">
-                <b><?php if(isset($totalHT)): echo $totalHT; else: echo 0; endif; ?> €</b>
+                <b><?php if(isset($totalHT)) {
+                  echo $totalHT;
+                } elseif(isset($_SESSION['devis']['totalHT'])) {
+                  echo $_SESSION['devis']['totalHT'];
+                } else {
+                  echo 0;
+                } ?> €</b>
               </td>
             </td>
             <tr>
@@ -273,7 +283,14 @@
                 TVA 10.00%
               </td>
               <td class="tright">
-                <?php if(isset($totalAjoutTVA)): echo $totalAjoutTVA; else: echo 0; endif;?> €
+                <?php if(isset($totalAjoutTVA)) {
+                  echo $totalAjoutTVA;
+                } elseif(isset($_SESSION['devis']['totalAjoutTVA'])) {
+                  echo $_SESSION['devis']['totalAjoutTVA'];
+                } else {
+                  echo 0;
+                }
+                ?> €
               </td>
             </tr>
             <tr>
@@ -282,7 +299,14 @@
                 <b>Montant TTC</b>
               </td>
               <td class="tright">
-                <b><?php if(isset($totalTTC)): echo $totalTTC; else: echo 0; endif;?> €</b>
+                <b><?php if(isset($totalTTC)) {
+                  echo $totalTTC;
+                } elseif(isset($_SESSION['devis']['totalTTC'])) {
+                  echo $_SESSION['devis']['totalTTC'];
+                } else {
+                  echo 0;
+                }
+                ?> €</b>
               </td>
             </tr>
           </tbody>

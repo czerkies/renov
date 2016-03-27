@@ -4,17 +4,26 @@
 .devis_rc {
   font-family:helvetica, arial;
 }
-.devis_rc--contact .devis_rc--contact_name,
-.devis_rc--contact .devis_rc--contact_tel {
+.contact,
+.coor_renov,
+.form_coordonnees {
+  display: inline-block;
+  width: 100%;
+}
+.contact {
+  margin: 50px 0;
+}
+.contact .contact_name,
+.contact .contact_tel {
   width: 100%;
   font-size: 1em;
 }
-.devis_rc--contact .devis_rc--contact_name,
-.devis_rc--contact .devis_rc--contact_title {
+.contact .contact_name,
+.contact .contact_title {
   font-weight: 800;
 }
-.devis_rc--contact .devis_rc--contact_title,
-.devis_rc--contact .devis_rc--contact_welcome {
+.contact .contact_title,
+.contact .contact_welcome {
   margin: 2em 0;
 }
 form.devis{
@@ -146,11 +155,17 @@ table th {
     font-size: 1em;
   }
 
-  .form_coordonnees {
+  /*.form_coordonnees {
     width: 60%;
     padding: 0;
     float: right;
     margin: 0 0 50px;
+  }*/
+
+  .coor_renov,
+  .form_coordonnees {
+    float: left;
+    width: 50%;
   }
 
   form.devis .form-group {

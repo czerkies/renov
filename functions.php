@@ -194,6 +194,8 @@ if(isset($_POST['devis'])){
 
       $prixCave = $totalHT;
 
+      $_SESSION['devis']['prixCave'] = $prixCave;
+
       if(isset($_POST['option_etagere'])) {
 
         $totalHT += PRIX_ETAGERE*$_POST['nb_etageres'];
@@ -206,9 +208,15 @@ if(isset($_POST['devis'])){
 
       if(isset($_POST['effets_perso'])) $totalHT += PRIX_CONSERVES;
 
+      $_SESSION['devis']['totalHT'] = $totalHT;
+
       $totalTTC = $totalHT*TVA;
 
+      $_SESSION['devis']['totalTTC'] = $totalTTC;
+
       $totalAjoutTVA = $totalTTC-$totalHT;
+
+      $_SESSION['devis']['totalAjoutTVA'] = $totalAjoutTVA;
 
     }
 
