@@ -97,7 +97,7 @@
           </div>
         </div>
       </div>
-        <table class="talbeau_devis">
+        <table class="tableau_devis">
           <thead>
             <tr>
               <th class="w_70 tcenter">
