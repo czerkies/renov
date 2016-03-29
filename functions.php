@@ -11,16 +11,22 @@ define('TVA', 1.10); // TVA à 10%
 
 if(isset($_POST['devis'])){
 
-  $msg = [];
+  $msg = array();
 
   if(($_POST['civilite'] === 'Madame' || $_POST['civilite'] === 'Monsieur')
   && isset($_POST['nom']) && isset($_POST['prenom'])
   && isset($_POST['ville']) && isset($_POST['cp'])
   && isset($_POST['adresse']) && isset($_POST['tel'])
   && isset($_POST['email']) && isset($_POST['surface'])
-  && $_POST['surface'] >= 0 && $_POST['surface'] <= 42 && is_numeric($_POST['surface'])
-  && isset($_POST['nb_etageres']) && $_POST['nb_etageres'] >= 1 && $_POST['nb_etageres'] <= 10
-  && is_numeric($_POST['nb_etageres'])){
+  && $_POST['surface'] >= 1 && $_POST['surface'] <= 42 && is_numeric($_POST['surface'])
+  && isset($_POST['nb_etageres']) && $_POST['nb_etageres'] >= 0
+  && $_POST['nb_etageres'] <= 10 && is_numeric($_POST['nb_etageres'])
+  && isset($_POST['nb_porte']) && $_POST['nb_porte'] >= 0
+  && $_POST['nb_porte'] <= 10 && is_numeric($_POST['nb_porte'])
+  && isset($_POST['debarras']) && $_POST['debarras'] >= 0
+  && $_POST['debarras'] <= 10 && is_numeric($_POST['debarras'])
+  && isset($_POST['effets_perso']) && $_POST['effets_perso'] >= 0
+  && $_POST['effets_perso'] <= 10 && is_numeric($_POST['effets_perso'])){
 
 
     if(empty($_POST['nom']) || strlen($_POST['nom']) < 2){
@@ -61,18 +67,6 @@ if(isset($_POST['devis'])){
     }
 
     if(!$msg){
-
-      //if(isset($_COOKIE)){
-
-        //foreach ($_COOKIE as $key => $value) {
-          //setCookie($key, $value, time()-3600);
-        //}
-
-      //}
-
-      //foreach ($_POST as $key => $value) {
-        //setCookie($key, $key, time()+(365*24*3600));
-      //}
 
       unset($_SESSION['devis']);
 
@@ -196,17 +190,19 @@ if(isset($_POST['devis'])){
 
       $_SESSION['devis']['prixCave'] = $prixCave;
 
-      if(isset($_POST['option_etagere'])) {
+      // Etageres
+      $totalEtageres = PRIX_ETAGERE*$_POST['nb_etageres'];
 
-        $totalHT += PRIX_ETAGERE*$_POST['nb_etageres'];
+      $_SESSION['devis']['totalEtageres'] = $totalEtageres;
 
-      }
+      $totalHT += $totalEtageres;
 
-      if(isset($_POST['porte'])) $totalHT += PRIX_PORTE;
+      // Portes
+      $totalHT += PRIX_PORTE*$_POST['nb_porte'];;
 
-      if(isset($_POST['debarras'])) $totalHT += PRIX_DEBARRAS;
+      $totalHT += PRIX_DEBARRAS*$_POST['debarras'];;
 
-      if(isset($_POST['effets_perso'])) $totalHT += PRIX_CONSERVES;
+      $totalHT += PRIX_CONSERVES*$_POST['effets_perso'];;
 
       $_SESSION['devis']['totalHT'] = $totalHT;
 

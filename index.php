@@ -183,12 +183,12 @@
             </tr>
             <tr class="b_top">
               <td class="b_right">
-                <input type="checkbox" id="option_etagere" name="option_etagere" <?php if(isset($_POST['option_etagere']) || (isset($_SESSION['devis']['option_etagere']) && $_SESSION['devis']['option_etagere']) == 'on') echo 'checked'; ?>><label for="option_etagere"><b>Étagère sur mesure</b>, profondeur 35 cm, posée sur un ensemble de fixation, permettant le réglage en hauteur.</label>
+                <b>Étagère sur mesure</b>, profondeur 35 cm, posée sur un ensemble de fixation, permettant le réglage en hauteur.
               </td>
               <td class="tright b_right">
                 <select name="nb_etageres">
                   <?php
-                  for ($i=1.00; $i <= 10.00; $i++) {
+                  for ($i=0.00; $i <= 10.00; $i++) {
                     echo '<option value="'.$i.'"';
                     if(isset($_POST['nb_etageres']) && $_POST['nb_etageres'] == $i) {
                       echo ' selected';
@@ -205,23 +205,47 @@
                 45.00
               </td>
               <td class="tright">
-                45.00<br>
+                <?php if(isset($totalEtageres)) {
+                  echo $totalEtageres;
+                } elseif(isset($_SESSION['devis']['totalEtageres'])) {
+                  echo $_SESSION['devis']['totalEtageres'];
+                } else {
+                  echo '0';
+                } ?><br>
                 <em>En option</em>
               </td>
             </tr>
             <tr class="b_top">
               <td class="b_right">
-                <input type="checkbox" id="porte" name="porte" <?php if(isset($_POST['porte']) || (isset($_SESSION['devis']['porte']) && $_SESSION['devis']['porte']) == 'on') echo 'checked'; ?>><label for="porte"><b>Bloc porte de cave métallique sur mesure</b>, trois omégas de renfort, aération basse intégrée, serrure trois points A2P*, livrée avec 3 clefs.</label>
+                <b>Bloc porte de cave métallique sur mesure</b>, trois omégas de renfort, aération basse intégrée, serrure trois points A2P*, livrée avec 3 clefs.
               </td>
               <td class="tright b_right">
-                1.00<br>
+                <select name="nb_etageres">
+                  <?php
+                  for ($i=0.00; $i <= 10.00; $i++) {
+                    echo '<option value="'.$i.'"';
+                    if(isset($_POST['nb_porte']) && $_POST['nb_porte'] == $i) {
+                      echo ' selected';
+                    } elseif (isset($_SESSION['devis']['nb_porte']) && $_SESSION['devis']['nb_porte'] == $i) {
+                      echo ' selected';
+                    }
+                    echo '>'.$i.'</option>';
+                  }
+                  ?>
+                </select><br>
                 <em>Ens</em>
               </td>
               <td class="tright b_right">
                 900.00
               </td>
               <td class="tright">
-                900.00<br>
+                <?php if(isset($_POST['nb_etageres'])) {
+                  echo $totalEtageres;
+                } elseif(isset($_SESSION['devis']['totalEtageres'])) {
+                  echo $_SESSION['devis']['totalEtageres'];
+                } else {
+                  echo '0';
+                } ?><br>
                 <em>En option</em>
               </td>
             </tr>
@@ -232,10 +256,22 @@
             </tr>
             <tr class="b_top">
               <td class="b_right">
-                <input type="checkbox" id="debarras" name="debarras" <?php if(isset($_POST['debarras']) || (isset($_SESSION['devis']['debarras']) && $_SESSION['devis']['debarras']) == 'on') echo 'checked'; ?>><label for="debarras"><b>Effets personnels à débarrasser :</b> Tri, mise en sacs, évacuation à dos d'homme et transport en déchetterie ECO-TRI.</label>
+                <b>Effets personnels à débarrasser :</b> Tri, mise en sacs, évacuation à dos d'homme et transport en déchetterie ECO-TRI.
               </td>
               <td class="tright b_right">
-                1.00<br>
+                <select name="nb_etageres">
+                  <?php
+                  for ($i=0.00; $i <= 10.00; $i++) {
+                    echo '<option value="'.$i.'"';
+                    if(isset($_POST['debarras']) && $_POST['debarras'] == $i) {
+                      echo ' selected';
+                    } elseif (isset($_SESSION['devis']['debarras']) && $_SESSION['devis']['debarras'] == $i) {
+                      echo ' selected';
+                    }
+                    echo '>'.$i.'</option>';
+                  }
+                  ?>
+                </select><br>
                 <em>M3</em>
               </td>
               <td class="tright b_right">
@@ -248,10 +284,22 @@
             </tr>
             <tr class="b_top b_bottom">
               <td class="b_right">
-                <input type="checkbox" id="effets_perso" name="effets_perso" <?php if(isset($_POST['effets_perso']) || (isset($_SESSION['devis']['effets_perso']) && $_SESSION['devis']['effets_perso']) == 'on') echo 'checked'; ?>><label for="effets_perso"><b>Effets personnels conservés :</b> Tri, déplacement et rangement dans votre cave, à la fin des travaux.</label>
+                <b>Effets personnels conservés :</b> Tri, déplacement et rangement dans votre cave, à la fin des travaux.
               </td>
               <td class="tright b_right">
-                1.00<br>
+                <select name="nb_etageres">
+                  <?php
+                  for ($i=0.00; $i <= 10.00; $i++) {
+                    echo '<option value="'.$i.'"';
+                    if(isset($_POST['effets_perso']) && $_POST['effets_perso'] == $i) {
+                      echo ' selected';
+                    } elseif (isset($_SESSION['devis']['effets_perso']) && $_SESSION['devis']['effets_perso'] == $i) {
+                      echo ' selected';
+                    }
+                    echo '>'.$i.'</option>';
+                  }
+                  ?>
+                </select><br>
                 <em>Heure</em>
               </td>
               <td class="tright b_right">
