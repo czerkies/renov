@@ -64,7 +64,7 @@ form.devis select {
 form.devis .form-group label {
   width:100%;
   font-size:1em;
-  color:#888;
+  color: #444;
   padding:0 2% 5%;
   float:left;
 }
@@ -77,22 +77,27 @@ form.devis label.type-checkbox {
 }
 form.devis input[type="checkbox"],
 form.devis label.type-checkbox {
-  margin:10px 0;
-  padding:0;
-  color:#444;
+  margin: 10px 0;
+  padding: 0;
+  color: #000;
 }
 form.devis select.surface {
   width: 75px;
 }
-table.talbeau_devis {
+table.tableau_devis {
   border-collapse: collapse;
   width: 100%;
 }
 table thead {
   color: rgb(131, 0, 0);
 }
-.talbeau_devis label {
+.tableau_devis label {
+  transition: color 250ms ease;
   cursor: pointer;
+  color: #444;
+}
+.tableau_devis input[type="checkbox"]:checked ~ label {
+  color: #000;
 }
 form.devis table select {
   margin: 0;

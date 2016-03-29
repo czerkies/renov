@@ -11,7 +11,7 @@ define('TVA', 1.10); // TVA à 10%
 
 if(isset($_POST['devis'])){
 
-  $msg = [];
+  $msg = array();
 
   if(($_POST['civilite'] === 'Madame' || $_POST['civilite'] === 'Monsieur')
   && isset($_POST['nom']) && isset($_POST['prenom'])
@@ -61,18 +61,6 @@ if(isset($_POST['devis'])){
     }
 
     if(!$msg){
-
-      //if(isset($_COOKIE)){
-
-        //foreach ($_COOKIE as $key => $value) {
-          //setCookie($key, $value, time()-3600);
-        //}
-
-      //}
-
-      //foreach ($_POST as $key => $value) {
-        //setCookie($key, $key, time()+(365*24*3600));
-      //}
 
       unset($_SESSION['devis']);
 
