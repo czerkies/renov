@@ -21,8 +21,8 @@ if(isset($_POST['devis'])){
   && $_POST['surface'] >= 1 && $_POST['surface'] <= 42 && is_numeric($_POST['surface'])
   && isset($_POST['nb_etageres']) && $_POST['nb_etageres'] >= 0
   && $_POST['nb_etageres'] <= 10 && is_numeric($_POST['nb_etageres'])
-  && isset($_POST['nb_porte']) && $_POST['nb_porte'] >= 0
-  && $_POST['nb_porte'] <= 10 && is_numeric($_POST['nb_porte'])
+  && isset($_POST['nb_portes']) && $_POST['nb_portes'] >= 0
+  && $_POST['nb_portes'] <= 10 && is_numeric($_POST['nb_portes'])
   && isset($_POST['debarras']) && $_POST['debarras'] >= 0
   && $_POST['debarras'] <= 10 && is_numeric($_POST['debarras'])
   && isset($_POST['effets_perso']) && $_POST['effets_perso'] >= 0
@@ -198,14 +198,30 @@ if(isset($_POST['devis'])){
       $totalHT += $totalEtageres;
 
       // Portes
-      $totalHT += PRIX_PORTE*$_POST['nb_porte'];;
+      $totalPortes = PRIX_PORTE*$_POST['nb_portes'];
 
-      $totalHT += PRIX_DEBARRAS*$_POST['debarras'];;
+      $_SESSION['devis']['totalPortes'] = $totalPortes;
 
-      $totalHT += PRIX_CONSERVES*$_POST['effets_perso'];;
+      $totalHT += $totalPortes;
 
+      // Debarras
+      $totalDebarras = PRIX_DEBARRAS*$_POST['debarras'];
+
+      $_SESSION['devis']['totalDebarras'] = $totalDebarras;
+
+      $totalHT += $totalDebarras;
+
+      // Conserves
+      $totalEffetsPerso = PRIX_CONSERVES*$_POST['effets_perso'];
+
+      $_SESSION['devis']['totalEffetsPerso'] = $totalEffetsPerso;
+
+      $totalHT += $totalEffetsPerso;
+
+      // Total
       $_SESSION['devis']['totalHT'] = $totalHT;
 
+      // Total TTC
       $totalTTC = $totalHT*TVA;
 
       $_SESSION['devis']['totalTTC'] = $totalTTC;

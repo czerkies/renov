@@ -2,6 +2,8 @@
 
   include_once 'functions.php';
 
+  print_r($_POST);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -188,14 +190,14 @@
               <td class="tright b_right">
                 <select name="nb_etageres">
                   <?php
-                  for ($i=0.00; $i <= 10.00; $i++) {
+                  for ($i = 0; $i <= 10; $i++) {
                     echo '<option value="'.$i.'"';
                     if(isset($_POST['nb_etageres']) && $_POST['nb_etageres'] == $i) {
                       echo ' selected';
                     } elseif (isset($_SESSION['devis']['nb_etageres']) && $_SESSION['devis']['nb_etageres'] == $i) {
                       echo ' selected';
                     }
-                    echo '>'.$i.'</option>';
+                    echo '>'.$i.'.00</option>';
                   }
                   ?>
                 </select><br>
@@ -220,16 +222,16 @@
                 <b>Bloc porte de cave métallique sur mesure</b>, trois omégas de renfort, aération basse intégrée, serrure trois points A2P*, livrée avec 3 clefs.
               </td>
               <td class="tright b_right">
-                <select name="nb_etageres">
+                <select name="nb_portes">
                   <?php
-                  for ($i=0.00; $i <= 10.00; $i++) {
+                  for ($i = 0; $i <= 10; $i++) {
                     echo '<option value="'.$i.'"';
-                    if(isset($_POST['nb_porte']) && $_POST['nb_porte'] == $i) {
+                    if(isset($_POST['nb_portes']) && $_POST['nb_portes'] == $i) {
                       echo ' selected';
-                    } elseif (isset($_SESSION['devis']['nb_porte']) && $_SESSION['devis']['nb_porte'] == $i) {
+                    } elseif (isset($_SESSION['devis']['nb_portes']) && $_SESSION['devis']['nb_portes'] == $i) {
                       echo ' selected';
                     }
-                    echo '>'.$i.'</option>';
+                    echo '>'.$i.'.00</option>';
                   }
                   ?>
                 </select><br>
@@ -239,10 +241,10 @@
                 900.00
               </td>
               <td class="tright">
-                <?php if(isset($_POST['nb_etageres'])) {
-                  echo $totalEtageres;
-                } elseif(isset($_SESSION['devis']['totalEtageres'])) {
-                  echo $_SESSION['devis']['totalEtageres'];
+                <?php if(isset($_POST['nb_portes'])) {
+                  echo $totalPortes;
+                } elseif(isset($_SESSION['devis']['nb_portes'])) {
+                  echo $_SESSION['devis']['totalPortes'];
                 } else {
                   echo '0';
                 } ?><br>
@@ -259,16 +261,16 @@
                 <b>Effets personnels à débarrasser :</b> Tri, mise en sacs, évacuation à dos d'homme et transport en déchetterie ECO-TRI.
               </td>
               <td class="tright b_right">
-                <select name="nb_etageres">
+                <select name="debarras">
                   <?php
-                  for ($i=0.00; $i <= 10.00; $i++) {
+                  for ($i = 0; $i <= 10; $i++) {
                     echo '<option value="'.$i.'"';
                     if(isset($_POST['debarras']) && $_POST['debarras'] == $i) {
                       echo ' selected';
                     } elseif (isset($_SESSION['devis']['debarras']) && $_SESSION['devis']['debarras'] == $i) {
                       echo ' selected';
                     }
-                    echo '>'.$i.'</option>';
+                    echo '>'.$i.'.00</option>';
                   }
                   ?>
                 </select><br>
@@ -278,7 +280,13 @@
                 175.00
               </td>
               <td class="tright">
-                175.00<br>
+                <?php if(isset($_POST['debarras'])) {
+                  echo $totalDebarras;
+                } elseif(isset($_SESSION['devis']['debarras'])) {
+                  echo $_SESSION['devis']['totalDebarras'];
+                } else {
+                  echo '0';
+                } ?><br>
                 <em>En option</em>
               </td>
             </tr>
@@ -287,16 +295,16 @@
                 <b>Effets personnels conservés :</b> Tri, déplacement et rangement dans votre cave, à la fin des travaux.
               </td>
               <td class="tright b_right">
-                <select name="nb_etageres">
+                <select name="effets_perso">
                   <?php
-                  for ($i=0.00; $i <= 10.00; $i++) {
+                  for ($i = 0; $i <= 10; $i++) {
                     echo '<option value="'.$i.'"';
                     if(isset($_POST['effets_perso']) && $_POST['effets_perso'] == $i) {
                       echo ' selected';
                     } elseif (isset($_SESSION['devis']['effets_perso']) && $_SESSION['devis']['effets_perso'] == $i) {
                       echo ' selected';
                     }
-                    echo '>'.$i.'</option>';
+                    echo '>'.$i.'.00</option>';
                   }
                   ?>
                 </select><br>
@@ -306,7 +314,13 @@
                 60.00
               </td>
               <td class="tright">
-                60.00<br>
+                <?php if(isset($_POST['effets_perso'])) {
+                  echo $totalEffetsPerso;
+                } elseif(isset($_SESSION['devis']['effets_perso'])) {
+                  echo $_SESSION['devis']['totalEffetsPerso'];
+                } else {
+                  echo '0';
+                } ?><br>
                 <em>En option</em>
               </td>
             </tr>
