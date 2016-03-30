@@ -2,8 +2,6 @@
 
   include_once 'functions.php';
 
-  print_r($_POST);
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -213,7 +211,7 @@
                   echo $_SESSION['devis']['totalEtageres'];
                 } else {
                   echo '0';
-                } ?><br>
+                } ?>.00<br>
                 <em>En option</em>
               </td>
             </tr>
@@ -247,7 +245,7 @@
                   echo $_SESSION['devis']['totalPortes'];
                 } else {
                   echo '0';
-                } ?><br>
+                } ?>.00<br>
                 <em>En option</em>
               </td>
             </tr>
@@ -286,7 +284,7 @@
                   echo $_SESSION['devis']['totalDebarras'];
                 } else {
                   echo '0';
-                } ?><br>
+                } ?>.00<br>
                 <em>En option</em>
               </td>
             </tr>
@@ -320,55 +318,52 @@
                   echo $_SESSION['devis']['totalEffetsPerso'];
                 } else {
                   echo '0';
-                } ?><br>
+                } ?>.00<br>
                 <em>En option</em>
               </td>
             </tr>
             <tr>
-              <td></td>
               <td colspan="2" class="tright">
                 <b>Total HT</b>
               </td>
-              <td class="tright">
+              <td colspan="2" class="tright">
                 <b><?php if(isset($totalHT)) {
                   echo $totalHT;
                 } elseif(isset($_SESSION['devis']['totalHT'])) {
                   echo $_SESSION['devis']['totalHT'];
                 } else {
-                  echo 0;
-                } ?> €</b>
+                  echo '0';
+                } ?>.00 €</b>
               </td>
             </td>
             <tr>
-              <td></td>
               <td colspan="2" class="tright">
                 TVA 10.00%
               </td>
-              <td class="tright">
+              <td colspan="2" class="tright">
                 <?php if(isset($totalAjoutTVA)) {
                   echo $totalAjoutTVA;
                 } elseif(isset($_SESSION['devis']['totalAjoutTVA'])) {
                   echo $_SESSION['devis']['totalAjoutTVA'];
                 } else {
-                  echo 0;
+                  echo '0';
                 }
-                ?> €
+                ?>.00 €
               </td>
             </tr>
             <tr>
-              <td></td>
               <td colspan="2" class="tright">
                 <b>Montant TTC</b>
               </td>
-              <td class="tright">
+              <td colspan="2" class="tright">
                 <b><?php if(isset($totalTTC)) {
                   echo $totalTTC;
                 } elseif(isset($_SESSION['devis']['totalTTC'])) {
                   echo $_SESSION['devis']['totalTTC'];
                 } else {
-                  echo 0;
+                  echo '0';
                 }
-                ?> €</b>
+                ?>.00 €</b>
               </td>
             </tr>
           </tbody>
