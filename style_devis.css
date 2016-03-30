@@ -91,27 +91,12 @@ table.tableau_devis {
 table thead {
   color: rgb(131, 0, 0);
 }
-.tableau_devis label {
-  transition: color 250ms ease;
-  cursor: pointer;
-  color: #444;
-}
-.tableau_devis input[type="checkbox"]:checked ~ label {
-  color: #000;
-}
 form.devis table select {
   margin: 0;
 }
 table td,
 table th {
   padding: 10px;
-}
-.w_100,
-.w_50,
-.w_20,
-.w_15,
-.w_10 {
-  /*float: left;*/
 }
 .w_100,
 .line {
