@@ -70,7 +70,7 @@ if(isset($_POST['devis'])){
 
       unset($_SESSION['devis']);
 
-      foreach ($_POST as $key => $value) {
+      foreach ($_POST as $key => $value){
         $_SESSION['devis'][$key] = $value;
       }
 
