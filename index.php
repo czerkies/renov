@@ -11,99 +11,81 @@
     <link rel="stylesheet" type="text/css" href="style_devis.css">
   </head>
   <body>
-    <form class="devis" action="#devis" method="post" id="devis">
     <div class="devis_rc">
+      <form class="devis" action="#devis" method="post" id="devis">
       <div class="contact">
-        <div class="coor_renov">
-          <p class="contact_name">Votre contact : Daniel SINNESAL</p>
-          <p class="contact_tel">Tel. : 01 53 58 91 85</p>
-          <p class="contact_title">Devis estimatif</p>
-          <p class="contact_welcome">
-            Pour voir votre devis vous devez tout d'abord remplire vos coordonnées, sélectionner votre surface et ajouter des options.
-          </p>
+        <p>Pour consulter votre devis, merci de compléter vos coordonnées.</p>
+        <div class="form-group">
+          <select id="civilite" name="civilite">
+            <option disabled>Choisissez votre civilite</option>
+            <option value="Madame" <?php if((isset($_POST['civilite']) && $_POST['civilite'] === 'Madame')
+            || (isset($_SESSION['devis']['civilite']) && $_SESSION['devis']['civilite'] === 'Madame')) echo "selected"; ?>>Madame</option>
+            <option value="Monsieur" <?php if((isset($_POST['civilite']) && $_POST['civilite'] === 'Monsieur')
+            || (isset($_SESSION['devis']['civilite']) && $_SESSION['devis']['civilite'] === 'Madame')) echo "selected"; ?>>Monsieur</option>
+          </select>
         </div>
-        <div class="form_coordonnees">
-          <p class="contact_name">Vos Coordonnées :</p>
-          <div class="form-group">
-            <select id="civilite" name="civilite">
-              <option disabled>Choisissez votre civilite</option>
-              <option value="Madame" <?php if((isset($_POST['civilite']) && $_POST['civilite'] === 'Madame')
-              || (isset($_SESSION['devis']['civilite']) && $_SESSION['devis']['civilite'] === 'Madame')) echo "selected"; ?>>Madame</option>
-              <option value="Monsieur" <?php if((isset($_POST['civilite']) && $_POST['civilite'] === 'Monsieur')
-              || (isset($_SESSION['devis']['civilite']) && $_SESSION['devis']['civilite'] === 'Madame')) echo "selected"; ?>>Monsieur</option>
-            </select>
-          </div>
-          <?php if(isset($msg['erreur'])) echo $msg['erreur']; ?>
-          <div class="form-group">
-            <input type="text" id="nom" name="nom" title="Nom" placeholder="Nom" value="<?php
-            if(isset($_POST['nom'])) {
-              echo $_POST['nom'];
-            } elseif(isset($_SESSION['devis']['nom'])) {
-              echo $_SESSION['devis']['nom'];
-            } ?>" required>
-            <?php if(isset($msg['nom'])) echo $msg['nom']; ?>
-          </div>
-          <div class="form-group">
-            <input type="text" id="prenom" name="prenom" title="Prénom" placeholder="Prénom" value="<?php if(isset($_POST['prenom'])) {
-              echo $_POST['prenom'];
-            } elseif(isset($_SESSION['devis']['prenom'])) {
-              echo $_SESSION['devis']['prenom'];
-            } ?>" required>
-            <?php if(isset($msg['prenom'])) echo $msg['prenom']; ?>
-          </div>
-          <div class="form-group">
-            <input type="text" id="adresse" name="adresse" title="Adresse" placeholder="Adresse" value="<?php if(isset($_POST['adresse'])) {
-              echo $_POST['adresse'];
-            } elseif(isset($_SESSION['devis']['adresse'])) {
-              echo $_SESSION['devis']['adresse'];
-            } ?>" required>
-            <?php if(isset($msg['adresse'])) echo $msg['adresse']; ?>
-          </div>
-          <div class="form-group">
-            <input type="text" id="cp" name="cp" title="Code Postal" placeholder="Code Postal" value="<?php
-            if(isset($_POST['cp'])) {
-              echo $_POST['cp'];
-            } elseif(isset($_SESSION['devis']['cp'])) {
-              echo $_SESSION['devis']['cp'];
-            } ?>" required>
-            <?php if(isset($msg['cp'])) echo $msg['cp']; ?>
-          </div>
-          <div class="form-group">
-            <input type="text" id="ville" name="ville" title="Ville" placeholder="Ville" value="<?php
-            if(isset($_POST['ville'])) {
-              echo $_POST['ville'];
-            } elseif(isset($_SESSION['devis']['ville'])) {
-              echo $_SESSION['devis']['ville'];
-            } ?>" required>
-            <?php if(isset($msg['ville'])) echo $msg['ville']; ?>
-          </div>
-          <div class="form-group">
-            <input type="tel" id="tel" name="tel" title="Téléphone" placeholder="Téléphone" value="<?php
-            if(isset($_POST['tel'])) {
-              echo $_POST['tel'];
-            } elseif(isset($_SESSION['devis']['tel'])) {
-              echo $_SESSION['devis']['tel'];
-            } ?>" required>
-            <?php if(isset($msg['tel'])) echo $msg['tel']; ?>
-          </div>
-          <div class="form-group">
-            <input type="email" id="email" name="email" title="E-mail" placeholder="E-mail" value="<?php
-            if(isset($_POST['email'])) {
-              echo $_POST['email'];
-            } elseif(isset($_SESSION['devis']['email'])) {
-              echo $_SESSION['devis']['email'];
-            } ?>" required>
-            <?php if(isset($msg['email'])) echo $msg['email']; ?>
-          </div>
+        <?php if(isset($msg['erreur'])) echo $msg['erreur']; ?>
+        <div class="form-group">
+          <input type="text" id="nom" name="nom" title="Nom" placeholder="Nom" value="<?php
+          if(isset($_POST['nom'])) {
+            echo $_POST['nom'];
+          } elseif(isset($_SESSION['devis']['nom'])) {
+            echo $_SESSION['devis']['nom'];
+          } ?>" required>
+          <?php if(isset($msg['nom'])) echo $msg['nom']; ?>
+        </div>
+        <div class="form-group large">
+          <input type="text" id="adresse" name="adresse" title="Adresse" placeholder="Adresse" value="<?php if(isset($_POST['adresse'])) {
+            echo stripslashes($_POST['adresse']);
+          } elseif(isset($_SESSION['devis']['adresse'])) {
+            echo stripslashes($_SESSION['devis']['adresse']);
+          } ?>" required>
+          <?php if(isset($msg['adresse'])) echo $msg['adresse']; ?>
+        </div>
+        <div class="form-group">
+          <input type="text" id="cp" name="cp" title="Code Postal" placeholder="Code Postal" value="<?php
+          if(isset($_POST['cp'])) {
+            echo $_POST['cp'];
+          } elseif(isset($_SESSION['devis']['cp'])) {
+            echo $_SESSION['devis']['cp'];
+          } ?>" required>
+          <?php if(isset($msg['cp'])) echo $msg['cp']; ?>
+        </div>
+        <div class="form-group">
+          <input type="text" id="ville" name="ville" title="Ville" placeholder="Ville" value="<?php
+          if(isset($_POST['ville'])) {
+            echo $_POST['ville'];
+          } elseif(isset($_SESSION['devis']['ville'])) {
+            echo $_SESSION['devis']['ville'];
+          } ?>" required>
+          <?php if(isset($msg['ville'])) echo $msg['ville']; ?>
+        </div>
+        <div class="form-group">
+          <input type="tel" id="tel" name="tel" title="Téléphone" placeholder="Téléphone" value="<?php
+          if(isset($_POST['tel'])) {
+            echo $_POST['tel'];
+          } elseif(isset($_SESSION['devis']['tel'])) {
+            echo $_SESSION['devis']['tel'];
+          } ?>" required>
+          <?php if(isset($msg['tel'])) echo $msg['tel']; ?>
+        </div>
+        <div class="form-group">
+          <input type="email" id="email" name="email" title="E-mail" placeholder="E-mail" value="<?php
+          if(isset($_POST['email'])) {
+            echo $_POST['email'];
+          } elseif(isset($_SESSION['devis']['email'])) {
+            echo $_SESSION['devis']['email'];
+          } ?>" required>
+          <?php if(isset($msg['email'])) echo $msg['email']; ?>
         </div>
       </div>
         <table class="tableau_devis">
           <thead>
             <tr>
-              <th class="w_70 tcenter">
+              <th class="w_65 tcenter">
                 Description
               </th>
-              <th class="w_10 tcenter">
+              <th class="w_15 tcenter">
                 Qte
               </th>
               <th class="w_10 tcenter">
@@ -145,30 +127,29 @@
                 Fourniture et pose de tringles, sous plafond, utilisables en portant pour vêtements.
               </td>
               <td class="tright b_right">
-                1.00<br>
-                <em>ENS</em>
+                1.00 <em>ENS</em>
               </td>
               <td class="tright b_right">
                 <?php
                   if(isset($prixCave)) {
-                    echo $prixCave.' €';
+                    echo $prixCave;
                   } elseif(isset($_SESSION['devis']['prixCave'])){
-                    echo $_SESSION['devis']['prixCave'].' €';
+                    echo $_SESSION['devis']['prixCave'];
                   } else {
-                    echo "Validez le devis";
+                    echo '0';
                   }
-                ?>
+                ?>.00
               </td>
               <td class="tright">
                 <?php
                   if(isset($prixCave)) {
-                    echo $prixCave.' €';
+                    echo $prixCave;
                   } elseif(isset($_SESSION['devis']['prixCave'])){
-                    echo $_SESSION['devis']['prixCave'].' €';
+                    echo $_SESSION['devis']['prixCave'];
                   } else {
-                    echo "Validez le devis";
+                    echo '0';
                   }
-                ?>
+                ?>.00
               </td>
             </tr>
             <tr>
@@ -178,7 +159,7 @@
             </tr>
             <tr>
               <td class="b_top" colspan="4">
-                NOTRE OFFRE D'AMÉNAGEMENTS EN OPTION
+                NOTRE OFFRE D'AMÉNAGEMENTS COMPLÉMENTAIRES
               </td>
             </tr>
             <tr class="b_top">
@@ -198,8 +179,7 @@
                     echo '>'.$i.'.00</option>';
                   }
                   ?>
-                </select><br>
-                <em>ML</em>
+                </select> <em>ML</em>
               </td>
               <td class="tright b_right">
                 45.00
@@ -211,8 +191,7 @@
                   echo $_SESSION['devis']['totalEtageres'];
                 } else {
                   echo '0';
-                } ?>.00<br>
-                <em>En option</em>
+                } ?>.00
               </td>
             </tr>
             <tr class="b_top">
@@ -232,21 +211,19 @@
                     echo '>'.$i.'.00</option>';
                   }
                   ?>
-                </select><br>
-                <em>Ens</em>
+                </select> <em>Ens</em>
               </td>
               <td class="tright b_right">
                 900.00
               </td>
               <td class="tright">
-                <?php if(isset($_POST['nb_portes'])) {
+                <?php if(isset($totalPortes)) {
                   echo $totalPortes;
                 } elseif(isset($_SESSION['devis']['nb_portes'])) {
                   echo $_SESSION['devis']['totalPortes'];
                 } else {
                   echo '0';
-                } ?>.00<br>
-                <em>En option</em>
+                } ?>.00
               </td>
             </tr>
             <tr>
@@ -271,21 +248,19 @@
                     echo '>'.$i.'.00</option>';
                   }
                   ?>
-                </select><br>
-                <em>M3</em>
+                </select> <em>M3</em>
               </td>
               <td class="tright b_right">
                 175.00
               </td>
               <td class="tright">
-                <?php if(isset($_POST['debarras'])) {
+                <?php if(isset($totalDebarras)) {
                   echo $totalDebarras;
                 } elseif(isset($_SESSION['devis']['debarras'])) {
                   echo $_SESSION['devis']['totalDebarras'];
                 } else {
                   echo '0';
-                } ?>.00<br>
-                <em>En option</em>
+                } ?>.00
               </td>
             </tr>
             <tr class="b_top b_bottom">
@@ -305,21 +280,19 @@
                     echo '>'.$i.'.00</option>';
                   }
                   ?>
-                </select><br>
-                <em>Heure</em>
+                </select> <em>Heure</em>
               </td>
               <td class="tright b_right">
                 60.00
               </td>
               <td class="tright">
-                <?php if(isset($_POST['effets_perso'])) {
+                <?php if(isset($totalEffetsPerso)) {
                   echo $totalEffetsPerso;
                 } elseif(isset($_SESSION['devis']['effets_perso'])) {
                   echo $_SESSION['devis']['totalEffetsPerso'];
                 } else {
                   echo '0';
-                } ?>.00<br>
-                <em>En option</em>
+                } ?>.00
               </td>
             </tr>
             <tr>

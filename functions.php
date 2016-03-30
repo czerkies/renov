@@ -14,7 +14,7 @@ if(isset($_POST['devis'])){
   $msg = array();
 
   if(($_POST['civilite'] === 'Madame' || $_POST['civilite'] === 'Monsieur')
-  && isset($_POST['nom']) && isset($_POST['prenom'])
+  && isset($_POST['nom'])
   && isset($_POST['ville']) && isset($_POST['cp'])
   && isset($_POST['adresse']) && isset($_POST['tel'])
   && isset($_POST['email']) && isset($_POST['surface'])
@@ -31,10 +31,6 @@ if(isset($_POST['devis'])){
 
     if(empty($_POST['nom']) || strlen($_POST['nom']) < 2){
       $msg['nom'] = '<label for="nom">Veuillez saisir un Nom.</label>';
-    }
-
-    if(empty($_POST['prenom']) || strlen($_POST['prenom']) < 2){
-      $msg['prenom'] = '<label for="prenom">Veuillez saisir un Prénom.</label>';
     }
 
     if(empty($_POST['ville']) || strlen($_POST['ville']) < 2){

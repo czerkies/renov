@@ -4,41 +4,22 @@
 .devis_rc {
   font-family:helvetica, arial;
 }
-.contact,
-.coor_renov,
-.form_coordonnees {
-  display: inline-block;
-  width: 100%;
-}
-.contact {
-  margin: 50px 0;
-}
-.contact .contact_name,
-.contact .contact_tel {
-  width: 100%;
-  font-size: 1em;
-}
-.contact .contact_name,
-.contact .contact_title {
-  font-weight: 800;
-}
-.contact .contact_title,
-.contact .contact_welcome {
-  margin: 2em 0;
-}
 form.devis{
-  width:100%;
-  padding:1%;
+  width: 100%;
+  padding: 1%;
 }
-form.devis input,
-form.devis select{
-  width:100%;
-  font-size:1.25em;
-  margin:10px 0;
-  padding:2%;
-  border-radius:4px;
-  border:1px solid rgb(131, 0, 0);
-  color:#111;
+form.devis .contact input,
+form.devis .contact select {
+  width: 100%;
+  font-size: 1.25em;
+  margin: 10px 0;
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid rgb(131, 0, 0);
+  color: #111;
+}
+form.devis .tableau_devis select {
+  width: 70px;
 }
 form.devis input[type="submit"]{
   width:100%;
@@ -50,12 +31,12 @@ form.devis input[type="submit"]{
   cursor: pointer;
   box-shadow: none;
 }
-form.devis input[type="submit"]:hover{
+form.devis input[type="submit"]:hover {
   color: #fff;
   background: rgb(131, 0, 0);
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.75);
 }
-form.devis input[type="submit"]:active{
+form.devis input[type="submit"]:active {
   box-shadow: none;
 }
 form.devis select {
@@ -102,6 +83,9 @@ table th {
 .line {
   width: 100%;
 }
+.w_65 {
+  widows: 65%;
+}
 .w_50 {
   width: 50%;
 }
@@ -110,6 +94,9 @@ table th {
 }
 .w_15 {
   width: 15%;
+}
+.w_10 {
+  width: 10%;
 }
 .w_10 {
   width: 10%;
@@ -145,16 +132,14 @@ table th {
     font-size: 1em;
   }
 
-  .coor_renov,
-  .form_coordonnees {
-    float: left;
-    width: 50%;
-  }
-
   form.devis .form-group {
     width: 48%;
     margin: auto 1%;
     float: left;
+  }
+
+  form.devis .form-group.large {
+    width: 98%;
   }
 
   form.devis .form-group label {
