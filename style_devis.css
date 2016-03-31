@@ -1,3 +1,6 @@
+body {
+  margin: 0;
+}
 * {
   box-sizing:border-box;
 }
@@ -8,10 +11,14 @@ form.devis{
   width: 100%;
   padding: 1%;
 }
+.contact {
+  display: inline-block;
+  width: 100%;
+}
 form.devis .contact input,
 form.devis .contact select {
   width: 100%;
-  font-size: 1.25em;
+  font-size: 2em;
   margin: 10px 0;
   padding: 5px;
   border-radius: 4px;
@@ -23,11 +30,14 @@ form.devis .tableau_devis select {
 }
 form.devis input[type="submit"]{
   width:100%;
+  border: 1px solid rgb(131, 0, 0);
+  border-radius: 4px;
   color: rgb(131, 0, 0);
   background: #fff;
   transition: color 250ms ease, background 250ms ease, box-shadow 250ms ease;
   letter-spacing: 2px;
   font-size: 2em;
+  padding: 10px;
   cursor: pointer;
   box-shadow: none;
 }
@@ -127,8 +137,8 @@ table th {
     margin: auto;
   }
 
-  form.devis input,
-  form.devis select {
+  form.devis .contact input,
+  form.devis .contact select {
     font-size: 1em;
   }
 
