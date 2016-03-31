@@ -27,6 +27,7 @@ form.devis .contact select {
 }
 form.devis .tableau_devis select {
   width: 70px;
+  font-size: 1em;
 }
 form.devis input[type="submit"]{
   width:100%;
