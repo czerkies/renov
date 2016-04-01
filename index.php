@@ -78,6 +78,24 @@
           } ?>" required>
           <?php if(isset($msg['email'])) echo $msg['email']; ?>
         </div>
+        <div class="form-group">
+          <input type="number" id="surface" name="surface" title="Surface de votre cave en M2" placeholder="Surface de votre cave en M2" value="<?php
+          if(isset($_POST['surface'])) {
+            echo $_POST['surface'];
+          } elseif(isset($_SESSION['devis']['surface'])) {
+            echo $_SESSION['devis']['surface'];
+          } ?>" required>
+          <?php if(isset($msg['surface'])) echo $msg['surface']; ?>
+        </div>
+        <div class="form-group">
+          <input type="number" id="hauteur" name="hauteur" title="Hauteur de votre cave en CM" placeholder="Hauteur de votre cave en CM" value="<?php
+          if(isset($_POST['hauteur'])) {
+            echo $_POST['hauteur'];
+          } elseif(isset($_SESSION['devis']['hauteur'])) {
+            echo $_SESSION['devis']['hauteur'];
+          } ?>" required>
+          <?php if(isset($msg['hauteur'])) echo $msg['hauteur']; ?>
+        </div>
       </div>
         <table class="tableau_devis">
           <thead>
@@ -99,21 +117,9 @@
           <tbody>
             <tr>
               <td class="b_top b_bottom" colspan="4">
-                ENSEMBLE CAV'BOX POUR UNE CAVE DE
-                <select class="surface" name="surface">
-                  <?php for($a = 1; $a < 33; $a++) {
-                    echo '<option value="'.$a.'"';
-                    if(isset($_POST['surface']) && $_POST['surface'] == $a) {
-                      echo ' selected';
-                    } elseif(isset($_SESSION['devis']['surface']) && $_SESSION['devis']['surface'] == $a) {
-                      echo ' selected';
-                    }
-                    echo '>'.$a.'</option>';
-                  } ?>
-                  <option value="40">40</option>
-                  <option value="42">42</option>
-                </select>
-                MÈTRE(S) CARRÉS
+                <?php if(isset($cubes)) { ?>
+                  ENSEMBLE CAV'BOX POUR UNE CAVE DE <?= $cubes; ?>  MÈTRE(S) CUBES :
+                <?php } ?>
               </td>
             </tr>
             <tr class="b_bottom">
@@ -164,10 +170,10 @@
             </tr>
             <tr class="b_top">
               <td class="b_right">
-                <b>Étagère sur mesure</b>, profondeur 35 cm, posée sur un ensemble de fixation, permettant le réglage en hauteur.
+                <label for="nb_etageres"><b>Étagère sur mesure</b>, profondeur 35 cm, posée sur un ensemble de fixation, permettant le réglage en hauteur.</label>
               </td>
               <td class="tright b_right">
-                <select name="nb_etageres">
+                <select id="nb_etageres" name="nb_etageres">
                   <?php
                   for ($i = 0; $i <= 10; $i++) {
                     echo '<option value="'.$i.'"';
@@ -196,10 +202,10 @@
             </tr>
             <tr class="b_top">
               <td class="b_right">
-                <b>Bloc porte de cave métallique sur mesure</b>, trois omégas de renfort, aération basse intégrée, serrure trois points A2P*, livrée avec 3 clefs.
+                <label for="nb_portes"><b>Bloc porte de cave métallique sur mesure</b>, trois omégas de renfort, aération basse intégrée, serrure trois points A2P*, livrée avec 3 clefs.</label>
               </td>
               <td class="tright b_right">
-                <select name="nb_portes">
+                <select id="nb_portes" name="nb_portes">
                   <?php
                   for ($i = 0; $i <= 10; $i++) {
                     echo '<option value="'.$i.'"';
@@ -233,10 +239,10 @@
             </tr>
             <tr class="b_top">
               <td class="b_right">
-                <b>Effets personnels à débarrasser :</b> Tri, mise en sacs, évacuation à dos d'homme et transport en déchetterie ECO-TRI.
+                <label for="debarras"><b>Effets personnels à débarrasser :</b> Tri, mise en sacs, évacuation à dos d'homme et transport en déchetterie ECO-TRI.</label>
               </td>
               <td class="tright b_right">
-                <select name="debarras">
+                <select id="debarras" name="debarras">
                   <?php
                   for ($i = 0; $i <= 10; $i++) {
                     echo '<option value="'.$i.'"';
@@ -265,10 +271,10 @@
             </tr>
             <tr class="b_top b_bottom">
               <td class="b_right">
-                <b>Effets personnels conservés :</b> Tri, déplacement et rangement dans votre cave, à la fin des travaux.
+                <label for="effets_perso"><b>Effets personnels conservés :</b> Tri, déplacement et rangement dans votre cave, à la fin des travaux.</label>
               </td>
               <td class="tright b_right">
-                <select name="effets_perso">
+                <select id="effets_perso" name="effets_perso">
                   <?php
                   for ($i = 0; $i <= 10; $i++) {
                     echo '<option value="'.$i.'"';

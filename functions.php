@@ -18,6 +18,7 @@ if(isset($_POST['devis'])){
   && isset($_POST['ville']) && isset($_POST['cp'])
   && isset($_POST['adresse']) && isset($_POST['tel'])
   && isset($_POST['email']) && isset($_POST['surface'])
+  && isset($_POST['hauteur']) // @TODO Remettre par deux les isset();
   && $_POST['surface'] >= 1 && $_POST['surface'] <= 42 && is_numeric($_POST['surface'])
   && isset($_POST['nb_etageres']) && $_POST['nb_etageres'] >= 0
   && $_POST['nb_etageres'] <= 10 && is_numeric($_POST['nb_etageres'])
@@ -185,6 +186,11 @@ if(isset($_POST['devis'])){
       $prixCave = $totalHT;
 
       $_SESSION['devis']['prixCave'] = $prixCave;
+
+      // Cubes de la cave
+      $cubes = $_POST['surface']*$_POST['hauteur'];
+
+      $_SESSION['devis']['cubes'] = $cubes;
 
       // Etageres
       $totalEtageres = PRIX_ETAGERE*$_POST['nb_etageres'];
