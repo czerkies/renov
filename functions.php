@@ -19,7 +19,6 @@ if(isset($_POST['devis'])){
   && isset($_POST['adresse']) && isset($_POST['tel'])
   && isset($_POST['email']) && isset($_POST['surface'])
   && isset($_POST['hauteur']) // @TODO Remettre par deux les isset();
-  && $_POST['surface'] >= 1 && $_POST['surface'] <= 42 && is_numeric($_POST['surface'])
   && isset($_POST['nb_etageres']) && $_POST['nb_etageres'] >= 0
   && $_POST['nb_etageres'] <= 10 && is_numeric($_POST['nb_etageres'])
   && isset($_POST['nb_portes']) && $_POST['nb_portes'] >= 0
@@ -63,9 +62,22 @@ if(isset($_POST['devis'])){
       $msg['email'] = '<label for="email">Veuillez saisir une adresse E-mail valide.</label>';
     }
 
+    if(empty($_POST['surface'])){
+      $msg['surface'] = '<label for="surface">Veuillez saisir une Surface.</label>';
+    }elseif($_POST['surface'] <= 0 || $_POST['surface'] > 45 || !is_numeric($_POST['surface'])){
+      $msg['surface'] = '<label for="surface">Surface entre 1 et 45 m2.</label>';
+    }
+
+    if(empty($_POST['hauteur'])){
+      $msg['hauteur'] = '<label for="hauteur">Veuillez saisir une Hauteur.</label>';
+    }elseif($_POST['hauteur'] <= 0 || $_POST['hauteur'] > 10 || !is_numeric($_POST['hauteur'])){
+      $msg['hauteur'] = '<label for="hauteur">Hauteur entre 1 et 10.</label>';
+    }
+
+
     if(!$msg){
 
-      unset($_SESSION['devis']);
+      if(isset($_SESSION['devis'])) unset($_SESSION['devis']);
 
       foreach ($_POST as $key => $value){
         $_SESSION['devis'][$key] = $value;
@@ -235,6 +247,8 @@ if(isset($_POST['devis'])){
     }
 
   } else {
+
     $msg['erreur'] = 'Une erreur est survenue.';
+
   }
 }

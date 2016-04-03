@@ -1,6 +1,10 @@
 <?php
 
-  include_once 'functions.php';
+/*
+    Template Name: Devis Renov
+*/
+
+include_once 'functions.php';
 
 ?>
 <!DOCTYPE html>
@@ -79,7 +83,7 @@
           <?php if(isset($msg['email'])) echo $msg['email']; ?>
         </div>
         <div class="form-group">
-          <input type="number" id="surface" name="surface" title="Surface de votre cave en M2" placeholder="Surface de votre cave en M2" value="<?php
+          <input type="number" min="1" max="45" step="0.01" id="surface" name="surface" title="Surface de votre cave en M2" placeholder="Surface de votre cave en M2" value="<?php
           if(isset($_POST['surface'])) {
             echo $_POST['surface'];
           } elseif(isset($_SESSION['devis']['surface'])) {
@@ -88,7 +92,7 @@
           <?php if(isset($msg['surface'])) echo $msg['surface']; ?>
         </div>
         <div class="form-group">
-          <input type="number" id="hauteur" name="hauteur" title="Hauteur de votre cave en CM" placeholder="Hauteur de votre cave en CM" value="<?php
+          <input type="number" min="1" max="10" step="0.01" id="hauteur" name="hauteur" title="Hauteur de votre cave en CM" placeholder="Hauteur de votre cave en CM" value="<?php
           if(isset($_POST['hauteur'])) {
             echo $_POST['hauteur'];
           } elseif(isset($_SESSION['devis']['hauteur'])) {
@@ -117,8 +121,13 @@
           <tbody>
             <tr>
               <td class="b_top b_bottom" colspan="4">
-                <?php if(isset($cubes)) { ?>
-                  ENSEMBLE CAV'BOX POUR UNE CAVE DE <?= $cubes; ?>  MÈTRE(S) CUBES :
+                ENSEMBLE CAV'BOX
+                <?php if(isset($cubes) || isset($_SESSION['devis']['cubes'])) { ?>
+                  POUR UNE CAVE DE <?php if(isset($cubes)) {
+                    echo $cubes;
+                  } else {
+                    echo $_SESSION['devis']['cubes'];
+                  } ?> MÈTRE(S) CUBES COMPRENANT :
                 <?php } ?>
               </td>
             </tr>
