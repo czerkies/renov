@@ -21,9 +21,11 @@ include_once 'functions.php';
         <p>Pour consulter votre devis, merci de compléter vos coordonnées.</p>
         <?php
         if(!empty($msg['devis'])) {
+          echo '<div class="errors">';
           foreach ($msg['devis'] as $key => $value) {
             echo $msg['devis'][$key].'<br>';
           }
+          echo '</div>';
         }
         ?>
         <div class="form-group">
@@ -176,9 +178,14 @@ include_once 'functions.php';
                 NOTRE OFFRE D'AMÉNAGEMENTS COMPLÉMENTAIRES
               </td>
             </tr>
+            <tr>
+              <td class="b_top" colspan="4">
+                AMÉNAGEMENTS INTÉRIEURS :
+              </td>
+            </tr>
             <tr class="b_top">
               <td class="b_right">
-                <label for="nb_etageres"><b>Étagère sur mesure</b>, profondeur 35 cm, posée sur un ensemble de fixation, permettant le réglage en hauteur.</label>
+                <label for="nb_etageres"><b>Linéaire d'étagère sur mesure</b>, profondeur 35 cm, posée sur un ensemble de fixation, permettant le réglage en hauteur.</label>
               </td>
               <td class="tright b_right">
                 <select id="nb_etageres" name="nb_etageres">
@@ -206,6 +213,11 @@ include_once 'functions.php';
                 } else {
                   echo '0';
                 } ?>.00
+              </td>
+            </tr>
+            <tr>
+              <td class="b_top" colspan="4">
+                BLOC PORTE :
               </td>
             </tr>
             <tr class="b_top">
@@ -242,7 +254,7 @@ include_once 'functions.php';
             </tr>
             <tr>
               <td class="b_top" colspan="4">
-                SERVICE DE DÉBARRAS
+                DÉBARRAS :
               </td>
             </tr>
             <tr class="b_top">
@@ -272,38 +284,6 @@ include_once 'functions.php';
                   echo $totalDebarras;
                 } elseif(isset($_SESSION['devis']['debarras'])) {
                   echo $_SESSION['devis']['totalDebarras'];
-                } else {
-                  echo '0';
-                } ?>.00
-              </td>
-            </tr>
-            <tr class="b_top b_bottom">
-              <td class="b_right">
-                <label for="effets_perso"><b>Effets personnels conservés :</b> Tri, déplacement et rangement dans votre cave, à la fin des travaux.</label>
-              </td>
-              <td class="tright b_right">
-                <select id="effets_perso" name="effets_perso">
-                  <?php
-                  for ($i = 0; $i <= 10; $i++) {
-                    echo '<option value="'.$i.'"';
-                    if(isset($_POST['effets_perso']) && $_POST['effets_perso'] == $i) {
-                      echo ' selected';
-                    } elseif (isset($_SESSION['devis']['effets_perso']) && $_SESSION['devis']['effets_perso'] == $i) {
-                      echo ' selected';
-                    }
-                    echo '>'.$i.'.00</option>';
-                  }
-                  ?>
-                </select> <em>Heure</em>
-              </td>
-              <td class="tright b_right">
-                60.00
-              </td>
-              <td class="tright">
-                <?php if(isset($totalEffetsPerso)) {
-                  echo $totalEffetsPerso;
-                } elseif(isset($_SESSION['devis']['effets_perso'])) {
-                  echo $_SESSION['devis']['totalEffetsPerso'];
                 } else {
                   echo '0';
                 } ?>.00

@@ -3,8 +3,8 @@
 session_start();
 
 define('PRIX_ETAGERE', 45); // Etagère à 45€
-define('PRIX_PORTE', 900); // Porte à 900 €
-define('PRIX_DEBARRAS', 175); // Debarras 175 €
+define('PRIX_PORTE', 990); // Porte à 990 €
+define('PRIX_DEBARRAS', 275); // Debarras 275 €
 define('PRIX_CONSERVES', 60); // Affaire conservés 60€
 
 define('TVA', 1.10); // TVA à 10%
@@ -33,8 +33,8 @@ if(isset($_POST['devis'])){
       $msg['devis']['nom'] = '<label for="nom">Veuillez saisir un Nom.</label>';
     }
 
-    if(empty($_POST['ville']) || strlen($_POST['ville']) < 2){
-      $msg['devis']['ville'] = '<label for="ville">Veuillez saisir une Ville.</label>';
+    if(empty($_POST['adresse']) || strlen($_POST['adresse']) < 2){
+      $msg['devis']['adresse'] = '<label for="adresse">Veuillez saisir une Adresse.</label>';
     }
 
     if(empty($_POST['cp'])){
@@ -43,8 +43,8 @@ if(isset($_POST['devis'])){
       $msg['devis']['cp'] = '<label for="cp">Veuillez saisir un Code Postal valide.</label>';
     }
 
-    if(empty($_POST['adresse']) || strlen($_POST['adresse']) < 2){
-      $msg['devis']['adresse'] = '<label for="adresse">Veuillez saisir une Adresse.</label>';
+    if(empty($_POST['ville']) || strlen($_POST['ville']) < 2){
+      $msg['devis']['ville'] = '<label for="ville">Veuillez saisir une Ville.</label>';
     }
 
     $search = array('-', ' ', '.', '+');

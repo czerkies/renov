@@ -15,6 +15,17 @@ form.devis{
   display: inline-block;
   width: 100%;
 }
+.contact .errors {
+  width: 98%;
+  margin: 25px 1%;
+  padding: 1%;
+  border: 1px solid red;
+  border-radius: 4px;
+  color: red;
+}
+.contact .errors label {
+  cursor: pointer;
+}
 form.devis .contact input,
 form.devis .contact select {
   width: 100%;
