@@ -122,7 +122,7 @@ include_once 'functions.php';
           <tbody>
             <tr>
               <td class="b_top b_bottom" colspan="4">
-                ENSEMBLE CAV'BOX
+                CAV'BOX SUR MESURE
                 <?php if(isset($cubes) || isset($_SESSION['devis']['cubes'])) { ?>
                   POUR UNE CAVE DE <?php if(isset($cubes)) {
                     echo $cubes;
@@ -134,13 +134,12 @@ include_once 'functions.php';
             </tr>
             <tr class="b_bottom">
               <td class="b_right">
-                Mise en oeuvre d'un plancher isolant, avec revêtement pour un entretien facile.<br>
+                Mise en oeuvre d'un sol isolant, avec revêtement pour un entretien facile.<br>
                 Mise en oeuvre d'un ensemble mural isolant, sur mesure.<br>
                 Mise en oeuvre d'un plafond isolant, sur mesure.<br>
-                Fourniture et la pose d'un éclairage étanche IP65 36 watts, 120 cm.<br>
-                Fourniture et pose, d'aérations, hautes et basses.<br>
+                Ensemble éclairage : Branchement d'un néon étanche IP65 36 watts, 120 cm. Fourniture et pose d'aérations, hautes et basses.<br>
                 Fourniture et pose de plinthes anti-poussières.<br>
-                Fourniture et pose de tringles, sous plafond, utilisables en portant pour vêtements.
+                Fourniture et pose de tubes amovibles, pour rangement sous plafond.<br>
               </td>
               <td class="tright b_right">
                 1.00 <em>ENS</em>
@@ -171,11 +170,6 @@ include_once 'functions.php';
             <tr>
               <td class="" colspan="4">
                 <b>La pose de l'ouvrage, conçu en matériaux de construction pour un usage intérieur en milieu humide, répondant à la norme EN 13986, respecte l'aération naturelle de la cave.</b>
-              </td>
-            </tr>
-            <tr>
-              <td class="b_top" colspan="4">
-                NOTRE OFFRE D'AMÉNAGEMENTS COMPLÉMENTAIRES
               </td>
             </tr>
             <tr>
@@ -240,7 +234,7 @@ include_once 'functions.php';
                 </select> <em>Ens</em>
               </td>
               <td class="tright b_right">
-                900.00
+                990.00
               </td>
               <td class="tright">
                 <?php if(isset($totalPortes)) {
@@ -257,7 +251,7 @@ include_once 'functions.php';
                 DÉBARRAS :
               </td>
             </tr>
-            <tr class="b_top">
+            <tr class="b_top b_bottom">
               <td class="b_right">
                 <label for="debarras"><b>Effets personnels à débarrasser :</b> Tri, mise en sacs, évacuation à dos d'homme et transport en déchetterie ECO-TRI.</label>
               </td>
@@ -277,7 +271,7 @@ include_once 'functions.php';
                 </select> <em>M3</em>
               </td>
               <td class="tright b_right">
-                175.00
+                275.00
               </td>
               <td class="tright">
                 <?php if(isset($totalDebarras)) {
@@ -309,13 +303,21 @@ include_once 'functions.php';
               </td>
               <td colspan="2" class="tright">
                 <?php if(isset($totalAjoutTVA)) {
+
                   echo $totalAjoutTVA;
+                  if(!is_float($totalAjoutTVA)) echo '.00';
+
                 } elseif(isset($_SESSION['devis']['totalAjoutTVA'])) {
+
                   echo $_SESSION['devis']['totalAjoutTVA'];
+                  if(!is_float($_SESSION['devis']['totalAjoutTVA'])) echo '.00';
+
                 } else {
+
                   echo '0';
+
                 }
-                ?>.00 €
+                ?> €
               </td>
             </tr>
             <tr>
@@ -324,13 +326,21 @@ include_once 'functions.php';
               </td>
               <td colspan="2" class="tright">
                 <b><?php if(isset($totalTTC)) {
+
                   echo $totalTTC;
+                  if(!is_float($totalTTC)) echo '.00';
+
                 } elseif(isset($_SESSION['devis']['totalTTC'])) {
+
                   echo $_SESSION['devis']['totalTTC'];
+                  if(!is_float($_SESSION['devis']['totalTTC'])) echo '.00';
+
                 } else {
+
                   echo '0';
+
                 }
-                ?>.00 €</b>
+                ?> €</b>
               </td>
             </tr>
           </tbody>

@@ -14,6 +14,11 @@ form.devis{
 .contact {
   display: inline-block;
   width: 100%;
+  margin: 50px auto 100px;
+}
+.contact p {
+  width: 98%;
+  margin: 25px 1%;
 }
 .contact .errors {
   width: 98%;

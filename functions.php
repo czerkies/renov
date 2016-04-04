@@ -5,9 +5,8 @@ session_start();
 define('PRIX_ETAGERE', 45); // Etagère à 45€
 define('PRIX_PORTE', 990); // Porte à 990 €
 define('PRIX_DEBARRAS', 275); // Debarras 275 €
-define('PRIX_CONSERVES', 60); // Affaire conservés 60€
 
-define('TVA', 1.10); // TVA à 10%
+define('TVA', 10); // TVA à 10%
 
 if(isset($_POST['devis'])){
 
@@ -24,9 +23,7 @@ if(isset($_POST['devis'])){
   && isset($_POST['nb_portes']) && $_POST['nb_portes'] >= 0
   && $_POST['nb_portes'] <= 10 && is_numeric($_POST['nb_portes'])
   && isset($_POST['debarras']) && $_POST['debarras'] >= 0
-  && $_POST['debarras'] <= 10 && is_numeric($_POST['debarras'])
-  && isset($_POST['effets_perso']) && $_POST['effets_perso'] >= 0
-  && $_POST['effets_perso'] <= 10 && is_numeric($_POST['effets_perso'])){
+  && $_POST['debarras'] <= 10 && is_numeric($_POST['debarras'])){
 
 
     if(empty($_POST['nom']) || strlen($_POST['nom']) < 2){
@@ -87,111 +84,139 @@ if(isset($_POST['devis'])){
 
       switch ($_POST['surface']){
         case 1:
+        $totalHT += 3200;
+        break;
         case 2:
+        $totalHT += 3500;
+        break;
         case 3:
+        $totalHT += 3700;
+        break;
         case 4:
-        $totalHT += 3800.00;
+        $totalHT += 3800;
         break;
         case 5:
-        $totalHT += 4050.00;
+        $totalHT += 3900;
         break;
         case 6:
-        $totalHT += 4600.00;
+        $totalHT += 4100;
         break;
         case 7:
-        $totalHT += 4350.00;
+        $totalHT += 4250;
         break;
         case 8:
-        $totalHT += 4550.00;
+        $totalHT += 4450;
         break;
         case 9:
-        $totalHT += 4950.00;
+        $totalHT += 4700;
         break;
         case 10:
-        $totalHT += 5450.00;
+        $totalHT += 4950;
         break;
         case 11:
-        $totalHT += 5850.00;
+        $totalHT += 5280;
         break;
         case 12:
-        $totalHT += 5750.00;
+        $totalHT += 5760;
         break;
         case 13:
-        $totalHT += 6450.00;
+        $totalHT += 6240;
         break;
         case 14:
-        $totalHT += 6750.00;
+        $totalHT += 6720;
         break;
         case 15:
-        $totalHT += 7200.00;
+        $totalHT += 7200;
         break;
         case 16:
-        $totalHT += 7650.00;
+        $totalHT += 7680;
         break;
         case 17:
-        $totalHT += 8150.00;
+        $totalHT += 7990;
         break;
         case 18:
-        $totalHT += 8650.00;
+        $totalHT += 8280;
         break;
         case 19:
-        $totalHT += 9150.00;
+        $totalHT += 8550;
         break;
         case 20:
-        $totalHT += 9600.00;
+        $totalHT += 9000;
         break;
         case 21:
-        $totalHT += 10050.00;
+        $totalHT += 9450;
         break;
         case 22:
-        $totalHT += 10550.00;
+        $totalHT += 9900;
         break;
         case 23:
-        $totalHT += 11050.00;
+        $totalHT += 10350;
         break;
         case 24:
-        $totalHT += 11550.00;
+        $totalHT += 10800;
         break;
         case 25:
-        $totalHT += 12000.00;
+        $totalHT += 11250;
         break;
         case 26:
-        $totalHT += 12450.00;
+        $totalHT += 11700;
         break;
         case 27:
-        $totalHT += 12950.00;
+        $totalHT += 12150;
         break;
         case 28:
-        $totalHT += 13450.00;
+        $totalHT += 12600;
         break;
         case 29:
-        $totalHT += 13950.00;
+        $totalHT += 13050;
         break;
         case 30:
-        $totalHT += 14400.00;
+        $totalHT += 13500;
         break;
         case 31:
-        $totalHT += 14850.00;
+        $totalHT += 13950;
         break;
         case 32:
+        $totalHT += 14400;
+        break;
         case 33:
+        $totalHT += 14850;
+        break;
         case 34:
+        $totalHT += 15300;
+        break;
         case 35:
+        $totalHT += 15750;
+        break;
         case 36:
+        $totalHT += 16200;
+        break;
         case 37:
+        $totalHT += 16650;
+        break;
         case 38:
+        $totalHT += 17100;
+        break;
         case 39:
-        $totalHT += 15350.00;
+        $totalHT += 17550;
         break;
         case 40:
+        $totalHT += 18000;
+        break;
         case 41:
+        $totalHT += 18450;
+        break;
         case 42:
+        $totalHT += 18900;
+        break;
         case 43:
+        $totalHT += 19350;
+        break;
         case 44:
-        $totalHT += 19200.00;
+        $totalHT += 19800;
         break;
         case 45:
-        $totalHT += 22500.00;
+        $totalHT += 20250;
         break;
       }
 
@@ -225,18 +250,11 @@ if(isset($_POST['devis'])){
 
       $totalHT += $totalDebarras;
 
-      // Conserves
-      $totalEffetsPerso = PRIX_CONSERVES*$_POST['effets_perso'];
-
-      $_SESSION['devis']['totalEffetsPerso'] = $totalEffetsPerso;
-
-      $totalHT += $totalEffetsPerso;
-
       // Total
       $_SESSION['devis']['totalHT'] = $totalHT;
 
       // Total TTC
-      $totalTTC = $totalHT*TVA;
+      $totalTTC = $totalHT + ($totalHT*TVA/100);
 
       $_SESSION['devis']['totalTTC'] = $totalTTC;
 
