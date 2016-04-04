@@ -82,7 +82,7 @@ if(isset($_POST['devis'])){
 
       $totalHT = 0;
 
-      switch ($_POST['surface']){
+      switch (round($_POST['surface'])){
         case 1:
         $totalHT += 3200;
         break;
@@ -225,7 +225,7 @@ if(isset($_POST['devis'])){
       $_SESSION['devis']['prixCave'] = $prixCave;
 
       // Cubes de la cave
-      $cubes = $_POST['surface']*$_POST['hauteur'];
+      $cubes = round($_POST['surface']*$_POST['hauteur'], 2);
 
       $_SESSION['devis']['cubes'] = $cubes;
 
