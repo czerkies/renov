@@ -60,6 +60,9 @@ form.devis .form-group label {
   padding:0 2% 5%;
   float:left;
 }
+form.devis .form-group.error input {
+  border-color: red;
+}
 form.devis input[type="checkbox"] {
   width:10%;
   float:left;

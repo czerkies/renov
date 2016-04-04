@@ -11,7 +11,7 @@ define('TVA', 1.10); // TVA à 10%
 
 if(isset($_POST['devis'])){
 
-  $msg = array();
+  $msg['devis'] = array();
 
   if(($_POST['civilite'] === 'Madame' || $_POST['civilite'] === 'Monsieur')
   && isset($_POST['nom'])
@@ -30,52 +30,52 @@ if(isset($_POST['devis'])){
 
 
     if(empty($_POST['nom']) || strlen($_POST['nom']) < 2){
-      $msg['nom'] = '<label for="nom">Veuillez saisir un Nom.</label>';
+      $msg['devis']['nom'] = '<label for="nom">Veuillez saisir un Nom.</label>';
     }
 
     if(empty($_POST['ville']) || strlen($_POST['ville']) < 2){
-      $msg['ville'] = '<label for="ville">Veuillez saisir une Ville.</label>';
+      $msg['devis']['ville'] = '<label for="ville">Veuillez saisir une Ville.</label>';
     }
 
     if(empty($_POST['cp'])){
-      $msg['cp'] = '<label for="cp">Veuillez saisir un Code Postal.</label>';
+      $msg['devis']['cp'] = '<label for="cp">Veuillez saisir un Code Postal.</label>';
     }elseif(strlen($_POST['cp']) != 5 || !is_numeric($_POST['cp'])){
-      $msg['cp'] = '<label for="cp">Veuillez saisir un Code Postal valide.</label>';
+      $msg['devis']['cp'] = '<label for="cp">Veuillez saisir un Code Postal valide.</label>';
     }
 
     if(empty($_POST['adresse']) || strlen($_POST['adresse']) < 2){
-      $msg['adresse'] = '<label for="adresse">Veuillez saisir une Adresse.</label>';
+      $msg['devis']['adresse'] = '<label for="adresse">Veuillez saisir une Adresse.</label>';
     }
 
     $search = array('-', ' ', '.', '+');
     $tel = str_replace($search, '', $_POST['tel']);
 
     if(empty($tel)){
-      $msg['tel'] = '<label for="tel">Veuillez saisir un Téléphone.</label>';
+      $msg['devis']['tel'] = '<label for="tel">Veuillez saisir un Téléphone.</label>';
     }elseif(!is_numeric($tel) || strlen($tel) != 10){
-      $msg['tel'] = '<label for="tel">Veuillez saisir un Téléphone valide.</label>';
+      $msg['devis']['tel'] = '<label for="tel">Veuillez saisir un Téléphone valide.</label>';
     }
 
     if(empty($_POST['email']) || strlen($_POST['email']) < 2){
-      $msg['email'] = '<label for="email">Veuillez saisir une adresse E-mail.</label>';
+      $msg['devis']['email'] = '<label for="email">Veuillez saisir une adresse E-mail.</label>';
     }elseif(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
-      $msg['email'] = '<label for="email">Veuillez saisir une adresse E-mail valide.</label>';
+      $msg['devis']['email'] = '<label for="email">Veuillez saisir une adresse E-mail valide.</label>';
     }
 
     if(empty($_POST['surface'])){
-      $msg['surface'] = '<label for="surface">Veuillez saisir une Surface.</label>';
+      $msg['devis']['surface'] = '<label for="surface">Veuillez saisir une Surface.</label>';
     }elseif($_POST['surface'] <= 0 || $_POST['surface'] > 45 || !is_numeric($_POST['surface'])){
-      $msg['surface'] = '<label for="surface">Surface entre 1 et 45 m2.</label>';
+      $msg['devis']['surface'] = '<label for="surface">Surface entre 1 et 45 m2.</label>';
     }
 
     if(empty($_POST['hauteur'])){
-      $msg['hauteur'] = '<label for="hauteur">Veuillez saisir une Hauteur.</label>';
+      $msg['devis']['hauteur'] = '<label for="hauteur">Veuillez saisir une Hauteur.</label>';
     }elseif($_POST['hauteur'] <= 0 || $_POST['hauteur'] > 10 || !is_numeric($_POST['hauteur'])){
-      $msg['hauteur'] = '<label for="hauteur">Hauteur entre 1 et 10.</label>';
+      $msg['devis']['hauteur'] = '<label for="hauteur">Hauteur entre 1 et 10.</label>';
     }
 
 
-    if(!$msg){
+    if(!$msg['devis']){
 
       if(isset($_SESSION['devis'])) unset($_SESSION['devis']);
 
@@ -248,7 +248,7 @@ if(isset($_POST['devis'])){
 
   } else {
 
-    $msg['erreur'] = 'Une erreur est survenue.';
+    $msg['devis']['erreur'] = 'Une erreur est survenue.';
 
   }
 }
