@@ -314,7 +314,7 @@ include_once 'functions.php';
 
                 } else {
 
-                  echo '0';
+                  echo '0.00';
 
                 }
                 ?> €
@@ -337,7 +337,7 @@ include_once 'functions.php';
 
                 } else {
 
-                  echo '0';
+                  echo '0.00';
 
                 }
                 ?> €</b>
