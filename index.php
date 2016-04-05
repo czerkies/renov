@@ -347,6 +347,11 @@ include_once 'functions.php';
         </table>
         <input type="submit" name="devis" value="Estimation du devis">
       </form>
+      <?php if(isset($rdv) && $rdv === true){ ?>
+        <form class="devis" action="#devis" method="post">
+          <input type="submit" name="demande_rdv" value="Demandez un RDV à domicile">
+        </form>
+      <?php } ?>
     </div>
   </body>
 </html>

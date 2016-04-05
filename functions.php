@@ -8,6 +8,17 @@ define('PRIX_DEBARRAS', 275); // Debarras 275 €
 
 define('TVA', 10); // TVA à 10%
 
+function sendMail($to, $subject, $content, $from = 'contact@renovcave.fr'){
+
+  $headers = 'Content-Type: text/html; charset=\"UTF-8\";' . "\r\n";
+  $headers .= 'FROM: Renov\'Cave <'.$from.'>' . "\r\n";
+
+  $subjectFormat = "Renov'Cave - ".$subject;
+
+  mail($to, $subjectFormat, $content, $headers);
+
+}
+
 if(isset($_POST['devis'])){
 
   $msg['devis'] = array();
@@ -262,6 +273,13 @@ if(isset($_POST['devis'])){
 
       $_SESSION['devis']['totalAjoutTVA'] = $totalAjoutTVA;
 
+      // Formulaire demande de RDV
+      $rdv = true;
+
+
+      // Enregistrement des données en BDD
+
+
     }
 
   } else {
@@ -269,4 +287,32 @@ if(isset($_POST['devis'])){
     $msg['devis']['erreur'] = 'Une erreur est survenue.';
 
   }
+
+}
+
+
+if(isset($_POST['demande_rdv'])){
+
+  $to = $_SESSION['devis']['email'];
+
+  $subject = 'Demande de rendez-vous';
+
+  $content = '
+    <div style="width:90%;margin:50px 5%;">
+
+      <h1>Demande de rendez-vous à domicile</h1>
+
+      <p>Vous avez fait une demande de rendez-vous à votre domicile</p>
+
+      <p>Nous vous rappelerons au numéro suivant : '.$_SESSION['devis']['tel'].'.</p>
+
+      <p>Votre demande concerne une CAV\'BOX SUR MESURE pour une cave de '.$_SESSION['devis']['cubes'].' mètre(s) cubes.</p>
+
+    </div>
+  ';
+
+  echo $content;
+
+  //sendMail($to, $subject, $content, $from = 'contact@renovcave.fr');
+
 }
