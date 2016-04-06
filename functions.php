@@ -273,12 +273,79 @@ if(isset($_POST['devis'])){
 
       $_SESSION['devis']['totalAjoutTVA'] = $totalAjoutTVA;
 
-      // Formulaire demande de RDV
-      $rdv = true;
-
 
       // Enregistrement des données en BDD
+      global $wpdb;
 
+      // Récupérartion des données
+      foreach ($_POST as $key => $value) {
+        $key = htmlentities($value, ENT_QUOTES);
+      }
+
+      $exist = $wpdb->get_row("SELECT id_prospects FROM {$wpdb->prefix}prospects WHERE email = '$email'");
+
+      if($exist){
+
+        $wpdb->update("{$wpdb->prefix}prospects", array(
+          'civilite' => $civilite,
+          'nom' => $nom,
+          'adresse' => $adresse,
+          'cp' => $cp,
+          'ville' => $ville,
+          'tel' => $tel,
+          'surface' => $surface,
+          'total' => $totalTTC,
+          'date' => date('Y-m-d H:i:s')
+          ),
+          'email' = $email
+        );
+
+      } else {
+
+        $wpdb->insert("{$wpdb->prefix}prospects", array(
+          'civilite' => $civilite,
+          'nom' => $nom,
+          'adresse' => $adresse,
+          'cp' => $cp,
+          'ville' => $ville,
+          'tel' => $tel,
+          'email' => $email,
+          'surface' => $surface,
+          'total' => $totalTTC,
+          'date' => date('Y-m-d H:i:s')
+          )
+        );
+
+      }
+
+      $content = '
+        <div style="width:90%;margin:50px 5%;">
+
+          <h1>Nouvelle de demande de devis</h1>
+
+          <h2>La demande concerne une CAV\'BOX SUR MESURE pour une cave de '.$_SESSION['devis']['surface'].' mètre(s) carrés.</h2>
+
+          <p>
+            <b>Civilité :</b>'.$_POST['civilite'].'<br>
+            <b>Nom :</b>'.$_POST['nom'].'<br>
+            <b>Adresse :</b>'.$_POST['adresse'].'<br>
+            <b>Code Postal :</b>'.$_POST['cp'].'<br>
+            <b>Ville :</b>'.$_POST['ville'].'<br>
+            <b>Téléphone :</b>'.$_POST['tel'].'<br>
+            <b>Email :</b>'.$_POST['email'].'<br>
+            <b>Surface :</b>'.$_POST['surface'].'<br>
+            <b>Hauteur :</b>'.$_POST['hauteur'].'<br>
+            <b>Total :</b>'.$totalTTC.'<br>
+          </p>
+
+        </div>
+      ';
+
+      sendMail(
+        $_POST['email'],
+        'Nouvelle demande de devis - '.strtoupper($_POST['nom']),
+        $content
+      )
 
     }
 
