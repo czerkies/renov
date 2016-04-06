@@ -286,33 +286,37 @@ if(isset($_POST['devis'])){
 
       if($exist){
 
-        $wpdb->update("{$wpdb->prefix}prospects", array(
-          'civilite' => $civilite,
-          'nom' => $nom,
-          'adresse' => $adresse,
-          'cp' => $cp,
-          'ville' => $ville,
-          'tel' => $tel,
-          'surface' => $surface,
-          'total' => $totalTTC,
-          'date' => date('Y-m-d H:i:s')
+        $wpdb->update("{$wpdb->prefix}prospects",
+          array(
+            'civilite' => $civilite,
+            'nom' => $nom,
+            'adresse' => $adresse,
+            'cp' => $cp,
+            'ville' => $ville,
+            'tel' => $tel,
+            'surface' => $surface,
+            'total' => $totalTTC,
+            'date' => date('Y-m-d H:i:s')
           ),
-          'email' = $email
+          array(
+            'email' => $email
+          )
         );
 
       } else {
 
-        $wpdb->insert("{$wpdb->prefix}prospects", array(
-          'civilite' => $civilite,
-          'nom' => $nom,
-          'adresse' => $adresse,
-          'cp' => $cp,
-          'ville' => $ville,
-          'tel' => $tel,
-          'email' => $email,
-          'surface' => $surface,
-          'total' => $totalTTC,
-          'date' => date('Y-m-d H:i:s')
+        $wpdb->insert("{$wpdb->prefix}prospects",
+          array(
+            'civilite' => $civilite,
+            'nom' => $nom,
+            'adresse' => $adresse,
+            'cp' => $cp,
+            'ville' => $ville,
+            'tel' => $tel,
+            'email' => $email,
+            'surface' => $surface,
+            'total' => $totalTTC,
+            'date' => date('Y-m-d H:i:s')
           )
         );
 
@@ -341,11 +345,13 @@ if(isset($_POST['devis'])){
         </div>
       ';
 
-      sendMail(
+      echo $content;
+
+      /*sendMail(
         $_POST['email'],
         'Nouvelle demande de devis - '.strtoupper($_POST['nom']),
         $content
-      )
+      )*/
 
     }
 
