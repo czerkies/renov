@@ -2,6 +2,16 @@
 
 session_start();
 
+if($_SERVER['SERVER_NAME'] === 'localhost'){
+
+  try {
+    $pdo = new PDO('mysql:host=localhost;dbname=renov', 'root', 'root');
+  } catch(PDOException $e) {
+    echo 'Connexion échouée : ' . $e->getMessage();
+  }
+
+}
+
 define('PRIX_ETAGERE', 45); // Etagère à 45€
 define('PRIX_PORTE', 990); // Porte à 990 €
 define('PRIX_DEBARRAS', 275); // Debarras 275 €
@@ -278,80 +288,123 @@ if(isset($_POST['devis'])){
       global $wpdb;
 
       // Récupérartion des données
-      foreach ($_POST as $key => $value) {
-        $key = htmlentities($value, ENT_QUOTES);
+      foreach ($_POST as $key => $value){
+        $_POST[$key] = htmlspecialchars($value, ENT_QUOTES);
       }
 
-      $exist = $wpdb->get_row("SELECT id_prospects FROM {$wpdb->prefix}prospects WHERE email = '$email'");
+      extract($_POST);
+
+        if($_SERVER['SERVER_NAME'] === 'localhost'){
+
+          $existProspects = $pdo->query("SELECT id_prospects FROM wp_prospects WHERE email = '$email'");
+
+          $exist = $existProspects->rowCount();
+
+        } else {
+
+          $exist = $wpdb->get_row("SELECT id_prospects FROM {$wpdb->prefix}prospects WHERE email = '$email'");
+
+        }
+
 
       if($exist){
 
-        $wpdb->update("{$wpdb->prefix}prospects",
-          array(
-            'civilite' => $civilite,
-            'nom' => $nom,
-            'adresse' => $adresse,
-            'cp' => $cp,
-            'ville' => $ville,
-            'tel' => $tel,
-            'surface' => $surface,
-            'total' => $totalTTC,
-            'date' => date('Y-m-d H:i:s')
-          ),
-          array(
-            'email' => $email
-          )
-        );
+        if($_SERVER['SERVER_NAME'] === 'localhost'){
+
+          $updateProspects = $pdo->query("UPDATE wp_prospects SET
+            civilite = '$civilite',
+            nom = '$nom',
+            adresse = '$adresse',
+            cp = '$cp',
+            ville = '$ville',
+            tel = '$tel',
+            surface = '$surface',
+            total = '$totalTTC',
+            date = NOW(),
+            WHERE email = '$email'
+          ");
+
+          $updateProspects->execute();
+
+        } else {
+
+          $wpdb->update("{$wpdb->prefix}prospects",
+            array(
+              'civilite' => $civilite,
+              'nom' => $nom,
+              'adresse' => $adresse,
+              'cp' => $cp,
+              'ville' => $ville,
+              'tel' => $tel,
+              'surface' => $surface,
+              'total' => $totalTTC,
+              'date' => date('Y-m-d H:i:s')
+            ),
+            array('email' => $email)
+          );
+
+        }
 
       } else {
 
-        $wpdb->insert("{$wpdb->prefix}prospects",
-          array(
-            'civilite' => $civilite,
-            'nom' => $nom,
-            'adresse' => $adresse,
-            'cp' => $cp,
-            'ville' => $ville,
-            'tel' => $tel,
-            'email' => $email,
-            'surface' => $surface,
-            'total' => $totalTTC,
-            'date' => date('Y-m-d H:i:s')
-          )
-        );
+        if($_SERVER['SERVER_NAME'] === 'localhost'){
+
+          $insertProspects = $pdo->query("INSERT INTO wp_prospects(civilite, nom, adresse, cp, ville, tel, email, surface, total, date)
+          VALUES($civilite, $nom, $adresse, $cp, $ville, $tel, $email, $surface, $totalTTC, NOW())");
+
+          $insertProspects->execute();
+
+        } else {
+
+          $wpdb->insert("{$wpdb->prefix}prospects",
+            array(
+              'civilite' => $civilite,
+              'nom' => $nom,
+              'adresse' => $adresse,
+              'cp' => $cp,
+              'ville' => $ville,
+              'tel' => $tel,
+              'email' => $email,
+              'surface' => $surface,
+              'total' => $totalTTC,
+              'date' => date('Y-m-d H:i:s')
+            )
+          );
+
+        }
+
+        $content = '
+          <div style="width:90%;margin:50px 5%;">
+
+            <h1>Nouvelle de demande de devis</h1>
+
+            <h2>La demande concerne une CAV\'BOX SUR MESURE pour une cave de '.$_SESSION['devis']['surface'].' mètre(s) carrés.</h2>
+
+            <p>
+              <b>Civilité :</b>'.$_POST['civilite'].'<br>
+              <b>Nom :</b>'.$_POST['nom'].'<br>
+              <b>Adresse :</b>'.$_POST['adresse'].'<br>
+              <b>Code Postal :</b>'.$_POST['cp'].'<br>
+              <b>Ville :</b>'.$_POST['ville'].'<br>
+              <b>Téléphone :</b>'.$_POST['tel'].'<br>
+              <b>Email :</b>'.$_POST['email'].'<br>
+              <b>Surface :</b>'.$_POST['surface'].'<br>
+              <b>Hauteur :</b>'.$_POST['hauteur'].'<br>
+              <b>Total :</b>'.$totalTTC.'<br>
+            </p>
+
+          </div>
+        ';
+
+        echo $content;
+
+        /*sendMail(
+          $_POST['email'],
+          'Nouvelle demande de devis - '.strtoupper($_POST['nom']),
+          $content
+        )*/
 
       }
-
-      $content = '
-        <div style="width:90%;margin:50px 5%;">
-
-          <h1>Nouvelle de demande de devis</h1>
-
-          <h2>La demande concerne une CAV\'BOX SUR MESURE pour une cave de '.$_SESSION['devis']['surface'].' mètre(s) carrés.</h2>
-
-          <p>
-            <b>Civilité :</b>'.$_POST['civilite'].'<br>
-            <b>Nom :</b>'.$_POST['nom'].'<br>
-            <b>Adresse :</b>'.$_POST['adresse'].'<br>
-            <b>Code Postal :</b>'.$_POST['cp'].'<br>
-            <b>Ville :</b>'.$_POST['ville'].'<br>
-            <b>Téléphone :</b>'.$_POST['tel'].'<br>
-            <b>Email :</b>'.$_POST['email'].'<br>
-            <b>Surface :</b>'.$_POST['surface'].'<br>
-            <b>Hauteur :</b>'.$_POST['hauteur'].'<br>
-            <b>Total :</b>'.$totalTTC.'<br>
-          </p>
-
-        </div>
-      ';
-
-      echo $content;
-
-      /*sendMail(
-        $_POST['email'],
-        'Nouvelle demande de devis - '.strtoupper($_POST['nom']),
-        $content
-      )*/
 
     }
 
