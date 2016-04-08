@@ -2,13 +2,17 @@
 
 session_start();
 
+echo date('Y-m-d H:i:s');
+
+// Connection au serveur si localhost
 if($_SERVER['SERVER_NAME'] === 'localhost'){
 
   try {
-    $pdo = new PDO('mysql:host=localhost;dbname=renov', 'root', 'root');
-  } catch(PDOException $e) {
-    echo 'Connexion échouée : ' . $e->getMessage();
+  	$pdo = new PDO('mysql:host=localhost;dbname=renov', 'root', 'root', array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8, lc_time_names = 'fr_FR'"));
+  } catch (PDOException $e) {
+    die('Erreur : ' . $e->getMessage());
   }
+
 
 }
 
@@ -298,31 +302,40 @@ if(isset($_POST['devis'])){
 
           $existProspects = $pdo->query("SELECT id_prospects FROM wp_prospects WHERE email = '$email'");
 
-          $exist = $existProspects->rowCount();
-
         } else {
 
           $exist = $wpdb->get_row("SELECT id_prospects FROM {$wpdb->prefix}prospects WHERE email = '$email'");
 
         }
 
-
-      if($exist){
+      if($existProspects->fetchColumn()){
 
         if($_SERVER['SERVER_NAME'] === 'localhost'){
 
-          $updateProspects = $pdo->query("UPDATE wp_prospects SET
-            civilite = '$civilite',
-            nom = '$nom',
-            adresse = '$adresse',
-            cp = '$cp',
-            ville = '$ville',
-            tel = '$tel',
-            surface = '$surface',
-            total = '$totalTTC',
-            date = NOW(),
-            WHERE email = '$email'
-          ");
+          $req = "UPDATE wp_prospects SET
+            civilite = :civilite,
+            nom = :nom,
+            adresse = :adresse,
+            cp = :cp,
+            ville = :ville,
+            tel = :tel,
+            surface = :surface,
+            total = :totalTTC,
+            date_devis = NOW()
+            WHERE email = :email";
+
+          $updateProspects = $pdo->prepare($req);
+
+          $updateProspects->bindValue(':civilite', $civilite, PDO::PARAM_STR);
+          $updateProspects->bindValue(':nom', $nom, PDO::PARAM_STR);
+          $updateProspects->bindValue(':adresse', $adresse, PDO::PARAM_STR);
+          $updateProspects->bindValue(':cp', $cp, PDO::PARAM_STR);
+          $updateProspects->bindValue(':ville', $ville, PDO::PARAM_STR);
+          $updateProspects->bindValue(':tel', $tel, PDO::PARAM_STR);
+          $updateProspects->bindValue(':surface', $surface, PDO::PARAM_STR);
+          $updateProspects->bindValue(':totalTTC', $totalTTC, PDO::PARAM_STR);
+          $updateProspects->bindValue(':email', $email, PDO::PARAM_STR);
+
 
           $updateProspects->execute();
 
@@ -349,8 +362,20 @@ if(isset($_POST['devis'])){
 
         if($_SERVER['SERVER_NAME'] === 'localhost'){
 
-          $insertProspects = $pdo->query("INSERT INTO wp_prospects(civilite, nom, adresse, cp, ville, tel, email, surface, total, date)
-          VALUES($civilite, $nom, $adresse, $cp, $ville, $tel, $email, $surface, $totalTTC, NOW())");
+          $req = "INSERT INTO wp_prospects(civilite, nom, adresse, cp, ville, tel, email, surface, total, date_devis)
+          VALUES(:civilite, :nom, :adresse, :cp, :ville, :tel, :email, :surface, :totalTTC, NOW())";
+
+          $insertProspects = $pdo->prepare($req);
+
+          $insertProspects->bindValue(':civilite', $civilite, PDO::PARAM_STR);
+          $insertProspects->bindValue(':nom', $nom, PDO::PARAM_STR);
+          $insertProspects->bindValue(':adresse', $adresse, PDO::PARAM_STR);
+          $insertProspects->bindValue(':cp', $cp, PDO::PARAM_STR);
+          $insertProspects->bindValue(':ville', $ville, PDO::PARAM_STR);
+          $insertProspects->bindValue(':tel', $tel, PDO::PARAM_STR);
+          $insertProspects->bindValue(':email', $email, PDO::PARAM_STR);
+          $insertProspects->bindValue(':surface', $surface, PDO::PARAM_STR);
+          $insertProspects->bindValue(':totalTTC', $totalTTC, PDO::PARAM_STR);
 
           $insertProspects->execute();
 
@@ -395,9 +420,7 @@ if(isset($_POST['devis'])){
 
           </div>
         ';
-
-        echo $content;
-
+        
         /*sendMail(
           $_POST['email'],
           'Nouvelle demande de devis - '.strtoupper($_POST['nom']),
