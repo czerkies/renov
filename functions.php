@@ -36,11 +36,10 @@ if(isset($_POST['devis'])){
   $msg['devis'] = array();
 
   if(($_POST['civilite'] === 'Madame' || $_POST['civilite'] === 'Monsieur')
-  && isset($_POST['nom'])
-  && isset($_POST['ville']) && isset($_POST['cp'])
-  && isset($_POST['adresse']) && isset($_POST['tel'])
-  && isset($_POST['email']) && isset($_POST['surface'])
-  && isset($_POST['hauteur']) // @TODO Remettre par deux les isset();
+  && isset($_POST['nom']) && isset($_POST['adresse'])
+  && isset($_POST['cp']) && isset($_POST['ville'])
+  && isset($_POST['tel']) && isset($_POST['email'])
+  && isset($_POST['surface']) && isset($_POST['hauteur'])
   && isset($_POST['nb_etageres']) && $_POST['nb_etageres'] >= 0
   && $_POST['nb_etageres'] <= 10 && is_numeric($_POST['nb_etageres'])
   && isset($_POST['nb_portes']) && $_POST['nb_portes'] >= 0

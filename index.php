@@ -6,12 +6,16 @@
 
 include_once 'functions.php';
 
-// get_header();
-
 if($_SERVER['SERVER_NAME'] === 'localhost'){
+
   echo '<link rel="stylesheet" type="text/css" href="style_devis.css">';
+
 } else {
+
   echo '<link rel="stylesheet" type="text/css" href="'.bloginfo('template_directory').'/css/style_devis.css">';
+
+  get_header();
+
 }
 
 ?>
@@ -37,7 +41,7 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
         || (isset($_SESSION['devis']['civilite']) && $_SESSION['devis']['civilite'] === 'Madame')) echo "selected"; ?>>Monsieur</option>
       </select>
     </div>
-    <div class="form-group <?php if(isset($msg['devis']['nom'])) echo 'error'; ?>">
+    <div class="form-group<?php if(isset($msg['devis']['nom'])) echo ' error'; ?>">
       <input type="text" id="nom" name="nom" title="Nom" placeholder="Nom" value="<?php
       if(isset($_POST['nom'])) {
         echo $_POST['nom'];
@@ -46,14 +50,14 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
       } ?>" required>
       <?php if(isset($msg['nom'])) echo $msg['nom']; ?>
     </div>
-    <div class="form-group large <?php if(isset($msg['devis']['adresse'])) echo 'error'; ?>">
+    <div class="form-group large<?php if(isset($msg['devis']['adresse'])) echo ' error'; ?>">
       <input type="text" id="adresse" name="adresse" title="Adresse" placeholder="Adresse" value="<?php if(isset($_POST['adresse'])) {
         echo stripslashes($_POST['adresse']);
       } elseif(isset($_SESSION['devis']['adresse'])) {
         echo stripslashes($_SESSION['devis']['adresse']);
       } ?>" required>
     </div>
-    <div class="form-group <?php if(isset($msg['devis']['cp'])) echo 'error'; ?>">
+    <div class="form-group<?php if(isset($msg['devis']['cp'])) echo ' error'; ?>">
       <input type="text" id="cp" name="cp" title="Code Postal" placeholder="Code Postal" value="<?php
       if(isset($_POST['cp'])) {
         echo $_POST['cp'];
@@ -61,7 +65,7 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
         echo $_SESSION['devis']['cp'];
       } ?>" required>
     </div>
-    <div class="form-group <?php if(isset($msg['devis']['ville'])) echo 'error'; ?>">
+    <div class="form-group<?php if(isset($msg['devis']['ville'])) echo ' error'; ?>">
       <input type="text" id="ville" name="ville" title="Ville" placeholder="Ville" value="<?php
       if(isset($_POST['ville'])) {
         echo $_POST['ville'];
@@ -69,7 +73,7 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
         echo $_SESSION['devis']['ville'];
       } ?>" required>
     </div>
-    <div class="form-group <?php if(isset($msg['devis']['tel'])) echo 'error'; ?>">
+    <div class="form-group<?php if(isset($msg['devis']['tel'])) echo ' error'; ?>">
       <input type="tel" id="tel" name="tel" title="Téléphone" placeholder="Téléphone" value="<?php
       if(isset($_POST['tel'])) {
         echo $_POST['tel'];
@@ -77,7 +81,7 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
         echo $_SESSION['devis']['tel'];
       } ?>" required>
     </div>
-    <div class="form-group <?php if(isset($msg['devis']['email'])) echo 'error'; ?>">
+    <div class="form-group<?php if(isset($msg['devis']['email'])) echo ' error'; ?>">
       <input type="email" id="email" name="email" title="E-mail" placeholder="E-mail" value="<?php
       if(isset($_POST['email'])) {
         echo $_POST['email'];
@@ -85,7 +89,7 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
         echo $_SESSION['devis']['email'];
       } ?>" required>
     </div>
-    <div class="form-group <?php if(isset($msg['devis']['surface'])) echo 'error'; ?>">
+    <div class="form-group<?php if(isset($msg['devis']['surface'])) echo ' error'; ?>">
       <input type="number" min="1" max="45" step="0.01" id="surface" name="surface" title="Surface de votre cave en M2" placeholder="Surface de votre cave en M2" value="<?php
       if(isset($_POST['surface'])) {
         echo $_POST['surface'];
@@ -93,7 +97,7 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
         echo $_SESSION['devis']['surface'];
       } ?>" required>
     </div>
-    <div class="form-group <?php if(isset($msg['devis']['hauteur'])) echo 'error'; ?>">
+    <div class="form-group<?php if(isset($msg['devis']['hauteur'])) echo ' error'; ?>">
       <input type="number" min="1" max="10" step="0.01" id="hauteur" name="hauteur" title="Hauteur de votre cave en CM" placeholder="Hauteur de votre cave en CM" value="<?php
       if(isset($_POST['hauteur'])) {
         echo $_POST['hauteur'];

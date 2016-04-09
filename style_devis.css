@@ -1,7 +1,4 @@
-body {
-  margin: 0;
-}
-* {
+.devis_rc * {
   box-sizing:border-box;
 }
 .devis_rc {
@@ -156,26 +153,21 @@ table th {
     width: 960px;
     margin: auto;
   }
-
   form.devis .contact input,
   form.devis .contact select {
     font-size: 1em;
   }
-
   form.devis .form-group {
     width: 48%;
     margin: auto 1%;
     float: left;
   }
-
   form.devis .form-group.large {
     width: 98%;
   }
-
   form.devis .form-group label {
     padding: 0 auto;
   }
-
   form.devis input[type="submit"] {
     width: 30%;
     font-size: 1em;
