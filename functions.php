@@ -2,8 +2,6 @@
 
 session_start();
 
-echo date('Y-m-d H:i:s');
-
 // Connection au serveur si localhost
 if($_SERVER['SERVER_NAME'] === 'localhost'){
 
@@ -420,7 +418,7 @@ if(isset($_POST['devis'])){
 
           </div>
         ';
-        
+
         /*sendMail(
           $_POST['email'],
           'Nouvelle demande de devis - '.strtoupper($_POST['nom']),
