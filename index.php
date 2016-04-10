@@ -4,17 +4,19 @@
     Template Name: Devis Renov
 */
 
-include_once 'functions.php';
-
 if($_SERVER['SERVER_NAME'] === 'localhost'){
+
+  include_once 'functions.php';
 
   echo '<link rel="stylesheet" type="text/css" href="style_devis.css">';
 
 } else {
 
-  echo '<link rel="stylesheet" type="text/css" href="'.bloginfo('template_directory').'/css/style_devis.css">';
+  include_once get_template_directory().'/includes/functions.php';
 
   get_header();
+
+  ?><link rel="stylesheet" type="text/css" href="<?php bloginfo('template_directory'); ?>/css/style_devis.css"><?php
 
 }
 
@@ -358,4 +360,8 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
   <?php } ?>
 </div>
 
-<?php //get_footer(); ?>
+<?php
+
+  if($_SERVER['SERVER_NAME'] != 'localhost') get_footer();
+
+?>

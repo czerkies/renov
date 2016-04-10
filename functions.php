@@ -20,7 +20,7 @@ define('PRIX_DEBARRAS', 275); // Debarras 275 €
 
 define('TVA', 10); // TVA à 10%
 
-function sendMail($to, $subject, $content, $from = 'contact@renovcave.fr'){
+function sendMail($to, $subject, $content, $from = 'roman.czekies@gmail.com'){
 
   $headers = 'Content-Type: text/html; charset=\"UTF-8\";' . "\r\n";
   $headers .= 'FROM: Renov\'Cave <'.$from.'>' . "\r\n";
@@ -299,13 +299,15 @@ if(isset($_POST['devis'])){
 
           $existProspects = $pdo->query("SELECT id_prospects FROM wp_prospects WHERE email = '$email'");
 
+          $exist = $existProspects->fetchColumn();
+
         } else {
 
           $exist = $wpdb->get_row("SELECT id_prospects FROM {$wpdb->prefix}prospects WHERE email = '$email'");
 
         }
 
-      if($existProspects->fetchColumn()){
+      if($exist){
 
         if($_SERVER['SERVER_NAME'] === 'localhost'){
 
@@ -333,7 +335,6 @@ if(isset($_POST['devis'])){
           $updateProspects->bindValue(':totalTTC', $totalTTC, PDO::PARAM_STR);
           $updateProspects->bindValue(':email', $email, PDO::PARAM_STR);
 
-
           $updateProspects->execute();
 
         } else {
@@ -348,10 +349,10 @@ if(isset($_POST['devis'])){
               'tel' => $tel,
               'surface' => $surface,
               'total' => $totalTTC,
-              'date' => date('Y-m-d H:i:s')
+              'date_devis' => date('Y-m-d H:i:s')
             ),
             array('email' => $email)
-          );
+          ) or die(mysql_error());
 
         }
 
@@ -389,9 +390,9 @@ if(isset($_POST['devis'])){
               'email' => $email,
               'surface' => $surface,
               'total' => $totalTTC,
-              'date' => date('Y-m-d H:i:s')
+              'date_devis' => date('Y-m-d H:i:s')
             )
-          );
+          ) or die(mysql_error());
 
         }
 
@@ -403,26 +404,26 @@ if(isset($_POST['devis'])){
             <h2>La demande concerne une CAV\'BOX SUR MESURE pour une cave de '.$_SESSION['devis']['surface'].' mètre(s) carrés.</h2>
 
             <p>
-              <b>Civilité :</b>'.$_POST['civilite'].'<br>
-              <b>Nom :</b>'.$_POST['nom'].'<br>
-              <b>Adresse :</b>'.$_POST['adresse'].'<br>
-              <b>Code Postal :</b>'.$_POST['cp'].'<br>
-              <b>Ville :</b>'.$_POST['ville'].'<br>
-              <b>Téléphone :</b>'.$_POST['tel'].'<br>
-              <b>Email :</b>'.$_POST['email'].'<br>
-              <b>Surface :</b>'.$_POST['surface'].'<br>
-              <b>Hauteur :</b>'.$_POST['hauteur'].'<br>
-              <b>Total :</b>'.$totalTTC.'<br>
+              <b>Civilité :</b> '.$_POST['civilite'].'<br>
+              <b>Nom :</b> '.$_POST['nom'].'<br>
+              <b>Adresse :</b> '.$_POST['adresse'].'<br>
+              <b>Code Postal :</b> '.$_POST['cp'].'<br>
+              <b>Ville :</b> '.$_POST['ville'].'<br>
+              <b>Téléphone :</b> '.$_POST['tel'].'<br>
+              <b>Email :</b> '.$_POST['email'].'<br>
+              <b>Surface :</b> '.$_POST['surface'].'<br>
+              <b>Hauteur :</b> '.$_POST['hauteur'].'<br>
+              <b>Total :</b> '.$totalTTC.'<br>
             </p>
 
           </div>
         ';
 
-        /*sendMail(
-          $_POST['email'],
+        sendMail(
+          'roman.czerkies@gmail.com',
           'Nouvelle demande de devis - '.strtoupper($_POST['nom']),
           $content
-        )*/
+        );
 
       }
 
@@ -457,8 +458,6 @@ if(isset($_POST['demande_rdv'])){
     </div>
   ';
 
-  echo $content;
-
-  //sendMail($to, $subject, $content, $from = 'contact@renovcave.fr');
+  sendMail($to, $subject, $content, $from = 'contact@renovcave.fr');
 
 }
