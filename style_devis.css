@@ -6,7 +6,7 @@
 }
 form.devis{
   width: 100%;
-  padding: 1%;
+  padding: 0 1%;
 }
 .contact {
   display: inline-block;
@@ -35,7 +35,8 @@ form.devis .contact select {
   margin: 10px 0;
   padding: 5px;
   border-radius: 4px;
-  border: 1px solid rgb(131, 0, 0);
+  border: 1px solid rgb(131, 0, 0) !important;
+  height: auto;
   color: #111;
 }
 form.devis .tableau_devis select {
@@ -43,8 +44,8 @@ form.devis .tableau_devis select {
   font-size: 1em;
 }
 form.devis input[type="submit"]{
-  width:100%;
-  border: 1px solid rgb(131, 0, 0);
+  width: 100%;
+  border: 1px solid rgb(131, 0, 0) !important;
   border-radius: 4px;
   color: rgb(131, 0, 0);
   background: #fff;
@@ -54,6 +55,7 @@ form.devis input[type="submit"]{
   padding: 10px;
   cursor: pointer;
   box-shadow: none;
+  height: auto;
 }
 form.devis input[type="submit"]:hover {
   color: #fff;
@@ -64,21 +66,21 @@ form.devis input[type="submit"]:active {
   box-shadow: none;
 }
 form.devis select {
-  border:1px solid #111;
+  border: 1px solid #111;
 }
 form.devis .form-group label {
-  width:100%;
+  width: 100%;
   font-size:1em;
   color: #111;
-  padding:0 2% 5%;
-  float:left;
+  padding: 0 2% 5%;
+  float: left;
 }
 form.devis .form-group.error input {
   border-color: red;
 }
 form.devis input[type="checkbox"] {
-  width:10%;
-  float:left;
+  width: 10%;
+  float: left;
 }
 form.devis label.type-checkbox {
   width:90%;
@@ -89,12 +91,16 @@ form.devis label.type-checkbox {
   padding: 0;
   color: #000;
 }
+form.devis select#civilite {
+  font-size: 1.4em;
+}
 form.devis select.surface {
   width: 75px;
 }
 table.tableau_devis {
   border-collapse: collapse;
   width: 100%;
+  margin: 0 0 25px;
 }
 table thead {
   color: rgb(131, 0, 0);
@@ -168,7 +174,7 @@ table th {
     width: 30%;
     font-size: 1em;
     letter-spacing: 1px;
-    margin: 50px 35%;
+    margin: 25px 35%;
   }
 
 }
