@@ -16,7 +16,7 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
 
   get_header();
 
-  ?><link rel="stylesheet" type="text/css" href="<?php bloginfo('template_directory'); ?>/css/style_devis.css"><?php
+  echo '<link rel="stylesheet" type="text/css" href="'.get_template_directory_uri().'/css/style_devis.css">';
 
 }
 
