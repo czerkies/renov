@@ -20,7 +20,7 @@ define('PRIX_DEBARRAS', 275); // Debarras 275 €
 
 define('TVA', 10); // TVA à 10%
 
-function sendMail($to, $subject, $content, $from = 'roman.czekies@gmail.com'){
+function sendMail($to, $subject, $content, $from = 'devis@renovcave.fr'){
 
   $headers = 'Content-Type: text/html; charset=\"UTF-8\";' . "\r\n";
   $headers .= 'FROM: Renov\'Cave <'.$from.'>' . "\r\n";
@@ -458,6 +458,6 @@ if(isset($_POST['demande_rdv'])){
     </div>
   ';
 
-  sendMail($to, $subject, $content, $from = 'contact@renovcave.fr');
+  sendMail($to, $subject, $content);
 
 }
