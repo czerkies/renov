@@ -11,7 +11,6 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
     die('Erreur : ' . $e->getMessage());
   }
 
-
 }
 
 define('PRIX_ETAGERE', 45); // Etagère à 45€
@@ -399,14 +398,14 @@ if(isset($_POST['devis'])){
         $content = '
           <div style="width:90%;margin:50px 5%;">
 
-            <h1>Nouvelle de demande de devis</h1>
+            <h2>Nouvelle de demande de devis</h2>
 
-            <h2>La demande concerne une CAV\'BOX SUR MESURE pour une cave de '.$_SESSION['devis']['surface'].' mètre(s) carrés.</h2>
+            <h3>La demande concerne une CAV\'BOX SUR MESURE pour une cave de '.$_SESSION['devis']['surface'].' mètre(s) carrés.</h3>
 
             <p>
               <b>Civilité :</b> '.$_POST['civilite'].'<br>
               <b>Nom :</b> '.$_POST['nom'].'<br>
-              <b>Adresse :</b> '.$_POST['adresse'].'<br>
+              <b>Adresse :</b> '.stripslashes($_POST['adresse']).'<br>
               <b>Code Postal :</b> '.$_POST['cp'].'<br>
               <b>Ville :</b> '.$_POST['ville'].'<br>
               <b>Téléphone :</b> '.$_POST['tel'].'<br>
@@ -447,7 +446,7 @@ if(isset($_POST['demande_rdv'])){
   $content = '
     <div style="width:90%;margin:50px 5%;">
 
-      <h1>Demande de rendez-vous à domicile</h1>
+      <h2>Demande de rendez-vous à domicile</h2>
 
       <p>Vous avez fait une demande de rendez-vous à votre domicile</p>
 
@@ -455,9 +454,52 @@ if(isset($_POST['demande_rdv'])){
 
       <p>Votre demande concerne une CAV\'BOX SUR MESURE pour une cave de '.$_SESSION['devis']['cubes'].' mètre(s) cubes.</p>
 
+      <h3>Vos informations :</h3>
+      <p>
+        <b>Civilité :</b> '.$_SESSION['devis']['civilite'].'<br>
+        <b>Nom :</b> '.$_SESSION['devis']['nom'].'<br>
+        <b>Adresse :</b> '.stripslashes($_SESSION['devis']['adresse']).'<br>
+        <b>Code Postal :</b> '.$_SESSION['devis']['cp'].'<br>
+        <b>Ville :</b> '.$_SESSION['devis']['ville'].'<br>
+        <b>Téléphone :</b> '.$_SESSION['devis']['tel'].'<br>
+        <b>Email :</b> '.$_SESSION['devis']['email'].'<br>
+        <b>Surface :</b> '.$_SESSION['devis']['surface'].'<br>
+        <b>Hauteur :</b> '.$_SESSION['devis']['hauteur'].'<br>
+        <b>Total :</b> '.$_SESSION['devis']['totalTTC'].'<br>
+      </p>
+
     </div>
   ';
 
   sendMail($to, $subject, $content);
+
+  $subjectAdmin = 'Demande de rendez-vous | '.strtolower($nom).' '.$prenom;
+
+  $contentAdmin = '
+    <div style="width:90%;margin:50px 5%;">
+
+      <h2>Demande de rendez-vous</h2>
+
+      <h3>Demande de rendez-vous : '.strtolower($nom).' '.$prenom.'</h3>
+
+      <p>La demande concerne une CAV\'BOX SUR MESURE pour une cave de '.$_SESSION['devis']['surface'].' mètre(s) carrés.</p>
+
+      <p>
+        <b>Civilité :</b> '.$_SESSION['devis']['civilite'].'<br>
+        <b>Nom :</b> '.$_SESSION['devis']['nom'].'<br>
+        <b>Adresse :</b> '.stripslashes($_SESSION['devis']['adresse']).'<br>
+        <b>Code Postal :</b> '.$_SESSION['devis']['cp'].'<br>
+        <b>Ville :</b> '.$_SESSION['devis']['ville'].'<br>
+        <b>Téléphone :</b> '.$_SESSION['devis']['tel'].'<br>
+        <b>Email :</b> '.$_SESSION['devis']['email'].'<br>
+        <b>Surface :</b> '.$_SESSION['devis']['surface'].'<br>
+        <b>Hauteur :</b> '.$_SESSION['devis']['hauteur'].'<br>
+        <b>Total :</b> '.$_SESSION['devis']['totalTTC'].'<br>
+      </p>
+
+    </div>
+  ';
+
+  sendMail('roman.czerkies@gmail.com', $subjectAdmin, $contentAdmin, 'rendez-vous@renovcave.com');
 
 }
