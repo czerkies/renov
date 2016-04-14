@@ -8,9 +8,8 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
 
   include_once 'functions.php';
 
-  // Données si sur serveur local
+  // Données si sur serveur LOCAL
   $donnees = $pdo->query("SELECT * FROM wp_prospects");
-
   $prospects = $donnees->fetchAll(PDO::FETCH_OBJ);
 
   echo '<link rel="stylesheet" type="text/css" href="style_devis.css">';
@@ -27,8 +26,8 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
 
   include_once get_template_directory().'/includes/functions.php';
 
+  // Récupération des données sur WP
   global $wpdb;
-
   $prospects = $wpdb->query("SELECT * FROM {$wpdb->prefix}prospects");
 
   get_header();
