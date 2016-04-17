@@ -342,7 +342,7 @@ if(isset($_POST['devis'])){
             array(
               'civilite' => $civilite,
               'nom' => $nom,
-              'adresse' => $adresse,
+              'adresse' => stripslashes($adresse),
               'cp' => $cp,
               'ville' => $ville,
               'tel' => $tel,
@@ -382,7 +382,7 @@ if(isset($_POST['devis'])){
             array(
               'civilite' => $civilite,
               'nom' => $nom,
-              'adresse' => $adresse,
+              'adresse' => stripslashes($adresse),
               'cp' => $cp,
               'ville' => $ville,
               'tel' => $tel,

@@ -28,26 +28,19 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
 
   // Récupération des données sur WP
   global $wpdb;
-  $prospects = $wpdb->query("SELECT * FROM {$wpdb->prefix}prospects");
+  $prospects = $wpdb->get_results("SELECT *, DATE_FORMAT(date_devis, '%d/%m/%Y à %H:%i') as date_wp FROM {$wpdb->prefix}prospects");
 
-  get_header();
-
-  echo '<link rel="stylesheet" type="text/css" href="'.get_template_directory_uri().'/css/style_devis.css">';
+  //echo '<link rel="stylesheet" type="text/css" href="'.get_template_directory_uri().'/css/style_devis.css">';
 
 }
 
 ?>
 <div class="container">
-  <div class="row">
-    <div class="span12" data-motopress-type="static" data-motopress-static-file="static/static-title.php">
-  		<section class="title-section">
-  	    <h1 class="title-header">Liste des prospects</h1>
-  	 </section>
-    </div>
-  </div>
-  <table border="1" class="tableau_devis">
+  <h2>Liste des prospects</h2>
+  <table border="1" style="width:90%;margin:50px 5%;border-collapse: collapse;" class="tableau_devis">
     <thead>
       <tr>
+        <th>N°</th>
         <th>Civilité</th>
         <th>Nom</th>
         <th>Adresse</th>
@@ -60,9 +53,10 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
         <th>Date demande de devis</th>
       </tr>
     </thead>
-    <tbody>
-      <?php foreach ($prospects as $value) { ?>
+    <tbody style="text-align:center;">
+      <?php $i=1; foreach ($prospects as $value) { ?>
         <tr>
+          <td><?= $i; ?></td>
           <td><?= $value->civilite; ?></td>
           <td><?= $value->nom; ?></td>
           <td><?= $value->adresse; ?></td>
@@ -72,14 +66,9 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
           <td><?= $value->email; ?></td>
           <td><?= $value->surface; ?></td>
           <td><?= $value->total; ?></td>
-          <td><?= $value->date_devis; ?></td>
+          <td><?= $value->date_wp; ?></td>
         </tr>
-      <?php } ?>
+      <?php $i++; } ?>
     </tbody>
   </table>
 </div>
-<?php
-
-  if($_SERVER['SERVER_NAME'] != 'localhost') get_footer();
-
-?>
