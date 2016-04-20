@@ -9,10 +9,10 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
   include_once 'functions.php';
 
   // Données si sur serveur LOCAL
-  $donnees = $pdo->query("SELECT * FROM wp_prospects");
+  $donnees = $pdo->query("SELECT *, DATE_FORMAT(date_devis, '%d/%m/%Y à %H:%i') as date_wp FROM wp_prospects");
   $prospects = $donnees->fetchAll(PDO::FETCH_OBJ);
 
-  echo '<link rel="stylesheet" type="text/css" href="style_devis.css">';
+  //echo '<link rel="stylesheet" type="text/css" href="style_devis.css">';
 
 } else {
 
@@ -37,7 +37,7 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
 ?>
 <div class="container">
   <h2>Liste des prospects</h2>
-  <table border="1" style="width:90%;margin:50px 5%;border-collapse: collapse;" class="tableau_devis">
+  <table border="1" style="width: 90%;margin: 50px 5%;border-collapse: collapse;" class="tableau_devis">
     <thead>
       <tr>
         <th>N°</th>
