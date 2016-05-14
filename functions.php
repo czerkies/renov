@@ -11,6 +11,21 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
     die('Erreur : ' . $e->getMessage());
   }
 
+  $wording = $pdo->query("SELECT MSG_KEY, MSG_VALUE FROM wp_wording");
+
+  $msgDonnees = $wording->fetchAll(PDO::FETCH_OBJ);
+
+  echo "<pre>";
+  //var_dump($msg);
+  //echo "</pre>";
+
+  $msg = array();
+  foreach ($msgDonnees as $key => $value) {
+    $msg[$msgDonnees[1]->MSG_KEY] = $msgDonnees[1]->MSG_VALUE;
+  }
+  echo "tesr : ";
+  var_dump($msg);
+
 }
 
 define('PRIX_ETAGERE', 45); // Etagère à 45€

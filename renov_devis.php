@@ -25,7 +25,7 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
   <div class="row">
     <div class="span12" data-motopress-type="static" data-motopress-static-file="static/static-title.php">
   		<section class="title-section">
-  	    <h1 class="title-header">Pour consulter votre devis, merci de compléter vos coordonnées.</h1>
+  	    <h1 class="title-header"><?= $msg[0]->MSG_VALUE; ?></h1>
   	 </section>
     </div>
   </div>
@@ -43,7 +43,7 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
       ?>
       <div class="form-group">
         <select id="civilite" name="civilite">
-          <option disabled>Choisissez votre civilite</option>
+          <option disabled>MSG_KEY(CIVILITE) Choisissez votre civilite</option>
           <option value="Madame" <?php if((isset($_POST['civilite']) && $_POST['civilite'] === 'Madame')
           || (isset($_SESSION['devis']['civilite']) && $_SESSION['devis']['civilite'] === 'Madame')) echo "selected"; ?>>Madame</option>
           <option value="Monsieur" <?php if((isset($_POST['civilite']) && $_POST['civilite'] === 'Monsieur')
@@ -51,7 +51,7 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
         </select>
       </div>
       <div class="form-group<?php if(isset($msg['devis']['nom'])) echo ' error'; ?>">
-        <input type="text" id="nom" name="nom" title="Nom" placeholder="Nom" value="<?php
+        <input type="text" id="nom" name="nom" title="Nom" placeholder="MSG_KEY(NOM) Nom" value="<?php
         if(isset($_POST['nom'])) {
           echo $_POST['nom'];
         } elseif(isset($_SESSION['devis']['nom'])) {
@@ -60,14 +60,14 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
         <?php if(isset($msg['nom'])) echo $msg['nom']; ?>
       </div>
       <div class="form-group large<?php if(isset($msg['devis']['adresse'])) echo ' error'; ?>">
-        <input type="text" id="adresse" name="adresse" title="Adresse" placeholder="Adresse" value="<?php if(isset($_POST['adresse'])) {
+        <input type="text" id="adresse" name="adresse" title="Adresse" placeholder="MSG_KEY(ADRESSE) Adresse" value="<?php if(isset($_POST['adresse'])) {
           echo stripslashes($_POST['adresse']);
         } elseif(isset($_SESSION['devis']['adresse'])) {
           echo stripslashes($_SESSION['devis']['adresse']);
         } ?>" required>
       </div>
       <div class="form-group<?php if(isset($msg['devis']['cp'])) echo ' error'; ?>">
-        <input type="text" id="cp" name="cp" title="Code Postal" placeholder="Code Postal" value="<?php
+        <input type="text" id="cp" name="cp" title="Code Postal" placeholder="MSG_KEY(CP) Code Postal" value="<?php
         if(isset($_POST['cp'])) {
           echo $_POST['cp'];
         } elseif(isset($_SESSION['devis']['cp'])) {
@@ -75,7 +75,7 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
         } ?>" required>
       </div>
       <div class="form-group<?php if(isset($msg['devis']['ville'])) echo ' error'; ?>">
-        <input type="text" id="ville" name="ville" title="Ville" placeholder="Ville" value="<?php
+        <input type="text" id="ville" name="ville" title="Ville" placeholder="MSG_KEY(VILLE) Ville" value="<?php
         if(isset($_POST['ville'])) {
           echo $_POST['ville'];
         } elseif(isset($_SESSION['devis']['ville'])) {
@@ -83,7 +83,7 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
         } ?>" required>
       </div>
       <div class="form-group<?php if(isset($msg['devis']['tel'])) echo ' error'; ?>">
-        <input type="tel" id="tel" name="tel" title="Téléphone" placeholder="Téléphone" value="<?php
+        <input type="tel" id="tel" name="tel" title="Téléphone" placeholder="MSG_KEY(TEL) Téléphone" value="<?php
         if(isset($_POST['tel'])) {
           echo $_POST['tel'];
         } elseif(isset($_SESSION['devis']['tel'])) {
@@ -91,7 +91,7 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
         } ?>" required>
       </div>
       <div class="form-group<?php if(isset($msg['devis']['email'])) echo ' error'; ?>">
-        <input type="email" id="email" name="email" title="E-mail" placeholder="E-mail" value="<?php
+        <input type="email" id="email" name="email" title="E-mail" placeholder="MSG_KEY(MAIL) E-mail" value="<?php
         if(isset($_POST['email'])) {
           echo $_POST['email'];
         } elseif(isset($_SESSION['devis']['email'])) {
@@ -99,7 +99,7 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
         } ?>" required>
       </div>
       <div class="form-group<?php if(isset($msg['devis']['surface'])) echo ' error'; ?>">
-        <input type="number" min="1" max="45" step="0.01" id="surface" name="surface" title="Surface de votre cave en M2" placeholder="Surface de votre cave en M2" value="<?php
+        <input type="number" min="1" max="45" step="0.01" id="surface" name="surface" title="Surface de votre cave en M2" placeholder="MSG_KEY(SURFACE) Surface de votre cave en M2" value="<?php
         if(isset($_POST['surface'])) {
           echo $_POST['surface'];
         } elseif(isset($_SESSION['devis']['surface'])) {
@@ -107,7 +107,7 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
         } ?>" required>
       </div>
       <div class="form-group<?php if(isset($msg['devis']['hauteur'])) echo ' error'; ?>">
-        <input type="number" min="1" max="10" step="0.01" id="hauteur" name="hauteur" title="Hauteur de votre cave en CM" placeholder="Hauteur de votre cave en CM" value="<?php
+        <input type="number" min="1" max="10" step="0.01" id="hauteur" name="hauteur" title="Hauteur de votre cave en CM" placeholder="MSG_KEY(HAUTEUR) Hauteur de votre cave en CM" value="<?php
         if(isset($_POST['hauteur'])) {
           echo $_POST['hauteur'];
         } elseif(isset($_SESSION['devis']['hauteur'])) {
@@ -119,34 +119,35 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
         <thead>
           <tr>
             <th class="w_65 tcenter">
-              Description
+              MSG_KEY(DESC) Description
             </th>
             <th class="w_15 tcenter">
-              Qte
+              MSG_KEY(QT) Qte
             </th>
             <th class="w_10 tcenter">
-              PU HT
+              MSG_KEY(PU) PU HT
             </th>
             <th class="w_10 tcenter">
-              Total HT
+              MSG_KEY(TOTAL) Total HT
             </th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td class="b_top b_bottom" colspan="4">
-              CAV'BOX SUR MESURE
+              MSG_KEY(TITRE_START) CAV'BOX SUR MESURE
               <?php if(isset($cubes) || isset($_SESSION['devis']['cubes'])) { ?>
-                POUR UNE CAVE DE <?php if(isset($cubes)) {
+                MSG_KEY(TITRE_MID) POUR UNE CAVE DE <?php if(isset($cubes)) {
                   echo $cubes;
                 } else {
                   echo $_SESSION['devis']['cubes'];
-                } ?> MÈTRE(S) CUBES COMPRENANT :
+                } ?> MSG_KEY(TITRE_END) MÈTRE(S) CUBES COMPRENANT :
               <?php } ?>
             </td>
           </tr>
           <tr class="b_bottom">
             <td class="b_right">
+              MSG_KEY(DESC_BOX)
               Mise en oeuvre d'un sol isolant, avec revêtement pour un entretien facile.<br>
               Mise en oeuvre d'un ensemble mural isolant, sur mesure.<br>
               Mise en oeuvre d'un plafond isolant, sur mesure.<br>
@@ -182,17 +183,19 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
           </tr>
           <tr>
             <td class="" colspan="4">
-              <b>La pose de l'ouvrage, conçu en matériaux de construction pour un usage intérieur en milieu humide, répondant à la norme EN 13986, respecte l'aération naturelle de la cave.</b>
+              <b>MSG_KEY(SOUS_DESC_BOX) La pose de l'ouvrage, conçu en matériaux de construction pour un usage intérieur en milieu humide, répondant à la norme EN 13986, respecte l'aération naturelle de la cave.</b>
             </td>
           </tr>
+          BOUCLE 1 OPT_KEY(GRTITRE_X)
           <tr>
             <td class="b_top" colspan="4">
-              AMÉNAGEMENTS INTÉRIEURS :
+              OPT_KEY(GRTITRE_1) AMÉNAGEMENTS INTÉRIEURS :
             </td>
           </tr>
+          BOUCLE 2 OPT_KEY(OPT_TITRE_1_X)
           <tr class="b_top">
             <td class="b_right">
-              <label for="nb_etageres"><b>Linéaire d'étagère sur mesure</b>, profondeur 35 cm, posée sur un ensemble de fixation, permettant le réglage en hauteur.</label>
+              <label for="nb_etageres">OPT_KEY(OPT_TITRE_1_1) <b>Linéaire d'étagère sur mesure</b>, profondeur 35 cm, posée sur un ensemble de fixation, permettant le réglage en hauteur.</label>
             </td>
             <td class="tright b_right">
               <select id="nb_etageres" name="nb_etageres">
@@ -207,10 +210,10 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
                   echo '>'.$i.'.00</option>';
                 }
                 ?>
-              </select> <em>ML</em>
+              </select> <em>OPT_KEY(OPT_UNITE_1_1) ML</em>
             </td>
             <td class="tright b_right">
-              45.00
+              OPT_KEY(PRIX_1_1) 45.00
             </td>
             <td class="tright">
               <?php if(isset($totalEtageres)) {
@@ -224,12 +227,12 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
           </tr>
           <tr>
             <td class="b_top" colspan="4">
-              BLOC PORTE :
+              OPT_KEY(GRTITRE_2) BLOC PORTE :
             </td>
           </tr>
           <tr class="b_top">
             <td class="b_right">
-              <label for="nb_portes"><b>Bloc porte de cave métallique sur mesure</b>, trois omégas de renfort, aération basse intégrée, serrure trois points A2P*, livrée avec 3 clefs.</label>
+              <label for="nb_portes">OPT_KEY(OPT_TITRE_2_1) <b>Bloc porte de cave métallique sur mesure</b>, trois omégas de renfort, aération basse intégrée, serrure trois points A2P*, livrée avec 3 clefs.</label>
             </td>
             <td class="tright b_right">
               <select id="nb_portes" name="nb_portes">
@@ -244,10 +247,10 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
                   echo '>'.$i.'.00</option>';
                 }
                 ?>
-              </select> <em>Ens</em>
+              </select> <em>OPT_KEY(OPT_UNITE_2_1) Ens</em>
             </td>
             <td class="tright b_right">
-              990.00
+              OPT_KEY(OPT_PRIX_2_1) 990.00
             </td>
             <td class="tright">
               <?php if(isset($totalPortes)) {
@@ -261,12 +264,12 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
           </tr>
           <tr>
             <td class="b_top" colspan="4">
-              DÉBARRAS :
+              OPT_KEY(GRTITRE_3) DÉBARRAS :
             </td>
           </tr>
           <tr class="b_top b_bottom">
             <td class="b_right">
-              <label for="debarras"><b>Effets personnels à débarrasser :</b> Tri, mise en sacs, évacuation à dos d'homme et transport en déchetterie ECO-TRI.</label>
+              <label for="debarras">OPT_VALUE(OPT_TITRE_3_1) <b>Effets personnels à débarrasser :</b> Tri, mise en sacs, évacuation à dos d'homme et transport en déchetterie ECO-TRI.</label>
             </td>
             <td class="tright b_right">
               <select id="debarras" name="debarras">
@@ -281,10 +284,10 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
                   echo '>'.$i.'.00</option>';
                 }
                 ?>
-              </select> <em>M3</em>
+              </select> <em>OPT_KEY(OPT_UNITE_3_1) M3</em>
             </td>
             <td class="tright b_right">
-              275.00
+              OPT_KEY(OPT_PRIX_3_1) 275.00
             </td>
             <td class="tright">
               <?php if(isset($totalDebarras)) {
@@ -358,7 +361,7 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
           </tr>
         </tbody>
       </table>
-      <input type="submit" name="devis" value="Estimation du devis">
+      <input type="submit" name="devis" value="MSG_KEY(VALID_DEVIS) Estimation du devis">
     </form>
     <?php if(isset($_SESSION['devis'])){ ?>
       <div class="row">
