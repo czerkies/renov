@@ -11,8 +11,8 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
     die('Erreur : ' . $e->getMessage());
   }
 
+  // Query wording 
   $wording = $pdo->query("SELECT MSG_KEY, MSG_VALUE FROM wp_wording");
-
   $msgDonnees = $wording->fetchAll(PDO::FETCH_OBJ);
 
 } else {
