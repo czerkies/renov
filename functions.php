@@ -15,17 +15,18 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
 
   $msgDonnees = $wording->fetchAll(PDO::FETCH_OBJ);
 
-  echo "<pre>";
-  //var_dump($msg);
-  //echo "</pre>";
+} else {
 
-  $msg = array();
-  foreach ($msgDonnees as $key => $value) {
-    $msg[$msgDonnees[1]->MSG_KEY] = $msgDonnees[1]->MSG_VALUE;
+  // TODO: Query WP
+
+}
+
+// Tableau $msg contenant le wording
+$msg = array();
+for ($i=0; $i<count($msgDonnees); $i++) {
+  foreach ($msgDonnees as $key) {
+    $msg[$msgDonnees[$i]->MSG_KEY] = $msgDonnees[$i]->MSG_VALUE;
   }
-  echo "tesr : ";
-  var_dump($msg);
-
 }
 
 define('PRIX_ETAGERE', 45); // Etagère à 45€
