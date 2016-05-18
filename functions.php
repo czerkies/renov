@@ -42,7 +42,7 @@ for ($i=0; $i<count($optionsDonnees); $i++) {
 
 $nbOptionsDonnees = count($optionsDonnees);
 
-for ($i=1; $i<$nbOptionsDonnees; $i++) {
+/*for ($i=1; $i<$nbOptionsDonnees; $i++) {
   if(!empty($options['GRTITRE_'.$i]['VALUE'])) {
     echo $options['GRTITRE_'.$i]['VALUE'].'<br>';
     for($y=1; $y<$nbOptionsDonnees; $y++) {
@@ -53,7 +53,7 @@ for ($i=1; $i<$nbOptionsDonnees; $i++) {
       }
     }
   }
-}
+}*/
 
 // Tableau $msg contenant le wording
 $msg = array();
@@ -313,6 +313,28 @@ if(isset($_POST['devis'])){
       $cubes = round($_POST['surface']*$_POST['hauteur'], 2);
 
       $_SESSION['devis']['cubes'] = $cubes;
+
+      // options
+
+      $total = array();
+
+      for ($i=1; $i<$nbOptionsDonnees; $i++) {
+        if(!empty($options['GRTITRE_'.$i]['VALUE'])) {
+          for($y=1; $y<$nbOptionsDonnees; $y++) {
+            if(!empty($options['OPT_'.$i.'_'.$y]['VALUE'])) {
+
+              $total['OPT_'.$i.'_'.$y] = $options['OPT_'.$i.'_'.$y]['PRIX']*$_POST['OPT_'.$i.'_'.$y];
+
+              $_SESSION['devis']['OPT_'.$i.'_'.$y] = $total['OPT_'.$i.'_'.$y];
+
+              $totalHT += $total['OPT_'.$i.'_'.$y];
+
+            }
+          }
+        }
+      }
+
+      print_r($_SESSION['devis']);
 
       // Etageres
       /*$totalEtageres = PRIX_ETAGERE*$_POST['nb_etageres'];

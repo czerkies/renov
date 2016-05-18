@@ -181,133 +181,73 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
           </tr>
           <?php for($i=1; $i<$nbOptionsDonnees; $i++) {
             if(!empty($options['GRTITRE_'.$i]['VALUE'])) { ?>
+
               <tr>
                 <td class="b_top" colspan="4">
                   <?= $options['GRTITRE_'.$i]['VALUE']; ?>
                 </td>
               </tr>
-              <?php for($j=1; $j<$nbOptionsDonnees; $j++) {
+
+              <?php
+
+              for($j=1; $j<$nbOptionsDonnees; $j++) {
+
                 if(!empty($options['OPT_'.$i.'_'.$j]['VALUE'])) { ?>
+
                   <tr class="b_top">
+
                     <td class="b_right">
                       <label for="<?= $options['OPT_'.$i.'_'.$j]['KEY']; ?>"><?= $options['OPT_'.$i.'_'.$j]['VALUE']; ?></label>
                     </td>
+
                     <td class="tright b_right">
+
                       <select id="<?= $options['OPT_'.$i.'_'.$j]['KEY']; ?>" name="<?= $options['OPT_'.$i.'_'.$j]['KEY']; ?>">
                         <?php
                         for ($k = 0; $k <= 10; $k++) {
                           echo '<option value="'.$k.'"';
-                          if(isset($_POST['nb_etageres']) && $_POST['nb_etageres'] == $k) {
+                          if(isset($_POST['OPT_'.$i.'_'.$j]) && $_POST['OPT_'.$i.'_'.$j] == $k) {
                             echo ' selected';
-                          } elseif (isset($_SESSION['devis']['nb_etageres']) && $_SESSION['devis']['nb_etageres'] == $k) {
+                          } elseif (isset($_SESSION['devis']['OPT_'.$i.'_'.$j]) && $_SESSION['devis']['OPT_'.$i.'_'.$j] == $k) {
                             echo ' selected';
                           }
                           echo '>'.$k.'.00</option>';
                         }
                         ?>
                       </select> <em><?= $options['OPT_'.$i.'_'.$j]['UNITE']; ?></em>
+
                     </td>
+
                     <td class="tright b_right">
                       <?php
                         echo $options['OPT_'.$i.'_'.$j]['PRIX'];
                         if(!is_float($options['OPT_'.$i.'_'.$j]['PRIX'])) echo '.00';
                       ?>
                     </td>
+
                     <td class="tright">
-                      <?php if(isset($totalEtageres)) {
-                        echo $totalEtageres;
-                      } elseif(isset($_SESSION['devis']['totalEtageres'])) {
-                        echo $_SESSION['devis']['totalEtageres'];
+                      <?php if(isset($total['OPT_'.$i.'_'.$j])) {
+                        echo $total['OPT_'.$i.'_'.$j];
+                      } elseif(isset($_SESSION['devis']['OPT_'.$i.'_'.$j])) {
+                        echo $_SESSION['devis']['OPT_'.$i.'_'.$j];
                       } else {
                         echo '0';
-                      } ?>.00
+                      } ?>
                     </td>
+
                   </tr>
+
                   <?php
+                  }
                 }
               }
             }
-          }
-          ?>
-          <tr>
-            <td class="b_top" colspan="4">
-              OPT_KEY(GRTITRE_2) BLOC PORTE :
-            </td>
-          </tr>
-          <tr class="b_top">
-            <td class="b_right">
-              <label for="nb_portes">OPT_KEY(OPT_TITRE_2_1) <b>Bloc porte de cave métallique sur mesure</b>, trois omégas de renfort, aération basse intégrée, serrure trois points A2P*, livrée avec 3 clefs.</label>
-            </td>
-            <td class="tright b_right">
-              <select id="nb_portes" name="nb_portes">
-                <?php
-                for ($i = 0; $i <= 10; $i++) {
-                  echo '<option value="'.$i.'"';
-                  if(isset($_POST['nb_portes']) && $_POST['nb_portes'] == $i) {
-                    echo ' selected';
-                  } elseif (isset($_SESSION['devis']['nb_portes']) && $_SESSION['devis']['nb_portes'] == $i) {
-                    echo ' selected';
-                  }
-                  echo '>'.$i.'.00</option>';
-                }
-                ?>
-              </select> <em>OPT_KEY(OPT_UNITE_2_1) Ens</em>
-            </td>
-            <td class="tright b_right">
-              OPT_KEY(OPT_PRIX_2_1) 990.00
-            </td>
-            <td class="tright">
-              <?php if(isset($totalPortes)) {
-                echo $totalPortes;
-              } elseif(isset($_SESSION['devis']['nb_portes'])) {
-                echo $_SESSION['devis']['totalPortes'];
-              } else {
-                echo '0';
-              } ?>.00
-            </td>
-          </tr>
-          <tr>
-            <td class="b_top" colspan="4">
-              OPT_KEY(GRTITRE_3) DÉBARRAS :
-            </td>
-          </tr>
-          <tr class="b_top b_bottom">
-            <td class="b_right">
-              <label for="debarras">OPT_VALUE(OPT_TITRE_3_1) <b>Effets personnels à débarrasser :</b> Tri, mise en sacs, évacuation à dos d'homme et transport en déchetterie ECO-TRI.</label>
-            </td>
-            <td class="tright b_right">
-              <select id="debarras" name="debarras">
-                <?php
-                for ($i = 0; $i <= 10; $i++) {
-                  echo '<option value="'.$i.'"';
-                  if(isset($_POST['debarras']) && $_POST['debarras'] == $i) {
-                    echo ' selected';
-                  } elseif (isset($_SESSION['devis']['debarras']) && $_SESSION['devis']['debarras'] == $i) {
-                    echo ' selected';
-                  }
-                  echo '>'.$i.'.00</option>';
-                }
-                ?>
-              </select> <em>OPT_KEY(OPT_UNITE_3_1) M3</em>
-            </td>
-            <td class="tright b_right">
-              OPT_KEY(OPT_PRIX_3_1) 275.00
-            </td>
-            <td class="tright">
-              <?php if(isset($totalDebarras)) {
-                echo $totalDebarras;
-              } elseif(isset($_SESSION['devis']['debarras'])) {
-                echo $_SESSION['devis']['totalDebarras'];
-              } else {
-                echo '0';
-              } ?>.00
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2" class="tright">
+            ?>
+
+            <td colspan="2" class="b_top tright">
               <b>Total HT</b>
             </td>
-            <td colspan="2" class="tright">
+            <td colspan="2" class="b_top tright">
               <b><?php if(isset($totalHT)) {
                 echo $totalHT;
               } elseif(isset($_SESSION['devis']['totalHT'])) {
