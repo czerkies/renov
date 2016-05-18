@@ -36,7 +36,7 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
       if(!empty($msg['devis'])) {
         echo '<div class="errors">';
         foreach ($msg['devis'] as $key => $value) {
-          echo $msg['devis'][$key].'<br>';
+          echo $msg['devis'][$key];
         }
         echo '</div>';
       }
