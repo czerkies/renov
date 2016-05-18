@@ -11,14 +11,48 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
     die('Erreur : ' . $e->getMessage());
   }
 
-  // Query wording 
+  // Query wording
   $wording = $pdo->query("SELECT MSG_KEY, MSG_VALUE FROM wp_wording");
   $msgDonnees = $wording->fetchAll(PDO::FETCH_OBJ);
 
+  // Query options
+  $optionsBD = $pdo->query("SELECT OPT_KEY, OPT_VALUE, OPT_UNITE, OPT_PRIX FROM wp_options");
+  $optionsDonnees = $optionsBD->fetchAll(PDO::FETCH_OBJ);
+
+  /*/echo "<pre>";
+  var_dump($optionsDonnees);
+  echo "</pre><hr>";/**/
 } else {
 
   // TODO: Query WP
 
+}
+
+// Tableau $options
+$options = array();
+
+for ($i=0; $i<count($optionsDonnees); $i++) {
+  foreach ($optionsDonnees as $key) {
+    $options[$optionsDonnees[$i]->OPT_KEY]['KEY'] = $optionsDonnees[$i]->OPT_KEY;
+    $options[$optionsDonnees[$i]->OPT_KEY]['VALUE'] = $optionsDonnees[$i]->OPT_VALUE;
+    $options[$optionsDonnees[$i]->OPT_KEY]['UNITE'] = $optionsDonnees[$i]->OPT_UNITE;
+    $options[$optionsDonnees[$i]->OPT_KEY]['PRIX'] = $optionsDonnees[$i]->OPT_PRIX;
+  }
+}
+
+$nbOptionsDonnees = count($optionsDonnees);
+
+for ($i=1; $i<$nbOptionsDonnees; $i++) {
+  if(!empty($options['GRTITRE_'.$i]['VALUE'])) {
+    echo $options['GRTITRE_'.$i]['VALUE'].'<br>';
+    for($y=1; $y<$nbOptionsDonnees; $y++) {
+      if(!empty($options['OPT_'.$i.'_'.$y]['VALUE'])) {
+        echo $options['OPT_'.$i.'_'.$y]['VALUE'].'<br>';
+        echo $options['OPT_'.$i.'_'.$y]['UNITE'].'<br>';
+        echo $options['OPT_'.$i.'_'.$y]['PRIX'].'<br><hr>';
+      }
+    }
+  }
 }
 
 // Tableau $msg contenant le wording
@@ -54,14 +88,28 @@ if(isset($_POST['devis'])){
   && isset($_POST['nom']) && isset($_POST['adresse'])
   && isset($_POST['cp']) && isset($_POST['ville'])
   && isset($_POST['tel']) && isset($_POST['email'])
-  && isset($_POST['surface']) && isset($_POST['hauteur'])
-  && isset($_POST['nb_etageres']) && $_POST['nb_etageres'] >= 0
+  && isset($_POST['surface']) && isset($_POST['hauteur'])) {
+  /*&& isset($_POST['nb_etageres']) && $_POST['nb_etageres'] >= 0
   && $_POST['nb_etageres'] <= 10 && is_numeric($_POST['nb_etageres'])
   && isset($_POST['nb_portes']) && $_POST['nb_portes'] >= 0
   && $_POST['nb_portes'] <= 10 && is_numeric($_POST['nb_portes'])
   && isset($_POST['debarras']) && $_POST['debarras'] >= 0
-  && $_POST['debarras'] <= 10 && is_numeric($_POST['debarras'])){
+  && $_POST['debarras'] <= 10 && is_numeric($_POST['debarras'])){*/
 
+    for ($i=1; $i<$nbOptionsDonnees; $i++) {
+      if(!empty($options['GRTITRE_'.$i]['VALUE'])) {
+        for($y=1; $y<$nbOptionsDonnees; $y++) {
+          if(!empty($options['OPT_'.$i.'_'.$y]['VALUE'])) {
+
+            if(!isset($_POST[$options['OPT_'.$i.'_'.$y]['KEY']]) && $_POST[$options['OPT_'.$i.'_'.$y]['KEY']] <= 0
+            && $_POST[$options['OPT_'.$i.'_'.$y]['KEY']] >= 10 && !is_numeric($_POST[$options['OPT_'.$i.'_'.$y]['KEY']])) {
+              $msg['devis'][$_POST[$options['OPT_'.$i.'_'.$y]['KEY']]] = "Test";
+            }
+
+          }
+        }
+      }
+    }
 
     if(empty($_POST['nom']) || strlen($_POST['nom']) < 2){
       $msg['devis']['nom'] = '<label for="nom">Veuillez saisir un Nom.</label>';
@@ -267,7 +315,7 @@ if(isset($_POST['devis'])){
       $_SESSION['devis']['cubes'] = $cubes;
 
       // Etageres
-      $totalEtageres = PRIX_ETAGERE*$_POST['nb_etageres'];
+      /*$totalEtageres = PRIX_ETAGERE*$_POST['nb_etageres'];
 
       $_SESSION['devis']['totalEtageres'] = $totalEtageres;
 
@@ -285,7 +333,7 @@ if(isset($_POST['devis'])){
 
       $_SESSION['devis']['totalDebarras'] = $totalDebarras;
 
-      $totalHT += $totalDebarras;
+      $totalHT += $totalDebarras;*/
 
       // Total
       $_SESSION['devis']['totalHT'] = $totalHT;

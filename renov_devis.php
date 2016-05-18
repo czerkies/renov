@@ -179,45 +179,56 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
               <b><?= $msg['SOUS_DESC_BOX']; ?></b>
             </td>
           </tr>
-          BOUCLE 1 OPT_KEY(GRTITRE_X)
-          <tr>
-            <td class="b_top" colspan="4">
-              OPT_KEY(GRTITRE_1) AMÉNAGEMENTS INTÉRIEURS :
-            </td>
-          </tr>
-          BOUCLE 2 OPT_KEY(OPT_TITRE_1_X)
-          <tr class="b_top">
-            <td class="b_right">
-              <label for="nb_etageres">OPT_KEY(OPT_TITRE_1_1) <b>Linéaire d'étagère sur mesure</b>, profondeur 35 cm, posée sur un ensemble de fixation, permettant le réglage en hauteur.</label>
-            </td>
-            <td class="tright b_right">
-              <select id="nb_etageres" name="nb_etageres">
-                <?php
-                for ($i = 0; $i <= 10; $i++) {
-                  echo '<option value="'.$i.'"';
-                  if(isset($_POST['nb_etageres']) && $_POST['nb_etageres'] == $i) {
-                    echo ' selected';
-                  } elseif (isset($_SESSION['devis']['nb_etageres']) && $_SESSION['devis']['nb_etageres'] == $i) {
-                    echo ' selected';
-                  }
-                  echo '>'.$i.'.00</option>';
+          <?php for($i=1; $i<$nbOptionsDonnees; $i++) {
+            if(!empty($options['GRTITRE_'.$i]['VALUE'])) { ?>
+              <tr>
+                <td class="b_top" colspan="4">
+                  <?= $options['GRTITRE_'.$i]['VALUE']; ?>
+                </td>
+              </tr>
+              <?php for($j=1; $j<$nbOptionsDonnees; $j++) {
+                if(!empty($options['OPT_'.$i.'_'.$j]['VALUE'])) { ?>
+                  <tr class="b_top">
+                    <td class="b_right">
+                      <label for="<?= $options['OPT_'.$i.'_'.$j]['KEY']; ?>"><?= $options['OPT_'.$i.'_'.$j]['VALUE']; ?></label>
+                    </td>
+                    <td class="tright b_right">
+                      <select id="<?= $options['OPT_'.$i.'_'.$j]['KEY']; ?>" name="<?= $options['OPT_'.$i.'_'.$j]['KEY']; ?>">
+                        <?php
+                        for ($k = 0; $k <= 10; $k++) {
+                          echo '<option value="'.$k.'"';
+                          if(isset($_POST['nb_etageres']) && $_POST['nb_etageres'] == $k) {
+                            echo ' selected';
+                          } elseif (isset($_SESSION['devis']['nb_etageres']) && $_SESSION['devis']['nb_etageres'] == $k) {
+                            echo ' selected';
+                          }
+                          echo '>'.$k.'.00</option>';
+                        }
+                        ?>
+                      </select> <em><?= $options['OPT_'.$i.'_'.$j]['UNITE']; ?></em>
+                    </td>
+                    <td class="tright b_right">
+                      <?php
+                        echo $options['OPT_'.$i.'_'.$j]['PRIX'];
+                        if(!is_float($options['OPT_'.$i.'_'.$j]['PRIX'])) echo '.00';
+                      ?>
+                    </td>
+                    <td class="tright">
+                      <?php if(isset($totalEtageres)) {
+                        echo $totalEtageres;
+                      } elseif(isset($_SESSION['devis']['totalEtageres'])) {
+                        echo $_SESSION['devis']['totalEtageres'];
+                      } else {
+                        echo '0';
+                      } ?>.00
+                    </td>
+                  </tr>
+                  <?php
                 }
-                ?>
-              </select> <em>OPT_KEY(OPT_UNITE_1_1) ML</em>
-            </td>
-            <td class="tright b_right">
-              OPT_KEY(PRIX_1_1) 45.00
-            </td>
-            <td class="tright">
-              <?php if(isset($totalEtageres)) {
-                echo $totalEtageres;
-              } elseif(isset($_SESSION['devis']['totalEtageres'])) {
-                echo $_SESSION['devis']['totalEtageres'];
-              } else {
-                echo '0';
-              } ?>.00
-            </td>
-          </tr>
+              }
+            }
+          }
+          ?>
           <tr>
             <td class="b_top" colspan="4">
               OPT_KEY(GRTITRE_2) BLOC PORTE :
