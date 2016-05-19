@@ -91,7 +91,6 @@ if(isset($_POST['devis'])){
   && isset($_POST['surface']) && isset($_POST['hauteur'])) {
 
     // Controle des champs Options
-
     $errorOptions = 0;
 
     for ($i=1; $i<$nbOptionsDonnees; $i++) {
@@ -99,8 +98,8 @@ if(isset($_POST['devis'])){
         for($y=1; $y<$nbOptionsDonnees; $y++) {
           if(!empty($options['OPT_'.$i.'_'.$y]['VALUE'])) {
 
-            if(!isset($_POST['OPT_'.$i.'_'.$y]) || $_POST['OPT_'.$i.'_'.$y] <= 0
-            || $_POST['OPT_'.$i.'_'.$y] >= 10 || !is_numeric($_POST['OPT_'.$i.'_'.$y])) {
+            if(!isset($_POST['OPT_'.$i.'_'.$y]) || $_POST['OPT_'.$i.'_'.$y] < 0
+            || $_POST['OPT_'.$i.'_'.$y] > 10 || !is_numeric($_POST['OPT_'.$i.'_'.$y])) {
               $errorOptions += 1;
             }
 
@@ -108,8 +107,6 @@ if(isset($_POST['devis'])){
         }
       }
     }
-    echo "<pre>";
-    var_dump($_POST);
 
     if(!$errorOptions) {
 
@@ -321,8 +318,11 @@ if(isset($_POST['devis'])){
         $total = array();
 
         for ($i=1; $i<$nbOptionsDonnees; $i++) {
+
           if(!empty($options['GRTITRE_'.$i]['VALUE'])) {
+
             for($y=1; $y<$nbOptionsDonnees; $y++) {
+
               if(!empty($options['OPT_'.$i.'_'.$y]['VALUE'])) {
 
                 // Enregisrement QT en session
@@ -598,6 +598,11 @@ if(isset($_POST['demande_rdv'])){
     </div>
   ';
 
-  sendMail('roman.czerkies@gmail.com', $subjectAdmin, $contentAdmin, 'rendez-vous@renovcave.com');
+  sendMail(
+    'roman.czerkies@gmail.com',
+    $subjectAdmin,
+    $contentAdmin,
+    'rendez-vous@renovcave.com'
+  );
 
 }
