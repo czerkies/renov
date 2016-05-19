@@ -18,6 +18,7 @@ form.devis{
   margin: 25px 1%;
 }
 .contact .errors {
+  font-size: 1.25em;
   width: 98%;
   margin: 25px 1%;
   padding: 1%;
@@ -76,7 +77,7 @@ form.devis .form-group label {
   float: left;
 }
 form.devis .form-group.error input {
-  border-color: red;
+  border-color: red !important;
 }
 form.devis input[type="checkbox"] {
   width: 10%;
@@ -98,6 +99,7 @@ form.devis select.surface {
   width: 75px;
 }
 table.tableau_devis {
+  font-size: 1.25em;
   border-collapse: collapse;
   width: 100%;
   margin: 0 0 25px;

@@ -37,7 +37,7 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
 ?>
 <div class="container">
   <h2>Liste des prospects</h2>
-  <table border="1" style="width: 90%;margin: 50px 5%;border-collapse: collapse;" class="tableau_devis">
+  <table border="1" style="width:calc(100% - 40px);margin:50px 0;border-collapse:collapse;font-size:1.1em;" class="tableau_devis">
     <thead>
       <tr>
         <th>N°</th>
