@@ -179,8 +179,13 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
               <b><?= $msg['SOUS_DESC_BOX']; ?></b>
             </td>
           </tr>
-          <?php for($i=1; $i<$nbOptionsDonnees; $i++) {
-            if(!empty($options['GRTITRE_'.$i]['VALUE'])) { ?>
+          <?php
+          // Boucle Catégorie
+          for($i=1; $i<$nbOptionsDonnees; $i++) {
+            // Vérification d'une catégorie non vide
+            if(!empty($options['GRTITRE_'.$i]['VALUE'])) {
+
+            ?>
 
               <tr>
                 <td class="b_top" colspan="4">
@@ -189,9 +194,9 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
               </tr>
 
               <?php
-
+              // Boucle option par catégorie
               for($j=1; $j<$nbOptionsDonnees; $j++) {
-
+                // Vérification d'une option non vide
                 if(!empty($options['OPT_'.$i.'_'.$j]['VALUE'])) { ?>
 
                   <tr class="b_top">
@@ -208,7 +213,7 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
                           echo '<option value="'.$k.'"';
                           if(isset($_POST['OPT_'.$i.'_'.$j]) && $_POST['OPT_'.$i.'_'.$j] == $k) {
                             echo ' selected';
-                          } elseif (isset($_SESSION['devis']['OPT_'.$i.'_'.$j]) && $_SESSION['devis']['OPT_'.$i.'_'.$j] == $k) {
+                          } elseif (isset($_SESSION['devis']['Nb_OPT_'.$i.'_'.$j]) && $_SESSION['devis']['Nb_OPT_'.$i.'_'.$j] == $k) {
                             echo ' selected';
                           }
                           echo '>'.$k.'.00</option>';
