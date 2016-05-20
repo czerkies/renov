@@ -2,6 +2,8 @@
 
 session_start();
 
+define('TVA', 10); // TVA à 10%
+
 // Connection au serveur si localhost
 if($_SERVER['SERVER_NAME'] === 'localhost'){
 
@@ -19,8 +21,12 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
   $optionsBD = $pdo->query("SELECT OPT_KEY, OPT_VALUE, OPT_UNITE, OPT_PRIX FROM wp_options");
   $optionsDonnees = $optionsBD->fetchAll(PDO::FETCH_OBJ);
 
+  // Query tarifs
+  $tarifsBD = $pdo->query("SELECT CBOX_KEY, CBOX_PRIX FROM wp_cbox");
+  $tarifsCBox = $tarifsBD->fetchAll(PDO::FETCH_OBJ);
+
   /*/echo "<pre>";
-  var_dump($optionsDonnees);
+  var_dump($tarifsCBox);
   echo "</pre><hr>";/**/
 } else {
 
@@ -31,7 +37,9 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
 // Tableau $options
 $options = array();
 
-for ($i=0; $i<count($optionsDonnees); $i++) {
+$nbOptionsDonnees = count($optionsDonnees);
+
+for ($i=0; $i<$nbOptionsDonnees; $i++) {
   foreach ($optionsDonnees as $key) {
     $options[$optionsDonnees[$i]->OPT_KEY]['KEY'] = $optionsDonnees[$i]->OPT_KEY;
     $options[$optionsDonnees[$i]->OPT_KEY]['VALUE'] = $optionsDonnees[$i]->OPT_VALUE;
@@ -40,21 +48,6 @@ for ($i=0; $i<count($optionsDonnees); $i++) {
   }
 }
 
-$nbOptionsDonnees = count($optionsDonnees);
-
-/*for ($i=1; $i<$nbOptionsDonnees; $i++) {
-  if(!empty($options['GRTITRE_'.$i]['VALUE'])) {
-    echo $options['GRTITRE_'.$i]['VALUE'].'<br>';
-    for($y=1; $y<$nbOptionsDonnees; $y++) {
-      if(!empty($options['OPT_'.$i.'_'.$y]['VALUE'])) {
-        echo $options['OPT_'.$i.'_'.$y]['VALUE'].'<br>';
-        echo $options['OPT_'.$i.'_'.$y]['UNITE'].'<br>';
-        echo $options['OPT_'.$i.'_'.$y]['PRIX'].'<br><hr>';
-      }
-    }
-  }
-}*/
-
 // Tableau $msg contenant le wording
 $msg = array();
 for ($i=0; $i<count($msgDonnees); $i++) {
@@ -62,12 +55,6 @@ for ($i=0; $i<count($msgDonnees); $i++) {
     $msg[$msgDonnees[$i]->MSG_KEY] = $msgDonnees[$i]->MSG_VALUE;
   }
 }
-
-define('PRIX_ETAGERE', 45); // Etagère à 45€
-define('PRIX_PORTE', 990); // Porte à 990 €
-define('PRIX_DEBARRAS', 275); // Debarras 275 €
-
-define('TVA', 10); // TVA à 10%
 
 function sendMail($to, $subject, $content, $from = 'devis@renovcave.fr'){
 
@@ -166,7 +153,23 @@ if(isset($_POST['devis'])){
 
         $totalHT = 0;
 
-        switch (round($_POST['surface'])){
+        $surfaceQuery = round(2.4); //round($_POST['surface']);
+
+        if($_SERVER['SERVER_NAME'] === 'localhost') {
+
+          $req = "SELECT CBOX_KEY, CBOX_PRIX
+            FROM wp_cbox
+            WHERE CBOX_KEY = $surfaceQuery";
+
+          $cbox_prixBD = $pdo->query($req);
+
+          $cbox_prix = $cbox_prixBD->fetch(PDO::FETCH_OBJ);
+
+        }
+
+        $totalHT += $cbox_prix->CBOX_PRIX;
+
+        /*switch (round($_POST['surface'])){
           case 1:
           $totalHT += 3200;
           break;
@@ -302,7 +305,7 @@ if(isset($_POST['devis'])){
           case 45:
           $totalHT += 20250;
           break;
-        }
+        }*/
 
         $prixCave = $totalHT;
 
@@ -341,27 +344,6 @@ if(isset($_POST['devis'])){
             }
           }
         }
-
-        // Etageres
-        /*$totalEtageres = PRIX_ETAGERE*$_POST['nb_etageres'];
-
-        $_SESSION['devis']['totalEtageres'] = $totalEtageres;
-
-        $totalHT += $totalEtageres;
-
-        // Portes
-        $totalPortes = PRIX_PORTE*$_POST['nb_portes'];
-
-        $_SESSION['devis']['totalPortes'] = $totalPortes;
-
-        $totalHT += $totalPortes;
-
-        // Debarras
-        $totalDebarras = PRIX_DEBARRAS*$_POST['debarras'];
-
-        $_SESSION['devis']['totalDebarras'] = $totalDebarras;
-
-        $totalHT += $totalDebarras;*/
 
         // Total
         $_SESSION['devis']['totalHT'] = $totalHT;

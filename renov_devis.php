@@ -141,7 +141,7 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
                   echo $cubes;
                 } else {
                   echo $_SESSION['devis']['cubes'];
-                } echo $msg['TITRE_END']; } ?>
+                } echo ' '.$msg['TITRE_END']; } ?>
             </td>
           </tr>
           <tr class="b_bottom">
