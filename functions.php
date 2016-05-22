@@ -21,7 +21,7 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
   $optionsBD = $pdo->query("SELECT OPT_KEY, OPT_VALUE, OPT_UNITE, OPT_PRIX FROM wp_options");
   $optionsDonnees = $optionsBD->fetchAll(PDO::FETCH_OBJ);
 
-  // Query tarifs
+  // Query m2 max
   $tarifsBD = $pdo->query("SELECT MAX(CBOX_KEY) as SurfaceMax FROM wp_cbox");
   $surfaceMax = $tarifsBD->fetch(PDO::FETCH_OBJ);
 
@@ -31,7 +31,17 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
 
 } else {
 
-  // TODO: Query WP
+  global $wpdb;
+
+  // Récupération wording sur WP
+  $msgDonnees = $wpdb->get_results("SELECT MSG_KEY, MSG_VALUE FROM {$wpdb->prefix}wording");
+
+  // Récupération options sur wp
+  $optionsDonnees = $wpdb->get_results("SELECT OPT_KEY, OPT_VALUE, OPT_UNITE, OPT_PRIX FROM {$wpdb->prefix}options");
+
+  // Récupération m2 max
+  $surfaceMax = $wpdb->get_results("SELECT MAX(CBOX_KEY) as SurfaceMax FROM {$wpdb->prefix}cbox");
+  // @test get_row->
 
 }
 
