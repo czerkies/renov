@@ -22,13 +22,13 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
   $optionsDonnees = $optionsBD->fetchAll(PDO::FETCH_OBJ);
 
   // Query tarifs
-  $tarifsBD = $pdo->query("SELECT MAX(CBOX_KEY) FROM wp_cbox");
+  $tarifsBD = $pdo->query("SELECT MAX(CBOX_KEY) as SurfaceMax FROM wp_cbox");
   $surfaceMax = $tarifsBD->fetch(PDO::FETCH_OBJ);
 
-  var_dump($surfaceMax[MAX(CBOX_KEY)]);
   /*/echo "<pre>";
-  var_dump($tarifsCBox);
+  var_dump($surfaceMax->SurfaceMax);
   echo "</pre><hr>";/**/
+
 } else {
 
   // TODO: Query WP
@@ -55,17 +55,6 @@ for ($i=0; $i<count($msgDonnees); $i++) {
   foreach ($msgDonnees as $key) {
     $msg[$msgDonnees[$i]->MSG_KEY] = $msgDonnees[$i]->MSG_VALUE;
   }
-}
-
-function sendMail($to, $subject, $content, $from = 'devis@renovcave.fr'){
-
-  $headers = 'Content-Type: text/html; charset=\"UTF-8\";' . "\r\n";
-  $headers .= 'FROM: Renov\'Cave <'.$from.'>' . "\r\n";
-
-  $subjectFormat = "Renov'Cave - ".$subject;
-
-  mail($to, $subjectFormat, $content, $headers);
-
 }
 
 if(isset($_POST['devis'])){
@@ -133,8 +122,8 @@ if(isset($_POST['devis'])){
 
       if(empty($_POST['surface'])){
         $msg['devis']['surface'] = '<label for="surface">Veuillez saisir une Surface.</label>';
-      }elseif($_POST['surface'] <= 0 || $_POST['surface'] > $surfaceMax || !is_numeric($_POST['surface'])){
-        $msg['devis']['surface'] = '<label for="surface">Surface entre 1 et '.$surfaceMax.' m2.</label>';
+      }elseif($_POST['surface'] <= 0 || $_POST['surface'] > $surfaceMax->SurfaceMax || !is_numeric($_POST['surface'])){
+        $msg['devis']['surface'] = '<label for="surface">Surface entre 1 et '.$surfaceMax->SurfaceMax.' m2.</label>';
       }
 
       if(empty($_POST['hauteur'])){
@@ -451,5 +440,26 @@ if(isset($_POST['demande_rdv'])){
     $contentAdmin,
     'rendez-vous@renovcave.com'
   );
+
+}
+
+function sendMail($to, $subject, $content, $from = 'devis@renovcave.fr'){
+
+  $headers = 'Content-Type: text/html; charset=\"UTF-8\";' . "\r\n";
+  $headers .= 'FROM: Renov\'Cave <'.$from.'>' . "\r\n";
+
+  $subjectFormat = "Renov'Cave - ".$subject;
+
+  mail($to, $subjectFormat, $content, $headers);
+
+}
+
+function intDevis($valeur) {
+
+  $text = $valeur;
+
+  if((int) $valeur == $valeur) $text .= '.00';
+
+  echo $text;
 
 }

@@ -99,7 +99,7 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
         } ?>" required>
       </div>
       <div class="form-group<?php if(isset($msg['devis']['surface'])) echo ' error'; ?>">
-        <input type="number" min="1" max="45" step="0.01" id="surface" name="surface" title="Surface de votre cave en M2" placeholder="<?= $msg['SURFACE']; ?>" value="<?php
+        <input type="number" min="1" max="<?= $surfaceMax->SurfaceMax; ?>" step="0.01" id="surface" name="surface" title="Surface de votre cave en M2" placeholder="<?= $msg['SURFACE']; ?>" value="<?php
         if(isset($_POST['surface'])) {
           echo $_POST['surface'];
         } elseif(isset($_SESSION['devis']['surface'])) {
@@ -154,24 +154,36 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
             <td class="tright b_right">
               <?php
                 if(isset($prixCave)) {
-                  echo $prixCave;
+
+                  intDevis($prixCave);
+
                 } elseif(isset($_SESSION['devis']['prixCave'])){
-                  echo $_SESSION['devis']['prixCave'];
+
+                  intDevis($_SESSION['devis']['prixCave']);
+
                 } else {
-                  echo '0';
+
+                  echo '0.00';
+
                 }
-              ?>.00
+              ?>
             </td>
             <td class="tright">
               <?php
                 if(isset($prixCave)) {
-                  echo $prixCave;
+
+                  intDevis($prixCave);
+
                 } elseif(isset($_SESSION['devis']['prixCave'])){
-                  echo $_SESSION['devis']['prixCave'];
+
+                  intDevis($_SESSION['devis']['prixCave']);
+
                 } else {
-                  echo '0';
+
+                  echo '0.00';
+
                 }
-              ?>.00
+              ?>
             </td>
           </tr>
           <tr>
@@ -225,18 +237,25 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
 
                     <td class="tright b_right">
                       <?php
-                        echo $options['OPT_'.$i.'_'.$j]['PRIX'];
-                        if(!is_float($options['OPT_'.$i.'_'.$j]['PRIX'])) echo '.00';
+
+                        intDevis($options['OPT_'.$i.'_'.$j]['PRIX']);
+
                       ?>
                     </td>
 
                     <td class="tright">
                       <?php if(isset($total['OPT_'.$i.'_'.$j])) {
-                        echo $total['OPT_'.$i.'_'.$j];
+
+                        intDevis($total['OPT_'.$i.'_'.$j]);
+
                       } elseif(isset($_SESSION['devis']['OPT_'.$i.'_'.$j])) {
-                        echo $_SESSION['devis']['OPT_'.$i.'_'.$j];
+
+                        intDevis($_SESSION['devis']['OPT_'.$i.'_'.$j]);
+
                       } else {
-                        echo '0';
+
+                        echo '0.00';
+
                       } ?>
                     </td>
 
@@ -254,12 +273,18 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
             </td>
             <td colspan="2" class="b_top tright">
               <b><?php if(isset($totalHT)) {
-                echo $totalHT;
+
+                intDevis($totalHT);
+
               } elseif(isset($_SESSION['devis']['totalHT'])) {
-                echo $_SESSION['devis']['totalHT'];
+
+                intDevis($_SESSION['devis']['totalHT']);
+
               } else {
-                echo '0';
-              } ?>.00 €</b>
+
+                echo '0.00';
+
+              } ?> €</b>
             </td>
           </td>
           <tr>
@@ -269,13 +294,11 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
             <td colspan="2" class="tright">
               <?php if(isset($totalAjoutTVA)) {
 
-                echo $totalAjoutTVA;
-                if(!is_float($totalAjoutTVA)) echo '.00';
+                intDevis($totalAjoutTVA);
 
               } elseif(isset($_SESSION['devis']['totalAjoutTVA'])) {
 
-                echo $_SESSION['devis']['totalAjoutTVA'];
-                if(!is_float($_SESSION['devis']['totalAjoutTVA'])) echo '.00';
+                intDevis($_SESSION['devis']['totalAjoutTVA']);
 
               } else {
 
@@ -292,13 +315,11 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
             <td colspan="2" class="tright">
               <b><?php if(isset($totalTTC)) {
 
-                echo $totalTTC;
-                if(!is_float($totalTTC)) echo '.00';
+                intDevis($totalTTC);
 
               } elseif(isset($_SESSION['devis']['totalTTC'])) {
 
-                echo $_SESSION['devis']['totalTTC'];
-                if(!is_float($_SESSION['devis']['totalTTC'])) echo '.00';
+                intDevis($_SESSION['devis']['totalTTC']);
 
               } else {
 
@@ -326,8 +347,4 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
     <?php } ?>
   </div>
 </div>
-<?php
-
-  if($_SERVER['SERVER_NAME'] != 'localhost') get_footer();
-
-?>
+<?php if($_SERVER['SERVER_NAME'] != 'localhost') get_footer(); ?>
