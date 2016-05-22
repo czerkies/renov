@@ -22,9 +22,10 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
   $optionsDonnees = $optionsBD->fetchAll(PDO::FETCH_OBJ);
 
   // Query tarifs
-  $tarifsBD = $pdo->query("SELECT CBOX_KEY, CBOX_PRIX FROM wp_cbox");
-  $tarifsCBox = $tarifsBD->fetchAll(PDO::FETCH_OBJ);
+  $tarifsBD = $pdo->query("SELECT MAX(CBOX_KEY) FROM wp_cbox");
+  $surfaceMax = $tarifsBD->fetch(PDO::FETCH_OBJ);
 
+  var_dump($surfaceMax[MAX(CBOX_KEY)]);
   /*/echo "<pre>";
   var_dump($tarifsCBox);
   echo "</pre><hr>";/**/
@@ -132,8 +133,8 @@ if(isset($_POST['devis'])){
 
       if(empty($_POST['surface'])){
         $msg['devis']['surface'] = '<label for="surface">Veuillez saisir une Surface.</label>';
-      }elseif($_POST['surface'] <= 0 || $_POST['surface'] > 45 || !is_numeric($_POST['surface'])){
-        $msg['devis']['surface'] = '<label for="surface">Surface entre 1 et 45 m2.</label>';
+      }elseif($_POST['surface'] <= 0 || $_POST['surface'] > $surfaceMax || !is_numeric($_POST['surface'])){
+        $msg['devis']['surface'] = '<label for="surface">Surface entre 1 et '.$surfaceMax.' m2.</label>';
       }
 
       if(empty($_POST['hauteur'])){
@@ -153,13 +154,15 @@ if(isset($_POST['devis'])){
 
         $totalHT = 0;
 
-        $surfaceQuery = round(2.4); //round($_POST['surface']);
+        $surfaceQuery = round($_POST['surface']);
 
         if($_SERVER['SERVER_NAME'] === 'localhost') {
 
           $req = "SELECT CBOX_KEY, CBOX_PRIX
             FROM wp_cbox
-            WHERE CBOX_KEY = $surfaceQuery";
+            WHERE CBOX_KEY = $surfaceQuery
+
+          ";
 
           $cbox_prixBD = $pdo->query($req);
 
@@ -168,144 +171,6 @@ if(isset($_POST['devis'])){
         }
 
         $totalHT += $cbox_prix->CBOX_PRIX;
-
-        /*switch (round($_POST['surface'])){
-          case 1:
-          $totalHT += 3200;
-          break;
-          case 2:
-          $totalHT += 3500;
-          break;
-          case 3:
-          $totalHT += 3700;
-          break;
-          case 4:
-          $totalHT += 3800;
-          break;
-          case 5:
-          $totalHT += 3900;
-          break;
-          case 6:
-          $totalHT += 4100;
-          break;
-          case 7:
-          $totalHT += 4250;
-          break;
-          case 8:
-          $totalHT += 4450;
-          break;
-          case 9:
-          $totalHT += 4700;
-          break;
-          case 10:
-          $totalHT += 4950;
-          break;
-          case 11:
-          $totalHT += 5280;
-          break;
-          case 12:
-          $totalHT += 5760;
-          break;
-          case 13:
-          $totalHT += 6240;
-          break;
-          case 14:
-          $totalHT += 6720;
-          break;
-          case 15:
-          $totalHT += 7200;
-          break;
-          case 16:
-          $totalHT += 7680;
-          break;
-          case 17:
-          $totalHT += 7990;
-          break;
-          case 18:
-          $totalHT += 8280;
-          break;
-          case 19:
-          $totalHT += 8550;
-          break;
-          case 20:
-          $totalHT += 9000;
-          break;
-          case 21:
-          $totalHT += 9450;
-          break;
-          case 22:
-          $totalHT += 9900;
-          break;
-          case 23:
-          $totalHT += 10350;
-          break;
-          case 24:
-          $totalHT += 10800;
-          break;
-          case 25:
-          $totalHT += 11250;
-          break;
-          case 26:
-          $totalHT += 11700;
-          break;
-          case 27:
-          $totalHT += 12150;
-          break;
-          case 28:
-          $totalHT += 12600;
-          break;
-          case 29:
-          $totalHT += 13050;
-          break;
-          case 30:
-          $totalHT += 13500;
-          break;
-          case 31:
-          $totalHT += 13950;
-          break;
-          case 32:
-          $totalHT += 14400;
-          break;
-          case 33:
-          $totalHT += 14850;
-          break;
-          case 34:
-          $totalHT += 15300;
-          break;
-          case 35:
-          $totalHT += 15750;
-          break;
-          case 36:
-          $totalHT += 16200;
-          break;
-          case 37:
-          $totalHT += 16650;
-          break;
-          case 38:
-          $totalHT += 17100;
-          break;
-          case 39:
-          $totalHT += 17550;
-          break;
-          case 40:
-          $totalHT += 18000;
-          break;
-          case 41:
-          $totalHT += 18450;
-          break;
-          case 42:
-          $totalHT += 18900;
-          break;
-          case 43:
-          $totalHT += 19350;
-          break;
-          case 44:
-          $totalHT += 19800;
-          break;
-          case 45:
-          $totalHT += 20250;
-          break;
-        }*/
 
         $prixCave = $totalHT;
 
