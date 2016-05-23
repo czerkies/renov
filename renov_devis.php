@@ -135,13 +135,25 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
         <tbody>
           <tr>
             <td class="b_top b_bottom" colspan="4">
-              <?= $msg['TITRE_START']; ?>
-              <?php if(isset($cubes) || isset($_SESSION['devis']['cubes'])) {
-                echo $msg['TITRE_MID'].' '; if(isset($cubes)) {
+              <?php echo $msg['TITRE_START'];
+
+              if(isset($cubes) || isset($_SESSION['devis']['cubes'])) {
+
+                echo $msg['TITRE_MID'].' ';
+
+                if(isset($cubes)) {
+
                   echo $cubes;
+
                 } else {
+
                   echo $_SESSION['devis']['cubes'];
-                } echo ' '.$msg['TITRE_END']; } ?>
+
+                }
+
+                echo ' '.$msg['TITRE_END'];
+
+              } ?>
             </td>
           </tr>
           <tr class="b_bottom">
