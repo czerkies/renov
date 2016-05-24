@@ -131,5 +131,54 @@ if($_SERVER['SERVER_NAME'] === 'localhost') {
     </tbody>
   </table>
 
+  <h2>Options :</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>
+            Nom de l'option :
+        </th>
+        <th>
+            Unité :
+        </th>
+        <th>
+            Prix :
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php for($i=1; $i<4; $i++) { ?>
+        <tr>
+          <td colspan="3">
+            <h2>Groupe options <?= $i; ?></h2>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <label for="<?= $options['GRTITRE_'.$i]['KEY']; ?>">Groupe <?= $i; ?></label>
+            <input type="text" name="<?= $options['GRTITRE_'.$i]['KEY']; ?>" id="<?= $options['GRTITRE_'.$i]['KEY']; ?>" value="<?= $options['GRTITRE_'.$i]['VALUE']; ?>" required>
+          </td>
+        </tr>
+        <?php for($j=1; $j<5; $j++) { ?>
+          <tr>
+            <td>
+              <label for="<?= $options['OPT_'.$i.'_'.$j]['KEY']; ?>">Option <?= $j; ?></label>
+              <input type="text" name="<?= $options['OPT_'.$i.'_'.$j]['KEY']; ?>" id="<?= $options['OPT_'.$i.'_'.$j]['KEY']; ?>" value="<?= $options['OPT_'.$i.'_'.$j]['VALUE']; ?>" required>
+            </td>
+            <td>
+              <label for="<?= $options['OPT_'.$i.'_'.$j]['KEY']; ?>">Unité <?= $j; ?></label>
+              <input type="text" name="<?= $options['OPT_'.$i.'_'.$j]['KEY']; ?>" id="<?= $options['OPT_'.$i.'_'.$j]['KEY']; ?>" value="<?= $options['OPT_'.$i.'_'.$j]['UNITE']; ?>" required>
+            </td>
+            <td>
+              <label for="<?= $options['OPT_'.$i.'_'.$j]['KEY']; ?>">Prix <?= $j; ?></label>
+              <input type="text" name="<?= $options['OPT_'.$i.'_'.$j]['KEY']; ?>" id="<?= $options['OPT_'.$i.'_'.$j]['KEY']; ?>" value="<?= $options['OPT_'.$i.'_'.$j]['PRIX']; ?>" required>
+            </td>
+          </tr>
+        <?php }
+      } ?>
+    </tbody>
+  </table>
+
 
 </form>
