@@ -453,6 +453,47 @@ if(isset($_POST['demande_rdv'])){
 
 }
 
+
+// Si modification devis
+if(isset($_POST['modif_devis'])) {
+
+  echo "<pre>";
+  var_dump($_POST);
+
+  if($_SERVER['SERVER_NAME'] === 'localhost') {
+
+    foreach ($_POST as $key => $value) {
+
+      echo $key.'<br>';
+
+      if(strpos($key, 'OPT_') !== FALSE || strpos($key, 'GRTITRE') !== FALSE){
+
+        $majOptions = $pdo->prepare("UPDATE wp_options SET OPT_VALUE = :OPT_VALUE, OPT_UNITE = :OPT_UNITE, OPT_PRIX = :OPT_PRIX WHERE OPT_KEY = '$key'");
+
+        // TODO: Rendre unique les names des options 
+
+        $majOptions->bindValue(':OPT_VALUE', $value, PDO::PARAM_STR);
+        $majOptions->bindValue(':OPT_UNITE', $value, PDO::PARAM_STR);
+        $majOptions->bindValue(':OPT_PRIX', $value, PDO::PARAM_STR);
+
+        $majOptions->execute();
+
+      } else {
+
+        $majWording = $pdo->prepare("UPDATE wp_wording SET MSG_VALUE = :MSG_VALUE WHERE MSG_KEY = '$key'");
+
+        $majWording->bindValue(':MSG_VALUE', $value, PDO::PARAM_STR);
+
+        $majWording->execute();
+
+      }
+
+    }
+
+  }
+
+}
+
 function sendMail($to, $subject, $content, $from = 'devis@renovcave.fr'){
 
   $headers = 'Content-Type: text/html; charset=\"UTF-8\";' . "\r\n";

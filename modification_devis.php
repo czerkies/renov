@@ -180,5 +180,6 @@ if($_SERVER['SERVER_NAME'] === 'localhost') {
     </tbody>
   </table>
 
+  <input type="submit" name="modif_devis" value="Modifier le formulaire">
 
 </form>
