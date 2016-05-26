@@ -464,26 +464,49 @@ if(isset($_POST['modif_devis'])) {
 
     foreach ($_POST as $key => $value) {
 
-      echo $key.'<br>';
+      // Insertion des OPTIONS
+      if(strpos($key, 'OPT_') !== FALSE){
 
-      if(strpos($key, 'OPT_') !== FALSE || strpos($key, 'GRTITRE') !== FALSE){
+        // Insertion VALUE
+        if(strpos($key, 'NAME') !== FALSE) {
 
-        $majOptions = $pdo->prepare("UPDATE wp_options SET OPT_VALUE = :OPT_VALUE, OPT_UNITE = :OPT_UNITE, OPT_PRIX = :OPT_PRIX WHERE OPT_KEY = '$key'");
+          $key = substr($key, 0, 7);
+          $majOptions = $pdo->prepare("UPDATE wp_options SET OPT_VALUE = :OPT_VALUE WHERE OPT_KEY = '$key'");
+          $majOptions->bindValue(':OPT_VALUE', $value, PDO::PARAM_STR);
 
-        // TODO: Rendre unique les names des options 
+        }
 
+        // Insertion UNITE
+        if(strpos($key, 'UNIT') !== FALSE) {
+
+          $key = substr($key, 0, 7);
+          $majOptions = $pdo->prepare("UPDATE wp_options SET OPT_UNITE = :OPT_UNITE WHERE OPT_KEY = '$key'");
+          $majOptions->bindValue(':OPT_UNITE', $value, PDO::PARAM_STR);
+
+        }
+
+        // Insertion PRIX
+        if(strpos($key, 'PRIX') !== FALSE) {
+
+          $key = substr($key, 0, 7);
+          $majOptions = $pdo->prepare("UPDATE wp_options SET OPT_PRIX = :OPT_PRIX WHERE OPT_KEY = '$key'");
+          $majOptions->bindValue(':OPT_PRIX', $value, PDO::PARAM_INT);
+
+        }
+
+        $majOptions->execute();
+
+        // Insertion Titre Groupe
+      } elseif(strpos($key, 'GRTITRE') !== FALSE) {
+        $majOptions = $pdo->prepare("UPDATE wp_options SET OPT_VALUE = :OPT_VALUE WHERE OPT_KEY = '$key'");
         $majOptions->bindValue(':OPT_VALUE', $value, PDO::PARAM_STR);
-        $majOptions->bindValue(':OPT_UNITE', $value, PDO::PARAM_STR);
-        $majOptions->bindValue(':OPT_PRIX', $value, PDO::PARAM_STR);
-
         $majOptions->execute();
 
       } else {
 
+        // Insertion Wording
         $majWording = $pdo->prepare("UPDATE wp_wording SET MSG_VALUE = :MSG_VALUE WHERE MSG_KEY = '$key'");
-
         $majWording->bindValue(':MSG_VALUE', $value, PDO::PARAM_STR);
-
         $majWording->execute();
 
       }

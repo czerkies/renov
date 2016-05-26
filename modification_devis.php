@@ -163,16 +163,16 @@ if($_SERVER['SERVER_NAME'] === 'localhost') {
         <?php for($j=1; $j<5; $j++) { ?>
           <tr>
             <td>
-              <label for="<?= $options['OPT_'.$i.'_'.$j]['KEY']; ?>">Option <?= $j; ?></label>
-              <input type="text" name="<?= $options['OPT_'.$i.'_'.$j]['KEY']; ?>" id="<?= $options['OPT_'.$i.'_'.$j]['KEY']; ?>" value="<?= $options['OPT_'.$i.'_'.$j]['VALUE']; ?>" required>
+              <label for="<?= $options['OPT_'.$i.'_'.$j]['KEY'].'NAME'; ?>">Option <?= $j; ?></label>
+              <input type="text" name="<?= $options['OPT_'.$i.'_'.$j]['KEY'].'NAME'; ?>" id="<?= $options['OPT_'.$i.'_'.$j]['KEY'].'NAME'; ?>" value="<?= $options['OPT_'.$i.'_'.$j]['VALUE']; ?>" required>
             </td>
             <td>
-              <label for="<?= $options['OPT_'.$i.'_'.$j]['KEY']; ?>">Unité <?= $j; ?></label>
-              <input type="text" name="<?= $options['OPT_'.$i.'_'.$j]['KEY']; ?>" id="<?= $options['OPT_'.$i.'_'.$j]['KEY']; ?>" value="<?= $options['OPT_'.$i.'_'.$j]['UNITE']; ?>" required>
+              <label for="<?= $options['OPT_'.$i.'_'.$j]['KEY'].'UNIT'; ?>">Unité <?= $j; ?></label>
+              <input type="text" name="<?= $options['OPT_'.$i.'_'.$j]['KEY'].'UNIT'; ?>" id="<?= $options['OPT_'.$i.'_'.$j]['KEY'].'UNIT'; ?>" value="<?= $options['OPT_'.$i.'_'.$j]['UNITE']; ?>" required>
             </td>
             <td>
-              <label for="<?= $options['OPT_'.$i.'_'.$j]['KEY']; ?>">Prix <?= $j; ?></label>
-              <input type="text" name="<?= $options['OPT_'.$i.'_'.$j]['KEY']; ?>" id="<?= $options['OPT_'.$i.'_'.$j]['KEY']; ?>" value="<?= $options['OPT_'.$i.'_'.$j]['PRIX']; ?>" required>
+              <label for="<?= $options['OPT_'.$i.'_'.$j]['KEY'].'PRIX'; ?>">Prix <?= $j; ?></label>
+              <input type="text" name="<?= $options['OPT_'.$i.'_'.$j]['KEY'].'PRIX'; ?>" id="<?= $options['OPT_'.$i.'_'.$j]['KEY'].'PRIX'; ?>" value="<?= $options['OPT_'.$i.'_'.$j]['PRIX']; ?>" required>
             </td>
           </tr>
         <?php }
