@@ -131,7 +131,7 @@ if($serverNameLocal){
   $optionsDonnees = $optionsBD->fetchAll(PDO::FETCH_OBJ);
 
   // Query m2 max
-  $tarifsBD = $pdo->query("SELECT MAX(CBOX_KEY) as SurfaceMax FROM wp_cbox");
+  $tarifsBD = $pdo->query("SELECT MAX(CBOX_KEY) as SurfaceMax FROM wp_cbox WHERE CBOX_PRIX IS NOT NULL");
   $surfaceMax = $tarifsBD->fetch(PDO::FETCH_OBJ);
 
   /*/echo "<pre>";
@@ -149,7 +149,7 @@ if($serverNameLocal){
   $optionsDonnees = $wpdb->get_results("SELECT OPT_KEY, OPT_VALUE, OPT_UNITE, OPT_PRIX FROM {$wpdb->prefix}options");
 
   // Récupération m2 max
-  $surfaceMax = $wpdb->get_results("SELECT MAX(CBOX_KEY) as SurfaceMax FROM {$wpdb->prefix}cbox");
+  $surfaceMax = $wpdb->get_results("SELECT MAX(CBOX_KEY) as SurfaceMax FROM {$wpdb->prefix}cbox WHERE CBOX_PRIX IS NOT NULL");
   // @test get_row->
 
 }
@@ -269,7 +269,7 @@ if(isset($_POST['devis'])){
           $req = "SELECT CBOX_KEY, CBOX_PRIX
             FROM wp_cbox
             WHERE CBOX_KEY = $surfaceQuery
-
+            AND CBOX_PRIX IS NOT NULL
           ";
 
           $cbox_prixBD = $pdo->query($req);

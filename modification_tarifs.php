@@ -28,8 +28,32 @@ if($_SERVER['SERVER_NAME'] === 'localhost') {
 
 ?>
 
-<h2>Modifier les tarifs</h2>
+<h1>Modification des tarifs</h1>
 
-<?php foreach ($listeTarifs as $key => $value) { ?>
-  <?= $value->CBOX_PRIX; ?><br>
-<?php } ?>
+<form class="" action="" method="post">
+  <table>
+    <thead>
+      <tr>
+        <th>
+          Cav'Box
+        </th>
+        <th>
+          Prix
+        </th>
+      <tr>
+    </thead>
+    <tbody>
+    <?php foreach ($listeTarifs as $key => $value) { ?>
+      <tr>
+        <td>
+          CAV'BOX <b><?= $value->CBOX_KEY; ?></b>
+        </td>
+        <td>
+          <input type="number" min="0" max="" step="1" name="CBOX_PRIX" value="<?= $value->CBOX_PRIX; ?>">
+        </td>
+      </tr>
+    <?php } ?>
+  </tbody>
+  </table>
+  <input type="submit" name="maj_prix" value="Enregistrer">
+</form>
