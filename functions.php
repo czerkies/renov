@@ -2,16 +2,125 @@
 
 session_start();
 
-define('TVA', 10); // TVA à 10%
+// TVA à 10%
+define('TVA', 10);
+
+// Controle SERVER_NAME
+$serverNameLocal = ($_SERVER['SERVER_NAME'] === 'localhost') ? TRUE : FALSE;
 
 // Connection au serveur si localhost
-if($_SERVER['SERVER_NAME'] === 'localhost'){
+if($serverNameLocal){
 
   try {
   	$pdo = new PDO('mysql:host=localhost;dbname=renov', 'root', 'root', array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8, lc_time_names = 'fr_FR'"));
   } catch (PDOException $e) {
     die('Erreur : ' . $e->getMessage());
   }
+
+}
+
+// Si modification devis
+if(isset($_POST['modif_devis'])) {
+
+  foreach ($_POST as $key => $value) {
+
+    // Insertion des OPTIONS
+    if(strpos($key, 'OPT_') !== FALSE){
+
+      // Insertion VALUE
+      if(strpos($key, 'NAME') !== FALSE) {
+
+        $key = substr($key, 0, 7);
+
+        if($serverNameLocal) {
+
+          $majOptions = $pdo->prepare("UPDATE wp_options SET OPT_VALUE = :OPT_VALUE WHERE OPT_KEY = '$key'");
+          $majOptions->bindValue(':OPT_VALUE', $value, PDO::PARAM_STR);
+
+        } else {
+
+          // TODO: Query WP
+
+        }
+
+      }
+
+      // Insertion UNITE
+      if(strpos($key, 'UNIT') !== FALSE) {
+
+        $key = substr($key, 0, 7);
+
+        if($serverNameLocal) {
+
+          $majOptions = $pdo->prepare("UPDATE wp_options SET OPT_UNITE = :OPT_UNITE WHERE OPT_KEY = '$key'");
+          $majOptions->bindValue(':OPT_UNITE', $value, PDO::PARAM_STR);
+
+        } else {
+
+          // TODO: Query WP
+
+        }
+
+      }
+
+      // Insertion PRIX
+      if(strpos($key, 'PRIX') !== FALSE) {
+
+        $key = substr($key, 0, 7);
+
+        if($serverNameLocal) {
+
+          $majOptions = $pdo->prepare("UPDATE wp_options SET OPT_PRIX = :OPT_PRIX WHERE OPT_KEY = '$key'");
+          $majOptions->bindValue(':OPT_PRIX', $value, PDO::PARAM_INT);
+
+        } else {
+
+          // TODO: Query WP
+
+        }
+
+      }
+
+      if($serverNameLocal) $majOptions->execute();
+
+      // Insertion Titre Groupe
+    } elseif(strpos($key, 'GRTITRE') !== FALSE) {
+
+      if($serverNameLocal) {
+
+        $majOptions = $pdo->prepare("UPDATE wp_options SET OPT_VALUE = :OPT_VALUE WHERE OPT_KEY = '$key'");
+        $majOptions->bindValue(':OPT_VALUE', $value, PDO::PARAM_STR);
+        $majOptions->execute();
+
+      } else {
+
+        // TODO: Query WP
+
+      }
+
+    } else {
+
+      // Insertion Wording
+
+      if($serverNameLocal) {
+
+        $majWording = $pdo->prepare("UPDATE wp_wording SET MSG_VALUE = :MSG_VALUE WHERE MSG_KEY = '$key'");
+        $majWording->bindValue(':MSG_VALUE', $value, PDO::PARAM_STR);
+        $majWording->execute();
+
+      } else {
+
+        // TODO: Query WP
+
+      }
+
+    }
+
+  }
+
+}
+
+if($serverNameLocal){
 
   // Query wording
   $wording = $pdo->query("SELECT MSG_KEY, MSG_VALUE FROM wp_wording");
@@ -155,7 +264,7 @@ if(isset($_POST['devis'])){
 
         $surfaceQuery = round($_POST['surface']);
 
-        if($_SERVER['SERVER_NAME'] === 'localhost') {
+        if($serverNameLocal) {
 
           $req = "SELECT CBOX_KEY, CBOX_PRIX
             FROM wp_cbox
@@ -232,7 +341,7 @@ if(isset($_POST['devis'])){
 
         extract($_POST);
 
-          if($_SERVER['SERVER_NAME'] === 'localhost'){
+          if($serverNameLocal){
 
             $existProspects = $pdo->query("SELECT id_prospects FROM wp_prospects WHERE email = '$email'");
 
@@ -246,7 +355,7 @@ if(isset($_POST['devis'])){
 
         if($exist){
 
-          if($_SERVER['SERVER_NAME'] === 'localhost'){
+          if($serverNameLocal){
 
             $req = "UPDATE wp_prospects SET
               civilite = :civilite,
@@ -295,7 +404,7 @@ if(isset($_POST['devis'])){
 
         } else {
 
-          if($_SERVER['SERVER_NAME'] === 'localhost'){
+          if($serverNameLocal){
 
             $req = "INSERT INTO wp_prospects(civilite, nom, adresse, cp, ville, tel, email, surface, total, date_devis)
             VALUES(:civilite, :nom, :adresse, :cp, :ville, :tel, :email, :surface, :totalTTC, NOW())";
@@ -450,70 +559,6 @@ if(isset($_POST['demande_rdv'])){
     $contentAdmin,
     'rendez-vous@renovcave.com'
   );
-
-}
-
-
-// Si modification devis
-if(isset($_POST['modif_devis'])) {
-
-  echo "<pre>";
-  var_dump($_POST);
-
-  if($_SERVER['SERVER_NAME'] === 'localhost') {
-
-    foreach ($_POST as $key => $value) {
-
-      // Insertion des OPTIONS
-      if(strpos($key, 'OPT_') !== FALSE){
-
-        // Insertion VALUE
-        if(strpos($key, 'NAME') !== FALSE) {
-
-          $key = substr($key, 0, 7);
-          $majOptions = $pdo->prepare("UPDATE wp_options SET OPT_VALUE = :OPT_VALUE WHERE OPT_KEY = '$key'");
-          $majOptions->bindValue(':OPT_VALUE', $value, PDO::PARAM_STR);
-
-        }
-
-        // Insertion UNITE
-        if(strpos($key, 'UNIT') !== FALSE) {
-
-          $key = substr($key, 0, 7);
-          $majOptions = $pdo->prepare("UPDATE wp_options SET OPT_UNITE = :OPT_UNITE WHERE OPT_KEY = '$key'");
-          $majOptions->bindValue(':OPT_UNITE', $value, PDO::PARAM_STR);
-
-        }
-
-        // Insertion PRIX
-        if(strpos($key, 'PRIX') !== FALSE) {
-
-          $key = substr($key, 0, 7);
-          $majOptions = $pdo->prepare("UPDATE wp_options SET OPT_PRIX = :OPT_PRIX WHERE OPT_KEY = '$key'");
-          $majOptions->bindValue(':OPT_PRIX', $value, PDO::PARAM_INT);
-
-        }
-
-        $majOptions->execute();
-
-        // Insertion Titre Groupe
-      } elseif(strpos($key, 'GRTITRE') !== FALSE) {
-        $majOptions = $pdo->prepare("UPDATE wp_options SET OPT_VALUE = :OPT_VALUE WHERE OPT_KEY = '$key'");
-        $majOptions->bindValue(':OPT_VALUE', $value, PDO::PARAM_STR);
-        $majOptions->execute();
-
-      } else {
-
-        // Insertion Wording
-        $majWording = $pdo->prepare("UPDATE wp_wording SET MSG_VALUE = :MSG_VALUE WHERE MSG_KEY = '$key'");
-        $majWording->bindValue(':MSG_VALUE', $value, PDO::PARAM_STR);
-        $majWording->execute();
-
-      }
-
-    }
-
-  }
 
 }
 
