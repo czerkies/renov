@@ -290,7 +290,6 @@ if(isset($_POST['devis'])){
         $_SESSION['devis']['cubes'] = $cubes;
 
         // options
-
         $total = array();
 
         for ($i=1; $i<$nbOptionsDonnees; $i++) {
