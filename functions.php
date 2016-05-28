@@ -120,6 +120,27 @@ if(isset($_POST['modif_devis'])) {
 
 }
 
+if(isset($_POST['maj_prix'])){
+
+  foreach ($_POST as $key => $value) {
+
+    if($value == 0 || empty($value)) $value = NULL;
+
+    if($serverNameLocal) {
+
+      $majTarifs = $pdo->prepare("UPDATE wp_cbox SET CBOX_PRIX = :CBOX_PRIX WHERE CBOX_KEY = $key");
+      $majTarifs->bindValue(':CBOX_PRIX', $value, PDO::PARAM_STR);
+      $majTarifs->execute();
+
+    } else {
+
+      // TODO: Query WP
+
+    }
+  }
+
+}
+
 if($serverNameLocal){
 
   // Query wording

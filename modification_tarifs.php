@@ -49,7 +49,7 @@ if($_SERVER['SERVER_NAME'] === 'localhost') {
           CAV'BOX <b><?= $value->CBOX_KEY; ?></b>
         </td>
         <td>
-          <input type="number" min="0" max="" step="1" name="CBOX_PRIX" value="<?= $value->CBOX_PRIX; ?>">
+          <input type="number" min="0" max="" step="1" name="<?= $value->CBOX_KEY; ?>" value="<?= $value->CBOX_PRIX; ?>" placeholder="0000">
         </td>
       </tr>
     <?php } ?>
