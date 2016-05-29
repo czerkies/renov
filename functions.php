@@ -39,7 +39,12 @@ if(isset($_POST['modif_devis'])) {
 
         } else {
 
-          // TODO: Query WP
+          $wpdb->update("{$wpdb->prefix}options",
+            array(
+              'OPT_VALUE' => $value,
+            ),
+            array('OPT_KEY' => $key)
+          ) or die(mysql_error());
 
         }
 
@@ -57,7 +62,12 @@ if(isset($_POST['modif_devis'])) {
 
         } else {
 
-          // TODO: Query WP
+          $wpdb->update("{$wpdb->prefix}options",
+            array(
+              'OPT_UNITE' => $value,
+            ),
+            array('OPT_KEY' => $key)
+          ) or die(mysql_error());
 
         }
 
@@ -75,7 +85,12 @@ if(isset($_POST['modif_devis'])) {
 
         } else {
 
-          // TODO: Query WP
+          $wpdb->update("{$wpdb->prefix}options",
+            array(
+              'OPT_PRIX' => $value,
+            ),
+            array('OPT_KEY' => $key)
+          ) or die(mysql_error());
 
         }
 
