@@ -248,11 +248,7 @@ if($_SERVER['SERVER_NAME'] === 'localhost'){
                     </td>
 
                     <td class="tright b_right">
-                      <?php
-
-                        intDevis($options['OPT_'.$i.'_'.$j]['PRIX']);
-
-                      ?>
+                      <?php intDevis($options['OPT_'.$i.'_'.$j]['PRIX']); ?>
                     </td>
 
                     <td class="tright">
